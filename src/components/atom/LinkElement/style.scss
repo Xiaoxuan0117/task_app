@@ -1,0 +1,44 @@
+@import "../../../sass/basic";
+@import "../../../sass/color";
+
+.link {
+  text-decoration: none;
+
+  &.tasklist {
+    & .title {
+      font-size: $font-h3;
+      color: $light-blue;
+  
+      &.close {
+        color: $dark-gray;
+      }
+    }
+
+    & .quick-info {
+      font-size: $font-p;
+      color: $dark-gray;
+    }
+  }
+
+  &.task {
+    & .repo {
+      font-size: $font-h2;
+      color: $light-blue;
+    }
+
+    & .issue {
+      font-size: $font-h1;
+      color: $blue;
+    }
+
+    & .username {
+      font-size: $font-h5;
+      color: $blue;
+    }
+
+    & .milestone {
+      font-size: $font-h5;
+      color: $blue;
+    }
+  }
+}
