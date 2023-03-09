@@ -9,6 +9,6 @@ export default {
   component: Time,
 } as ComponentMeta<typeof Time>;
 
-export const Bug: ComponentStory<typeof Time> = () => (
+export const Primary: ComponentStory<typeof Time> = () => (
   <Time utcTime="2023-03-08T05:47:16Z" />
 );
