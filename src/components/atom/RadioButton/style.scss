@@ -1,0 +1,52 @@
+@import "../../../sass/basic";
+@import "../../../sass/color";
+.radio-wrapper {
+  position: relative;
+  display: block;
+  .radio {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    border: 1.5px solid $blue;
+    border-radius: 8px;
+    overflow: hidden;
+  
+    & button {
+      padding: 4px 20px 2px 20px;
+      border: none;
+      border-right: 1.5px solid $blue;
+      background-color: $white;
+      height: 32px;
+      color: $blue;
+      font-size: $font-h5;
+      cursor: pointer;
+
+      &:last-child {
+        border-right: none;
+      }
+
+      &:hover {
+        background-color: $light-gray;
+        &.in-progress {
+          background-color: $light-green;
+        }
+  
+        &.done {
+          background-color: $light-orange;
+        }
+      }
+
+      &.active {
+        background-color: $blue;
+        color: $white;
+        &.in-progress {
+          background-color: $green;
+        }
+  
+        &.done {
+          background-color: $orange;
+        }
+      }
+    }
+  }
+}
