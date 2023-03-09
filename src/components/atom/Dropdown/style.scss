@@ -1,0 +1,109 @@
+@import "../../../sass/basic";
+@import "../../../sass/color";
+.dropdown {
+  display: flex;
+
+  &.row {
+    flex-direction: row;
+
+    & .title {
+      font-size: $font-h2;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: $white;
+      margin-right: 10px;
+    }
+  }
+
+  &.column {
+    flex-direction: column;
+
+    & .title {
+      font-size: $font-h3;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: $blue;
+    }
+  }
+
+  & .input-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    &.small {
+      width: 160px;
+    }
+
+    &.large {
+      width : 180px
+    }
+
+    &.active {
+      & .input .selected {
+        color: $blue;
+      }
+
+      & .input .icon img{
+        transform: rotateZ(180deg);
+      }
+
+      & .options {
+        display: block;
+      }
+    }
+
+    & .input {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      border-radius: 8px;
+      border: 1.5px solid $blue;
+      padding: 4px 9px 2px 9px;
+      background-color: $white;
+      cursor: pointer;
+      color: $dark-gray;
+
+      &:hover {
+        background-color: $light-gray;
+      }
+
+      & .selected {
+        color: $blue;
+      }
+
+      & .icon {
+        & img{
+          transition: all 0.5s;
+        }
+      }
+    }
+
+    & .options {
+      display: none;
+      background-color: $white;
+      border-radius: 5px;
+      border: 1.5px solid $blue;
+      margin-top: 5px;
+      overflow: hidden;
+      font-size: $font-p;
+      color: $black;
+
+      & ul {
+        width: 190px;
+        max-height: 130px;
+        overflow-y: scroll;
+        padding: 0;
+        margin: 0;
+        li {
+          padding: 3px 5px;
+          list-style-type: none;
+          cursor: pointer;
+
+          &:hover{
+            background-color: $light-gray;
+          }
+        }
+      }
+    }
+  }
+}
