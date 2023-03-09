@@ -1,0 +1,30 @@
+@import "../../../sass/basic";
+@import "../../../sass/color";
+.tag-wrapper {
+  position: relative;
+
+  .tag{
+    position: absolute;
+    display: flex;
+    border-radius: 30px;
+    background-color: $light-blue;
+    padding: 2px 15px 1px;
+    color: $white;
+
+    &.todo {
+      border: 1px solid $blue;
+      background-color: $white;
+      color: $blue;
+    }
+
+    &.in-progress {
+      background-color: $green;
+    }
+
+    &.done {
+      background-color: $orange;
+    }
+
+
+  }
+}
