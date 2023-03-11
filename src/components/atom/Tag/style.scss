@@ -3,7 +3,7 @@
 .tag-wrapper {
   position: relative;
 
-  .tag{
+  .tag {
     position: absolute;
     display: flex;
     border-radius: 30px;
@@ -24,7 +24,5 @@
     &.done {
       background-color: $orange;
     }
-
-
   }
 }

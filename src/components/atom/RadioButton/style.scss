@@ -10,7 +10,7 @@
     border: 1.5px solid $blue;
     border-radius: 8px;
     overflow: hidden;
-  
+
     & button {
       padding: 4px 20px 2px 20px;
       border: none;
@@ -30,7 +30,7 @@
         &.in-progress {
           background-color: $light-green;
         }
-  
+
         &.done {
           background-color: $light-orange;
         }
@@ -42,7 +42,7 @@
         &.in-progress {
           background-color: $green;
         }
-  
+
         &.done {
           background-color: $orange;
         }
