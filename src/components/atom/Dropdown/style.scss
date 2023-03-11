@@ -27,16 +27,9 @@
   }
 
   & .input-wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
-
-    &.small {
-      width: 160px;
-    }
-
-    &.large {
-      width : 180px
-    }
 
     &.active {
       & .input .selected {
@@ -79,6 +72,8 @@
     }
 
     & .options {
+      position: absolute;
+      top: 30px;
       display: none;
       background-color: $white;
       border-radius: 5px;
@@ -89,7 +84,6 @@
       color: $black;
 
       & ul {
-        width: 190px;
         max-height: 130px;
         overflow-y: scroll;
         padding: 0;
@@ -103,6 +97,32 @@
             background-color: $light-gray;
           }
         }
+      }
+    }
+
+    &.small {
+      width: 160px;
+
+      & .options {
+        width: 160px;
+
+        & ul {
+          width : 190px;
+        }
+
+      }
+    }
+
+    &.large {
+      width : 180px;
+
+      & .options {
+        width : 180px;
+
+        & ul {
+          width : 210px;
+        }
+        
       }
     }
   }
