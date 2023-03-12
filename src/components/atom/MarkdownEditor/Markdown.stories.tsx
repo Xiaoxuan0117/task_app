@@ -5,7 +5,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import MarkdownEditor from ".";
 
 export default {
-  title: "MarkdownEditor",
+  title: "Atom/MarkdownEditor",
   component: MarkdownEditor,
 } as ComponentMeta<typeof MarkdownEditor>;
 

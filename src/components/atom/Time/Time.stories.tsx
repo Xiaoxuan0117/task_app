@@ -5,7 +5,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Time from ".";
 
 export default {
-  title: "Time",
+  title: "Atom/Time",
   component: Time,
 } as ComponentMeta<typeof Time>;
 

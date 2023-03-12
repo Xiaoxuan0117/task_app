@@ -9,7 +9,7 @@ export default {
    * See https://storybook.js.org/docs/react/configure/overview#configure-story-loading
    * to learn how to generate automatic titles
    */
-  title: "LinkElement",
+  title: "Atom/LinkElement",
   component: LinkElement,
 } as ComponentMeta<typeof LinkElement>;
 

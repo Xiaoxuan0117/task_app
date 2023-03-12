@@ -6,7 +6,7 @@ import Avatar from ".";
 import avatar from "../../../assets/avatar.png";
 
 export default {
-  title: "Avatar",
+  title: "Atom/Avatar",
   component: Avatar,
 } as ComponentMeta<typeof Avatar>;
 
