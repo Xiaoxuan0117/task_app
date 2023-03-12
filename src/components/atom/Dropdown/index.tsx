@@ -28,6 +28,10 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
   const toggleDropdown = () => {
     setActive(active ? false : true);
   };
+
+  const closeDropdwon = () => {
+    setActive(false);
+  };
   return (
     <div className={`dropdown ${style}`}>
       <div className="title">{title}</div>
@@ -39,7 +43,7 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
         <button
           className="input"
           onClick={toggleDropdown}
-          onBlur={toggleDropdown}
+          onBlur={closeDropdwon}
         >
           <div className={classNames(selected !== "My repo" && "selected")}>
             {selected}

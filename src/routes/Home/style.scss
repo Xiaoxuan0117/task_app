@@ -1,0 +1,32 @@
+@import "../../sass/basic";
+@import "../../sass/color";
+
+.home-page {
+  width: 100vw;
+  height: 100vh;
+  background-color: $white;
+
+  & .navi-box {
+    position: absolute;
+    width: 100vw;
+  }
+
+  & .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 80px;
+
+    & .taskList-box {
+      padding: 80px 48px 80px 80px;
+
+      & .add-button {
+        margin-bottom: 30px;
+      }
+    }
+
+    & .controller-box {
+      padding: 80px 48px 80px 48px;
+    }
+  }
+}
