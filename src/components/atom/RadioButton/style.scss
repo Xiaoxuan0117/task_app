@@ -2,9 +2,8 @@
 @import "../../../sass/color";
 .radio-wrapper {
   position: relative;
-  display: block;
+  display: flex;
   .radio {
-    position: absolute;
     display: flex;
     flex-direction: row;
     border: 1.5px solid $blue;
