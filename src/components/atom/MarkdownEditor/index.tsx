@@ -24,7 +24,7 @@ export default function MarkdownEditor() {
           <div className="tab-wrapper">
             <div className={`preview-tab`}>Preview</div>
           </div>
-          <Markdown />
+          <Markdown>{input}</Markdown>
         </div>
       </div>
     </div>

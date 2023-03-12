@@ -18,6 +18,7 @@
     background-color: $gray;
     border-radius: 5px;
     padding: 1px 4px;
+    color: $blue;
   }
 
   & table,
@@ -25,5 +26,10 @@
   td {
     border: 1px solid $dark-gray;
     border-collapse: collapse;
+  }
+
+  & h1,
+  h2 {
+    border-bottom: 1px solid $dark-gray;
   }
 }
