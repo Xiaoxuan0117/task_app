@@ -23,12 +23,6 @@ export const Primary: ComponentStory<typeof Button> = () => (
   </Button>
 );
 
-export const Secondary: ComponentStory<typeof Button> = () => (
-  <Button class="secondary">
-    <div>Cancel</div>
-  </Button>
-);
-
 export const Disabled: ComponentStory<typeof Button> = () => (
   <Button class="disabled">
     <div>Add</div>
