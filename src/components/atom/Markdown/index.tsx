@@ -10,52 +10,57 @@ import { okaidia } from "react-syntax-highlighter/dist/esm/styles/prism";
 import "./style.scss";
 
 export default function Markdown() {
-  const [input, setInput] = useState("value");
+  const context: string = `---
+  __Advertisement :)__
+  
+  - __[pica](https://nodeca.github.io/pica/demo/)__ - high quality and fast image
+    resize in browser.
+  - __[babelfish](https://github.com/nodeca/babelfish/)__ - developer friendly
+    i18n with plurals support and easy syntax.
+  
+  You will like those projects!
+  
+  ---
+  
+  # h1 Heading 8-)
+  ## h2 Heading
+  ### h3 Heading
+  #### h4 Heading
+  ##### h5 Heading
+  ###### h6 Heading
+  
+  
+  ## Horizontal Rules
+  
+  ___
+  `;
+  const [input, setInput] = useState(context);
 
   return (
-    <div className={"markdown-wrapper"}>
-      <div className={`content`}>
-        <div className="write">
-          <div className="tab-wrapper">
-            <div className={`write-tab`}>Write</div>
-          </div>
-          <textarea
-            className={`textarea`}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          ></textarea>
-        </div>
-        <div className="preview">
-          <div className="tab-wrapper">
-            <div className={`preview-tab`}>Preview</div>
-          </div>
-          <ReactMarkdown
-            className={`markdown`}
-            rehypePlugins={[rehypeRaw]}
-            remarkPlugins={[remarkGemoji, remarkGfm]}
-            components={{
-              code({ node, inline, className, children, style, ...props }) {
-                const match = /language-(\w+)/.exec(className || "");
-                return !inline && match ? (
-                  <SyntaxHighlighter
-                    children={String(children).replace(/\n$/, "")}
-                    style={okaidia}
-                    language={match[1]}
-                    PreTag="div"
-                    {...props}
-                  />
-                ) : (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
-                );
-              },
-            }}
-          >
-            {input}
-          </ReactMarkdown>
-        </div>
-      </div>
-    </div>
+    <ReactMarkdown
+      className={`markdown`}
+      rehypePlugins={[rehypeRaw]}
+      remarkPlugins={[remarkGemoji, remarkGfm]}
+      components={{
+        code({ node, inline, className, children, style, ...props }) {
+          const match = /language-(\w+)/.exec(className || "");
+          return !inline && match ? (
+            <SyntaxHighlighter
+              children={String(children).replace(/\n$/, "")}
+              style={okaidia}
+              language={match[1]}
+              PreTag="div"
+              {...props}
+            />
+          ) : (
+            <code className={className} {...props}>
+              {children}
+            </code>
+          );
+        },
+      }}
+    >
+      {input}
+    </ReactMarkdown>
   );
 }

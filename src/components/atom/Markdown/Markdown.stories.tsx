@@ -1,12 +1,10 @@
-import React from "react";
-
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import Markdown from ".";
+import Markdonw from ".";
 
 export default {
-  title: "Markdown",
-  component: Markdown,
-} as ComponentMeta<typeof Markdown>;
+  title: "Markdonw",
+  component: Markdonw,
+} as ComponentMeta<typeof Markdonw>;
 
-export const Primary: ComponentStory<typeof Markdown> = () => <Markdown />;
+export const Primary: ComponentStory<typeof Markdonw> = () => <Markdonw />;
