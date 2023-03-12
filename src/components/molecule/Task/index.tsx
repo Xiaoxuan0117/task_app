@@ -46,10 +46,10 @@ export default function Task(props: TaskProps): JSX.Element {
           <div className="content-wrapper">
             <div className="upper">
               <LinkElement isRouter={false} class="tasklist" href={repo_url}>
-                <div className="title">{repo}</div>
+                <div className="repo">{repo}</div>
               </LinkElement>
               <LinkElement isRouter={false} class="tasklist" href={issue_url}>
-                <div className="title">{issue}</div>
+                <div className="issue">{issue}</div>
               </LinkElement>
               <div className="tags">
                 {tags.map((tag) => (

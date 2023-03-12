@@ -1,0 +1,34 @@
+@import "../../../sass/basic";
+@import "../../../sass/color";
+
+.navi-wrapper {
+  background-color: $blue;
+  width: 100%;
+
+  & .navi {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 15px 50px;
+
+    & .my-issue {
+      margin-right: 44px;
+      & a {
+        color: $white;
+        font-size: $font-h2;
+        font-weight: 700;
+        text-decoration: none;
+      }
+    }
+
+    & .repo_select {
+      margin-right: 17px;
+    }
+
+    & .repo_search {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+}
