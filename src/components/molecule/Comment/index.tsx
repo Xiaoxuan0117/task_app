@@ -9,11 +9,11 @@ import Markdown from "../../atom/Markdown";
 
 import "./style.scss";
 
-type ICommentProps = {
+type CommentProps = {
   children: string;
 };
 
-export default function Comment(props: ICommentProps): JSX.Element {
+export default function Comment(props: CommentProps): JSX.Element {
   return (
     <div className="comment">
       <div className="avatar-wrapper">
