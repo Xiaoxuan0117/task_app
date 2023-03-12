@@ -34,10 +34,11 @@
       }
     }
 
-    & .context {
+    & .context-wrapper {
       border: 1.5px solid $blue;
       border-radius: 5px;
       width: 800px;
+      background-color: $white;
 
       & .markdown {
         height: 100%;
