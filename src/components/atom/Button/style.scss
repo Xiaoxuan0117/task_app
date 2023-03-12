@@ -42,8 +42,9 @@
 
   &.edit {
     padding: 5px;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+    background-color: $white;
 
     & img {
       position: relative;

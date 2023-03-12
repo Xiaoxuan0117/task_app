@@ -1,0 +1,47 @@
+@import "../../../sass/basic";
+@import "../../../sass/color";
+
+.comment {
+  display: flex;
+  flex-direction: row;
+
+  & .avatar-wrapper {
+    position: relative;
+    margin-right: 14px;
+  }
+
+  & .content {
+    display: flex;
+    flex-direction: column;
+
+    & .info {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      & .left {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        & .link {
+          margin-right: 17px;
+        }
+      }
+
+      & .button {
+        justify-content: end;
+      }
+    }
+
+    & .context {
+      border: 1.5px solid $blue;
+      border-radius: 5px;
+      width: 800px;
+
+      & .markdown {
+        height: 100%;
+      }
+    }
+  }
+}
