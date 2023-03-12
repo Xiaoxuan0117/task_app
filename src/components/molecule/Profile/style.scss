@@ -1,0 +1,66 @@
+@import "../../../sass/basic";
+@import "../../../sass/color";
+
+.profile-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background-color: $blue;
+  border-radius: 50%;
+  padding: 5px;
+  transition: all 0.5s;
+  transform-origin: bottom right;
+
+  &:hover {
+    transform: translate(-50%, -50%);
+    width: 178px;
+    height: 200px;
+    border-radius: 30px;
+
+    & .userIcon {
+      opacity: 0;
+    }
+
+    & .userAvatar {
+      & .profile {
+        width: 84px;
+        height: 84px;
+      }
+
+      & .username {
+        opacity: 1;
+      }
+    }
+  }
+
+  & .userIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    transition: all 0.5s;
+  }
+
+  & .userAvatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & .profile {
+      transition: all 0.5s;
+      width: 0;
+      height: 0;
+      margin-bottom: 8px;
+    }
+
+    & .username {
+      transition: all 0.5s;
+      opacity: 0;
+      color: $white;
+    }
+  }
+}
