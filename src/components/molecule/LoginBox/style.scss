@@ -2,30 +2,34 @@
 @import "../../../sass/color";
 
 .login-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 30%;
+  width: 360px;
   background-color: $pure-white;
-  padding: 48px;
+  padding: 40px;
   border-radius: 8px;
   box-shadow: inset 1px 2px 3px $dark-gray;
+  box-sizing: border-box;
+  color: $blue;
 
-  & .title {
-    font-size: $font-h1;
-    font-weight: 700;
-    margin-bottom: 23px;
-  }
-
-  & .input-wrapper {
-    margin-bottom: 23px;
-    & .label {
-      font-size: $font-h5;
-      font-weight: 600;
+  & .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & .title {
+      font-size: $font-h1;
+      font-weight: 700;
+      margin-bottom: 23px;
     }
-  }
 
-  & .submit {
-    margin-top: 40px;
+    & .input-wrapper {
+      margin-bottom: 23px;
+      & .label {
+        font-size: $font-h5;
+        font-weight: 600;
+      }
+    }
+
+    & .submit {
+      margin-top: 40px;
+    }
   }
 }
