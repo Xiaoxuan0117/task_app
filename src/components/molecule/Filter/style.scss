@@ -1,0 +1,14 @@
+@import "../../../sass/basic";
+@import "../../../sass/color";
+
+.filter {
+  & .title {
+    color: $blue;
+    font-size: $font-h2;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  & .radio-wrapper {
+    margin-bottom: 16px;
+  }
+}
