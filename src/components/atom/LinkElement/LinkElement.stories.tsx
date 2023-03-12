@@ -5,23 +5,31 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import LinkElement from ".";
 
 export default {
-  /* 👇 The title prop is optional.
-   * See https://storybook.js.org/docs/react/configure/overview#configure-story-loading
-   * to learn how to generate automatic titles
-   */
   title: "Atom/LinkElement",
   component: LinkElement,
 } as ComponentMeta<typeof LinkElement>;
 
-export const TaskListTitle: ComponentStory<typeof LinkElement> = () => (
+export const TaskListRepo: ComponentStory<typeof LinkElement> = () => (
   <LinkElement isRouter={false} class="tasklist">
-    <div className="title">username/repo</div>
+    <div className="repo">username/repo</div>
   </LinkElement>
 );
 
-export const TaskListTitle_close: ComponentStory<typeof LinkElement> = () => (
+export const TaskListRepo_close: ComponentStory<typeof LinkElement> = () => (
   <LinkElement isRouter={false} class="tasklist">
-    <div className="title close">username/repo</div>
+    <div className="repo close">username/repo</div>
+  </LinkElement>
+);
+
+export const TaskListIssue: ComponentStory<typeof LinkElement> = () => (
+  <LinkElement isRouter={false} class="tasklist">
+    <div className="issue">issue 1</div>
+  </LinkElement>
+);
+
+export const TaskListIssue_close: ComponentStory<typeof LinkElement> = () => (
+  <LinkElement isRouter={false} class="tasklist">
+    <div className="issue close">issue 1</div>
   </LinkElement>
 );
 

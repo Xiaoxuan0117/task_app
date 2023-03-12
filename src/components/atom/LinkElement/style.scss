@@ -5,9 +5,19 @@
   text-decoration: none;
 
   &.tasklist {
-    & .title {
+    & .repo {
       font-size: $font-h3;
       color: $light-blue;
+
+      &.close {
+        color: $dark-gray;
+      }
+    }
+
+    & .issue {
+      font-size: $font-h3;
+      color: $blue;
+      font-weight: 600;
 
       &.close {
         color: $dark-gray;
