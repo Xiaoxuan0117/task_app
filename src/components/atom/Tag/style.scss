@@ -2,9 +2,9 @@
 @import "../../../sass/color";
 .tag-wrapper {
   position: relative;
+  display: flex;
 
   .tag {
-    position: absolute;
     display: flex;
     border-radius: 30px;
     background-color: $light-blue;

@@ -1,0 +1,64 @@
+@import "../../../sass/basic";
+@import "../../../sass/color";
+
+.task-wrapper {
+  padding: 15px 0;
+  border: 1.5px solid $blue;
+
+  & .task {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    & .left {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      & .toggle-box {
+        padding: 0 16px;
+      }
+
+      & .content-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        & .upper {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          & .link {
+            margin-right: 12px;
+          }
+        }
+
+        & .lower {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          color: $dark-gray;
+
+          & .number {
+            margin-right: 6px;
+          }
+
+          & .time {
+            margin-right: 6px;
+          }
+
+          & .creator {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+          }
+        }
+      }
+    }
+
+    & .right {
+      margin-right: 16px;
+    }
+  }
+}
