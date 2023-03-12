@@ -1,0 +1,11 @@
+@import "../../../sass/basic";
+@import "../../../sass/color";
+
+.taskList {
+  border: 1.5px solid $blue;
+  border-radius: 5px;
+
+  & .task-wrapper:last-child {
+    border-bottom: none;
+  }
+}

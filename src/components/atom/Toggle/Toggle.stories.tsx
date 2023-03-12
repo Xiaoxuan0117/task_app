@@ -9,4 +9,6 @@ export default {
   component: Toggle,
 } as ComponentMeta<typeof Toggle>;
 
-export const Primary: ComponentStory<typeof Toggle> = () => <Toggle />;
+export const Primary: ComponentStory<typeof Toggle> = () => (
+  <Toggle isOpen={true} />
+);

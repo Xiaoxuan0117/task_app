@@ -9,4 +9,19 @@ export default {
   component: Task,
 } as ComponentMeta<typeof Task>;
 
-export const Primary: ComponentStory<typeof Task> = () => <Task></Task>;
+const data = {
+  isOpen: false,
+  repo: "username/repo",
+  repo_url: "https://github.com/xiaoxuan0117/task_app",
+  issue: "issue 1",
+  issue_url: "https://github.com/xiaoxuan0117/task_app/issues",
+  tags: ["Bug", "In Progress"],
+  time: "2023-03-08T05:47:16Z",
+  creator: "username",
+  creator_url: "https://github.com/Xiaoxuan0117",
+  assignee_url: "https://github.com/Xiaoxuan0117",
+};
+
+export const Primary: ComponentStory<typeof Task> = () => (
+  <Task {...data}></Task>
+);

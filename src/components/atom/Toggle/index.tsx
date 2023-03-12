@@ -3,8 +3,12 @@ import classNames from "classnames";
 
 import "./style.scss";
 
-export default function Toggle() {
-  const [open, setOpen] = useState(false);
+type ToggleProps = {
+  isOpen: boolean;
+};
+
+export default function Toggle(props: ToggleProps): JSX.Element {
+  const [open, setOpen] = useState(props.isOpen);
 
   const toggleChange = () => {
     setOpen(open ? false : true);

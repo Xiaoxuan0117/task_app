@@ -3,7 +3,7 @@
 
 .task-wrapper {
   padding: 15px 0;
-  border: 1.5px solid $blue;
+  border-bottom: 1.5px solid $blue;
 
   & .task {
     display: flex;
@@ -31,6 +31,14 @@
 
           & .link {
             margin-right: 12px;
+          }
+
+          & .tags {
+            display: flex;
+
+            & .tag-wrapper {
+              margin-right: 5px;
+            }
           }
         }
 
