@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import Dropdown from "../../atom/Dropdown";
 
-import "./style.scss";
+import Dropdown from "../../atom/Dropdown";
 import Input from "../../atom/Input";
-import Markdown from "../../atom/Markdown";
+import MarkdownEditor from "../../atom/MarkdownEditor";
 import Button from "../../atom/Button";
 import closeButton from "../../../assets/closeButton.svg";
+
+import "./style.scss";
 
 export default function AddModal() {
   const [options, setOpotions] = useState([
@@ -37,7 +38,7 @@ export default function AddModal() {
           />
         </div>
         <div className="body">
-          <Markdown />
+          <MarkdownEditor />
         </div>
         <div className="footer">
           <Button class="secondary">
