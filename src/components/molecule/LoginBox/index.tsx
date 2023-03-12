@@ -4,7 +4,7 @@ import Input from "../../atom/Input";
 
 import "./style.scss";
 
-export default function Login() {
+export default function LoginBox() {
   return (
     <div className="login-wrapper">
       <div className="title">Login</div>
