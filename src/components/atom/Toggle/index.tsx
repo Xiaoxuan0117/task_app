@@ -15,12 +15,12 @@ export default function Toggle(props: ToggleProps): JSX.Element {
   };
   return (
     <div className="toggle-wrapper">
-      <div
+      <button
         className={`toggle ${classNames(open && "open")}`}
         onClick={toggleChange}
       >
         <div className="button"></div>
-      </div>
+      </button>
     </div>
   );
 }
