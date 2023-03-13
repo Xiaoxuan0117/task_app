@@ -2,13 +2,13 @@
 @import "../../sass/color";
 
 .home-page {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   background-color: $white;
 
   & .navi-box {
     position: absolute;
-    width: 100vw;
+    width: 100%;
   }
 
   & .content {
