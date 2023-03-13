@@ -54,7 +54,6 @@ export default function Home() {
     "user5",
     "user6",
     "user7",
-    "user7",
     "user8",
   ];
   return (

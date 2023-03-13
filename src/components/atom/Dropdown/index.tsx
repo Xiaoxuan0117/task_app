@@ -19,19 +19,29 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
   const [active, setActive] = useState(false);
   const [selected, setSelected] = useState("My repo");
 
-  useEffect(() => {
-    setTimeout(() => {
-      setSelected("user1");
-    }, 3000);
-  });
-
   const toggleDropdown = () => {
     setActive(active ? false : true);
   };
 
-  const closeDropdwon = () => {
+  const closeDropdown = () => {
     setActive(false);
   };
+
+  const openDropdown = () => {
+    setActive(true);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSelected("user1");
+    }, 3000);
+
+    const handler = () => {
+      closeDropdown();
+    };
+
+    document.addEventListener("mousedown", handler);
+  });
   return (
     <div className={`dropdown ${style}`}>
       <div className="title">{title}</div>
@@ -40,11 +50,7 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
           active && "active"
         )}`}
       >
-        <button
-          className="input"
-          onClick={toggleDropdown}
-          onBlur={closeDropdwon}
-        >
+        <button className="input" onClick={toggleDropdown}>
           <div className={classNames(selected !== "My repo" && "selected")}>
             {selected}
           </div>
@@ -55,7 +61,17 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
         <div className="options">
           <ul>
             {options.length !== 0 ? (
-              options.map((option) => <li>{option}</li>)
+              options.map((option, index) => (
+                <li key={`${option}-${index}`}>
+                  <button
+                    onBlur={() =>
+                      index + 1 === options.length && closeDropdown()
+                    }
+                  >
+                    {option}
+                  </button>
+                </li>
+              ))
             ) : (
               <li>empty</li>
             )}
