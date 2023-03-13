@@ -1,0 +1,32 @@
+@import "../../../sass/basic";
+@import "../../../sass/color";
+
+.taskDetail-wrapper {
+  padding: 30px;
+
+  & .taskDetail {
+    display: flex;
+    flex-direction: column;
+
+    & .section {
+      margin-bottom: 34px;
+      & .title {
+        color: $blue;
+        font-size: $font-h3;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      &.labels {
+        & .tags {
+          display: flex;
+          flex-direction: row;
+
+          & .tag-wrapper {
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+}
