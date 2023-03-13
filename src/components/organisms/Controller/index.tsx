@@ -11,7 +11,7 @@ import "./style.scss";
 export default function Controller() {
   return (
     <div className="controller">
-      <div className="search-box">
+      <div className="search-section">
         <Input placeholder="task keywords" />
         <Button class="search">
           <img src={searchButton} alt="searchButton" />

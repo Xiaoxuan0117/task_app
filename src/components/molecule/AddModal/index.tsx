@@ -23,9 +23,9 @@ export default function AddModal() {
   return (
     <div className="modal-wrapper">
       <div className="modal">
-        <div className="title-wrapper">
+        <div className="title-section">
           <div className="label">Title</div>
-          <div className="input-box">
+          <div className="input-section">
             <Input />
           </div>
         </div>
@@ -37,7 +37,7 @@ export default function AddModal() {
             inputStyle="small"
           />
         </div>
-        <div className="body">
+        <div className="markdown-section">
           <MarkdownEditor />
         </div>
         <div className="footer">

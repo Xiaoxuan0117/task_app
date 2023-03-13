@@ -4,7 +4,7 @@
 .controller {
   display: flex;
   flex-direction: column;
-  & .search-box {
+  & .search-section {
     display: flex;
     flex-direction: row;
     margin-bottom: 30px;

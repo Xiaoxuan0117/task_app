@@ -16,16 +16,16 @@ export default function EditModal(props: EditModalProps): JSX.Element {
   return (
     <div className="modal-wrapper">
       <div className="modal">
-        <div className="title-wrapper">
+        <div className="title-section">
           <div className="label">Title</div>
-          <div className="input-box">
+          <div className="input-section">
             <Input defaultInput={props.prevTitle} />
           </div>
         </div>
         <div className="label-select">
           <RadioButton options={dammyData_three}></RadioButton>
         </div>
-        <div className="body">
+        <div className="markdown-section">
           <MarkdownEditor />
         </div>
         <div className="footer">

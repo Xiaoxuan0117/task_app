@@ -58,11 +58,11 @@ export default function Home() {
   ];
   return (
     <div className="home-page">
-      <div className="navi-box">
+      <div className="navi-section">
         <Navi repoOptions={dammyData} />
       </div>
       <div className="content">
-        <div className="taskList-box">
+        <div className="taskList-section">
           <div className="add-button">
             <Button class="primary">
               <div>Add</div>
@@ -70,7 +70,7 @@ export default function Home() {
           </div>
           <TaskList tasksData={tasksDate}></TaskList>
         </div>
-        <div className="controller-box">
+        <div className="controller-section">
           <Controller />
         </div>
       </div>

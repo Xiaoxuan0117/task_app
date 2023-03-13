@@ -6,7 +6,7 @@
   min-height: 100vh;
   background-color: $white;
 
-  & .navi-box {
+  & .navi-section {
     position: absolute;
     width: 100%;
   }
@@ -17,7 +17,7 @@
     justify-content: center;
     padding-top: 80px;
 
-    & .taskList-box {
+    & .taskList-section {
       padding: 80px 48px 80px 80px;
 
       & .add-button {
@@ -25,7 +25,7 @@
       }
     }
 
-    & .controller-box {
+    & .controller-section {
       padding: 80px 48px 80px 48px;
     }
   }

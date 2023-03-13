@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: column;
 
-    & .title-wrapper {
+    & .title-section {
       display: flex;
       flex-direction: column;
       margin-bottom: 10px;
@@ -23,7 +23,7 @@
         color: $blue;
       }
 
-      & .input-box {
+      & .input-section {
         margin-right: 20px;
       }
     }
@@ -33,7 +33,7 @@
       margin-bottom: 10px;
     }
 
-    & .body {
+    & .markdown-section {
       margin-bottom: 20px;
     }
 

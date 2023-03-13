@@ -55,7 +55,7 @@ export default function Task() {
   ];
   return (
     <div className="task-page">
-      <div className="navi-box">
+      <div className="navi-section">
         <Navi repoOptions={dammyData} />
       </div>
       <div className="task-content">

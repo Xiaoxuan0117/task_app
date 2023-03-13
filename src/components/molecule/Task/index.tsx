@@ -40,10 +40,10 @@ export default function Task(props: TaskProps): JSX.Element {
     <div className="task-wrapper">
       <div className="task">
         <div className="left">
-          <div className="toggle-box">
+          <div className="toggle-section">
             <Toggle isOpen={isOpen} />
           </div>
-          <div className="content-wrapper">
+          <div className="content-section">
             <div className="upper">
               <LinkElement isRouter={false} class="tasklist" href={repo_url}>
                 <div className="repo">{repo}</div>

@@ -17,11 +17,11 @@
       flex-direction: row;
       align-items: center;
 
-      & .toggle-box {
+      & .toggle-section {
         padding: 0 16px;
       }
 
-      & .content-wrapper {
+      & .content-section {
         display: flex;
         flex-direction: column;
 
@@ -36,10 +36,6 @@
 
           & .tags {
             display: flex;
-
-            & .tag-wrapper {
-              margin-right: 5px;
-            }
           }
         }
 
