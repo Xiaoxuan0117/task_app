@@ -4,6 +4,7 @@
 .comment {
   display: flex;
   flex-direction: row;
+  margin-bottom: 25px;
 
   & .avatar-wrapper {
     position: relative;
@@ -29,8 +30,16 @@
         }
       }
 
-      & .button {
-        justify-content: end;
+      & .right {
+        display: none;
+
+        &.show {
+          display: block;
+        }
+
+        & .button {
+          justify-content: end;
+        }
       }
     }
 
@@ -39,8 +48,10 @@
       border-radius: 5px;
       width: 800px;
       background-color: $white;
+      overflow: hidden;
 
       & .markdown {
+        width: 815px;
         height: 100%;
       }
     }

@@ -1,4 +1,5 @@
 import * as React from "react";
+import classNames from "classnames";
 import Avatar from "../../atom/Avatar";
 import avatar from "../../../assets/avatar.png";
 import editButton from "../../../assets/editButton.svg";
@@ -9,36 +10,38 @@ import Markdown from "../../atom/Markdown";
 
 import "./style.scss";
 
-type CommentProps = {
+export type CommentProps = {
   children: string;
+  avatar?: string;
+  username: string;
+  user_url: string;
+  time: string;
+  allowEdit: boolean;
 };
 
 export default function Comment(props: CommentProps): JSX.Element {
+  const { children, username, user_url, time, allowEdit } = props;
   return (
     <div className="comment">
       <div className="avatar-wrapper">
-        <Avatar
-          image={avatar}
-          class="member"
-          href="https://github.com/Xiaoxuan0117"
-        />
+        <Avatar image={avatar} class="member" href={user_url} />
       </div>
       <div className="content">
         <div className="info">
           <div className="left">
-            <LinkElement isRouter={false} class="task">
-              <div className="username">username</div>
+            <LinkElement isRouter={false} class="task" href={user_url}>
+              <div className="username">{username}</div>
             </LinkElement>
-            <Time utcTime="2023-03-08T05:47:16Z" />
+            <Time utcTime={time} />
           </div>
-          <div className="right">
+          <div className={`right ${classNames(allowEdit && "show")}`}>
             <Button class="edit">
               <img src={editButton} alt="editButton" />
             </Button>
           </div>
         </div>
         <div className="context-wrapper">
-          <Markdown>{props.children}</Markdown>
+          <Markdown>{children}</Markdown>
         </div>
       </div>
     </div>
