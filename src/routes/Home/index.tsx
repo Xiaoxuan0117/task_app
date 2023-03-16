@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import Button from "../../components/atom/Button";
 import Navi from "../../components/molecule/Navi";
 import Controller from "../../components/organisms/Controller";
@@ -56,6 +57,20 @@ export default function Home() {
     "user7",
     "user8",
   ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const getIssue = axios({
+        url: "/api/issue",
+        method: "get",
+      });
+
+      const resDate = await getIssue;
+      console.log("resDate", resDate);
+    };
+
+    fetchData();
+  }, []);
   return (
     <div className="home-page">
       <div className="navi-section">

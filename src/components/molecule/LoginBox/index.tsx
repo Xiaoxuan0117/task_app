@@ -23,7 +23,7 @@ export default function LoginBox() {
         </div>
         <div className="submit">
           <a
-            href={`https://github.com/login/oauth/authorize?client_id=${client_id}&scope=user:email&state=from`}
+            href={`https://github.com/login/oauth/authorize?client_id=${client_id}&scope=user,repo&state=from`}
           >
             <Button class="primary">
               <div>Submit</div>
