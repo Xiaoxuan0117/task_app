@@ -2,8 +2,6 @@ var express = require("express");
 var axios = require("axios");
 var router = express.Router();
 
-let token = "";
-
 /* POST token */
 router.get("/login/oauth/access_token", async function (req, res, next) {
   console.log("here");
@@ -23,7 +21,7 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
       },
     });
     const { access_token } = result.data;
-    token = access_token;
+    res.cookie("access_token", access_token);
     res.redirect("/");
   } catch (err) {
     console.log("err", err);
@@ -32,17 +30,16 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
 
 /* GET issue */
 router.get("/issue", async function (req, res, next) {
-  console.log("token", token);
+  console.log("req.cookies.access_token", req.cookies.access_token);
   try {
     const result = await axios({
-      url: "https://api.github.com/repos/xiaoxuan0117/task_app/issues",
+      url: "https://api.github.com/issues",
       method: "get",
       headers: {
         Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${req.cookies.access_token}`,
       },
     });
-    console.log("result");
     res.send(result.data);
   } catch (err) {
     console.log("err");
