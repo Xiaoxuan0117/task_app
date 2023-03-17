@@ -3,25 +3,10 @@ import LinkElement from "../../atom/LinkElement";
 import Label from "../../atom/Label";
 import Time from "../../atom/Time";
 import Toggle from "../../atom/Toggle";
-
-import avatar from "../../../assets/avatar.png";
+import Avatar from "../../atom/Avatar";
+import { TaskProps } from "../../../type";
 
 import "./style.scss";
-import Avatar from "../../atom/Avatar";
-
-export type TaskProps = {
-  isOpen: boolean;
-  repo: string;
-  repo_url: string;
-  issue: string;
-  issue_url: string;
-  labels: string[];
-  time: string;
-  creator: string;
-  creator_url: string;
-  assignee_avatar?: string;
-  assignee_url: string;
-};
 
 export default function Task(props: TaskProps): JSX.Element {
   const {
@@ -35,6 +20,8 @@ export default function Task(props: TaskProps): JSX.Element {
     creator,
     creator_url,
     assignee_url,
+    number,
+    assignee_avatar,
   } = props;
   return (
     <div className="task-wrapper">
@@ -52,13 +39,13 @@ export default function Task(props: TaskProps): JSX.Element {
                 <div className="issue">{issue}</div>
               </LinkElement>
               <div className="labels">
-                {labels.map((label) => (
-                  <Label children={label} />
+                {labels.map((label, index) => (
+                  <Label key={`label-${index}`} children={label} />
                 ))}
               </div>
             </div>
             <div className="lower">
-              <div className="number"># 5</div>
+              <div className="number"># {number}</div>
               <Time utcTime={time} />
               <div className="creator">
                 by&nbsp;
@@ -74,7 +61,7 @@ export default function Task(props: TaskProps): JSX.Element {
           </div>
         </div>
         <div className="right">
-          <Avatar image={avatar} class="member" href={assignee_url} />
+          <Avatar image={assignee_avatar} class="member" href={assignee_url} />
         </div>
       </div>
     </div>

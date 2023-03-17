@@ -21,6 +21,7 @@ const tasksDate = [
     creator: "username",
     creator_url: "https://github.com/Xiaoxuan0117",
     assignee_url: "https://github.com/Xiaoxuan0117",
+    number: 5,
   },
   {
     isOpen: false,
@@ -33,6 +34,7 @@ const tasksDate = [
     creator: "username",
     creator_url: "https://github.com/Xiaoxuan0117",
     assignee_url: "https://github.com/Xiaoxuan0117",
+    number: 5,
   },
   {
     isOpen: false,
@@ -45,6 +47,7 @@ const tasksDate = [
     creator: "username",
     creator_url: "https://github.com/Xiaoxuan0117",
     assignee_url: "https://github.com/Xiaoxuan0117",
+    number: 5,
   },
 ];
 

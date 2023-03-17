@@ -4,7 +4,7 @@ import "./style.scss";
 
 type AvatarProps = {
   class: string;
-  image: string;
+  image?: string;
   href: string;
 };
 
