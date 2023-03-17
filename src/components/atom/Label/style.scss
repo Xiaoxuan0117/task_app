@@ -1,11 +1,11 @@
 @import "../../../sass/basic";
 @import "../../../sass/color";
-.tag-wrapper {
+.label-wrapper {
   position: relative;
   display: flex;
   margin-right: 5px;
 
-  .tag {
+  .label {
     display: flex;
     border-radius: 30px;
     background-color: $light-blue;

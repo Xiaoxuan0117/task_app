@@ -1,19 +1,19 @@
 import React from "react";
 import LinkElement from "../../atom/LinkElement";
-import Tag from "../../atom/Tag";
+import Label from "../../atom/Label";
 import Toggle from "../../atom/Toggle";
 
 import "./style.scss";
 
 type TaskDetailProps = {
   isOpen: boolean;
-  tags: string[];
+  labels: string[];
   milestone: string;
   milestone_url: string;
 };
 
 export default function TaskDetail(props: TaskDetailProps): JSX.Element {
-  const { isOpen, tags, milestone, milestone_url } = props;
+  const { isOpen, labels, milestone, milestone_url } = props;
   return (
     <div className="taskDetail-wrapper">
       <div className="taskDetail">
@@ -23,9 +23,9 @@ export default function TaskDetail(props: TaskDetailProps): JSX.Element {
         </div>
         <div className="section labels">
           <div className="title">Labels</div>
-          <div className="tags">
-            {tags.map((tag) => (
-              <Tag>{tag}</Tag>
+          <div className="labels">
+            {labels.map((label) => (
+              <Label>{label}</Label>
             ))}
           </div>
         </div>

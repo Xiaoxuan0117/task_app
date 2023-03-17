@@ -15,7 +15,7 @@ const data = {
   repo_url: "https://github.com/xiaoxuan0117/task_app",
   issue: "issue 1",
   issue_url: "https://github.com/xiaoxuan0117/task_app/issues",
-  tags: ["Bug", "In Progress"],
+  labels: ["Bug", "In Progress"],
   time: "2023-03-08T05:47:16Z",
   creator: "username",
   creator_url: "https://github.com/Xiaoxuan0117",

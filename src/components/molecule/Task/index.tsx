@@ -1,6 +1,6 @@
 import React from "react";
 import LinkElement from "../../atom/LinkElement";
-import Tag from "../../atom/Tag";
+import Label from "../../atom/Label";
 import Time from "../../atom/Time";
 import Toggle from "../../atom/Toggle";
 
@@ -15,7 +15,7 @@ export type TaskProps = {
   repo_url: string;
   issue: string;
   issue_url: string;
-  tags: string[];
+  labels: string[];
   time: string;
   creator: string;
   creator_url: string;
@@ -30,7 +30,7 @@ export default function Task(props: TaskProps): JSX.Element {
     repo_url,
     issue,
     issue_url,
-    tags,
+    labels,
     time,
     creator,
     creator_url,
@@ -51,9 +51,9 @@ export default function Task(props: TaskProps): JSX.Element {
               <LinkElement isRouter={false} class="tasklist" href={issue_url}>
                 <div className="issue">{issue}</div>
               </LinkElement>
-              <div className="tags">
-                {tags.map((tag) => (
-                  <Tag children={tag} />
+              <div className="labels">
+                {labels.map((label) => (
+                  <Label children={label} />
                 ))}
               </div>
             </div>

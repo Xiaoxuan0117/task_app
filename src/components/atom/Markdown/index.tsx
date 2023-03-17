@@ -28,7 +28,7 @@ export default function Markdown(prpos: MarkdownProps): JSX.Element {
               children={String(children).replace(/\n$/, "")}
               style={okaidia}
               language={match[1]}
-              PreTag="div"
+              PreLabel="div"
               {...props}
             />
           ) : (

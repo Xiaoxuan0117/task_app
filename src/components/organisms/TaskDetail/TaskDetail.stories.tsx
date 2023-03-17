@@ -12,7 +12,7 @@ export default {
 export const Primary: ComponentStory<typeof TaskDetail> = () => (
   <TaskDetail
     isOpen={false}
-    tags={["ToDo", "Bug"]}
+    labels={["ToDo", "Bug"]}
     milestone={"new milestone"}
     milestone_url="https://github.com/xiaoxuan0117/task_app/milestone/1"
   ></TaskDetail>
