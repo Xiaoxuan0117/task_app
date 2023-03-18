@@ -12,16 +12,16 @@ export default function Task(props: TaskProps): JSX.Element {
   const {
     isOpen,
     repo,
-    repo_url,
+    repoUrl,
     issue,
-    issue_url,
+    issueUrl,
     labels,
     time,
     creator,
-    creator_url,
-    assignee_url,
+    creatorUrl,
+    assigneeUrl,
     number,
-    assignee_avatar,
+    assigneeAvatar,
   } = props;
   return (
     <div className="task-wrapper">
@@ -32,10 +32,10 @@ export default function Task(props: TaskProps): JSX.Element {
           </div>
           <div className="content-section">
             <div className="upper">
-              <LinkElement isRouter={false} class="tasklist" href={repo_url}>
+              <LinkElement isRouter={false} class="tasklist" href={repoUrl}>
                 <div className="repo">{repo}</div>
               </LinkElement>
-              <LinkElement isRouter={false} class="tasklist" href={issue_url}>
+              <LinkElement isRouter={false} class="tasklist" href={issueUrl}>
                 <div className="issue">{issue}</div>
               </LinkElement>
               <div className="labels">
@@ -52,7 +52,7 @@ export default function Task(props: TaskProps): JSX.Element {
                 <LinkElement
                   isRouter={false}
                   class="tasklist"
-                  href={creator_url}
+                  href={creatorUrl}
                 >
                   <div className="quick-info">{creator}</div>
                 </LinkElement>
@@ -61,7 +61,7 @@ export default function Task(props: TaskProps): JSX.Element {
           </div>
         </div>
         <div className="right">
-          <Avatar image={assignee_avatar} class="member" href={assignee_url} />
+          <Avatar image={assigneeAvatar} class="member" href={assigneeUrl} />
         </div>
       </div>
     </div>
