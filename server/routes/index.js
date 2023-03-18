@@ -29,8 +29,7 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
 });
 
 /* GET issue */
-router.get("/issue", async function (req, res, next) {
-  console.log("req.cookies.access_token", req.cookies.access_token);
+router.get("/taskList", async function (req, res, next) {
   try {
     const result = await axios({
       url: "https://api.github.com/issues",

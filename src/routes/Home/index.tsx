@@ -1,14 +1,19 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import Button from "../../components/atom/Button";
 import Navi from "../../components/molecule/Navi";
 import Controller from "../../components/organisms/Controller";
 import TaskList from "../../components/organisms/TaskList";
-import { TaskProps } from "../../type";
+import { fetchTaskList } from "../../reducer/taskList";
+import { RootState, useAppDispatch } from "../../store";
 
 import "./style.scss";
 
 export default function Home() {
+  const { taskList: taskListData, isLoading } = useSelector(
+    (state: RootState) => state.taskList
+  );
+  const dispatch = useAppDispatch();
   const dammyData = [
     "user1",
     "user2",
@@ -19,70 +24,12 @@ export default function Home() {
     "user7",
     "user8",
   ];
-  const [tasksDate, setTaskData] = useState<TaskProps[]>([]);
-
-  const fetchData = async () => {
-    const getIssue = axios({
-      url: "/api/issue",
-      method: "get",
-    });
-
-    try {
-      const resData = await getIssue;
-      const issueDate: TaskProps[] = resData.data.map(
-        (issue: {
-          assignee: { avatar_url: string; html_url: string };
-          created_at: string;
-          html_url: string;
-          id: string;
-          labels: any[];
-          number: number;
-          repository: { name: string };
-          repository_url: string;
-          state: string;
-          title: string;
-          user: { login: string; html_url: string };
-        }) => {
-          const {
-            assignee: { avatar_url, html_url: assignee_url },
-            created_at,
-            html_url,
-            id,
-            labels,
-            number,
-            repository: { name: repository_name },
-            repository_url,
-            state,
-            title,
-            user: { login, html_url: creator_url },
-          } = issue;
-          const labelsArr = labels.map((label) => label.name);
-          return {
-            assignee_avatar: avatar_url,
-            assignee_url: assignee_url,
-            time: created_at,
-            issue_url: html_url,
-            id,
-            labels: labelsArr,
-            number,
-            repo: repository_name,
-            repo_url: repository_url,
-            isOpen: state === "open" ? true : false,
-            issue: title,
-            creator: login,
-            creator_url,
-          };
-        }
-      );
-      setTaskData(issueDate);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   useEffect(() => {
-    fetchData();
-  }, [setTaskData]);
+    console.log("into home");
+    dispatch(fetchTaskList());
+    console.log("finish fetch");
+  }, [dispatch]);
 
   return (
     <div className="home-page">
@@ -96,7 +43,7 @@ export default function Home() {
               <div>Add</div>
             </Button>
           </div>
-          <TaskList tasksData={tasksDate}></TaskList>
+          <TaskList isLoading={isLoading} taskList={taskListData}></TaskList>
         </div>
         <div className="controller-section">
           <Controller />

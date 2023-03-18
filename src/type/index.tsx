@@ -1,15 +1,20 @@
 export type TaskProps = {
-  assignee_url: string;
-  assignee_avatar?: string;
+  assigneeUrl: string;
+  assigneeAvatar?: string;
   time: string;
-  issue_url: string;
+  issueUrl: string;
   id?: string;
   labels: string[];
   number: number;
   repo: string;
-  repo_url: string;
+  repoUrl: string;
   isOpen: boolean;
   issue: string;
   creator: string;
-  creator_url: string;
+  creatorUrl: string;
+};
+
+export type TaskListProps = {
+  isLoading: boolean;
+  taskList: TaskProps[] | string;
 };
