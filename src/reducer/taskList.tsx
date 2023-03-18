@@ -63,10 +63,27 @@ export const fetchTaskList = createAsyncThunk("taskList/getIssue", async () => {
         };
       }
     );
-    return issueDate;
-  } catch (err) {
-    console.log("err", err);
-    return "error";
+    return {
+      error: false,
+      issueData,
+      errMsg: "",
+      page: issueData.length < 10 ? 0 : 1,
+      isAll: issueData.length < 10 ? true : false,
+    };
+  } catch (err: any) {
+    const {
+      response: {
+        status,
+        data: { message },
+      },
+    } = err;
+    return {
+      error: true,
+      issueData: [],
+      errMsg: `sorry! something went wrong! status: ${status} / error message: ${message}`,
+      page: 0,
+      isAll: false,
+    };
   }
 });
 
@@ -82,7 +99,19 @@ export const counterSlice = createSlice({
       })
       .addCase(fetchTaskList.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.taskList = action.payload;
+        state.errMsg = action.payload.errMsg;
+        state.taskList.push(...(action.payload.issueData || []));
+        state.page = state.page + action.payload.page;
+        state.isAll = action.payload.isAll;
+        return state;
+      })
+      .addCase(fetchTaskList.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errMsg = "`sorry! something went wrong!`";
+        state.taskList = [];
+        return state;
+      })
+      .addCase(scrollToButtom.fulfilled, (state, action) => {
         return state;
       });
   },

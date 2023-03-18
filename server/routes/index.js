@@ -4,9 +4,7 @@ var router = express.Router();
 
 /* POST token */
 router.get("/login/oauth/access_token", async function (req, res, next) {
-  console.log("here");
   const { code } = req.query;
-  console.log("body", req.query);
   try {
     const result = await axios({
       url: "https://github.com/login/oauth/access_token",
@@ -38,11 +36,16 @@ router.get("/taskList", async function (req, res, next) {
         Accept: "application/vnd.github+json",
         Authorization: `Bearer ${req.cookies.access_token}`,
       },
+      params: {
+        ...req.query,
+        per_page: 10,
+      },
     });
-    res.send(result.data);
+    console.log(result.status);
+    res.status(result.status).send(result.data);
   } catch (err) {
-    console.log("err");
-    res.send(err);
+    console.log("err", err.response.status);
+    res.status(err.response.status).send(err.response.data);
   }
 });
 module.exports = router;

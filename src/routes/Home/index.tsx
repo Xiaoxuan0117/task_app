@@ -4,15 +4,17 @@ import Button from "../../components/atom/Button";
 import Navi from "../../components/molecule/Navi";
 import Controller from "../../components/organisms/Controller";
 import TaskList from "../../components/organisms/TaskList";
-import { fetchTaskList } from "../../reducer/taskList";
+import { fetchTaskList, scrollToButtom } from "../../reducer/taskList";
 import { RootState, useAppDispatch } from "../../store";
 
 import "./style.scss";
 
 export default function Home() {
-  const { taskList: taskListData, isLoading } = useSelector(
-    (state: RootState) => state.taskList
-  );
+  const {
+    taskList: taskListData,
+    isLoading,
+    errMsg,
+  } = useSelector((state: RootState) => state.taskList);
   const dispatch = useAppDispatch();
   const dammyData = [
     "user1",
@@ -43,7 +45,11 @@ export default function Home() {
               <div>Add</div>
             </Button>
           </div>
-          <TaskList isLoading={isLoading} taskList={taskListData}></TaskList>
+          <TaskList
+            isLoading={isLoading}
+            taskList={taskListData}
+            errMsg={errMsg}
+          ></TaskList>
         </div>
         <div className="controller-section">
           <Controller />
