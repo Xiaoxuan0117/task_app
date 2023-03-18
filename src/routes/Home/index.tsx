@@ -28,9 +28,19 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    console.log("into home");
     dispatch(fetchTaskList());
-    console.log("finish fetch");
+  }, [dispatch]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      const html = document.documentElement;
+      let innerHeight = window.innerHeight || 0;
+      let scrollY = window.scrollY || 0;
+      let scrollHeight = html.scrollHeight || 0;
+      if (innerHeight + Math.ceil(scrollY) >= scrollHeight) {
+        dispatch(scrollToButtom());
+      }
+    });
   }, [dispatch]);
 
   return (

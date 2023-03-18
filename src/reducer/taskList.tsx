@@ -1,24 +1,69 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { TaskListProps, TaskProps } from "../type";
+import { TaskProps, TaskListStatus, Filter } from "../type";
 import axios from "axios";
+import { AppDispatch } from "../store";
 
-const initialState: TaskListProps = {
+const initialState: TaskListStatus = {
   isLoading: false,
   taskList: [],
+  page: 1,
+  errMsg: "",
+  isAll: false,
+  filter: {
+    state: "all",
+    labels: "",
+    category: "assigned",
+    direction: "asc",
+  },
 };
 
-export const fetchTaskList = createAsyncThunk("taskList/getIssue", async () => {
-  console.log("into fetch");
-  const getTaskList = axios({
-    url: "/api/taskList",
-    method: "get",
-  });
+type fetchTaskListPayload = {
+  error: boolean;
+  errMsg: string;
+  issueData: TaskProps[];
+  page: number;
+  isAll: boolean;
+};
+
+export const scrollToButtom = createAsyncThunk<
+  boolean,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: { taskList: { isAll: boolean; isLoading: boolean } };
+  }
+>("taskList/scrollToBottom", async (_, thunkApi) => {
+  const { isAll, isLoading } = thunkApi.getState().taskList;
+  if (!isAll && !isLoading) {
+    await thunkApi.dispatch(fetchTaskList());
+  }
+  return true;
+});
+
+export const fetchTaskList = createAsyncThunk<
+  fetchTaskListPayload,
+  undefined,
+  { state: { taskList: { page: number; filter: Filter } } }
+>("taskList/getTaskList", async (_, { getState }) => {
+  const {
+    page,
+    filter: { state, labels, category, direction },
+  } = getState().taskList;
 
   try {
-    const resData = await getTaskList;
-    console.log(resData);
-    const issueDate: TaskProps[] = resData.data.map(
+    const resData = await axios({
+      url: "/api/taskList",
+      method: "get",
+      params: {
+        page: page,
+        state: state,
+        labels: labels,
+        category: category,
+        direction: direction,
+      },
+    });
+    console.log(resData.data);
+    const issueData: TaskProps[] = resData.data.map(
       (issue: {
         assignee: { avatar_url: string; html_url: string };
         created_at: string;

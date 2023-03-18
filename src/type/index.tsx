@@ -16,5 +16,19 @@ export type TaskProps = {
 
 export type TaskListProps = {
   isLoading: boolean;
-  taskList: TaskProps[] | string;
+  taskList: TaskProps[];
+  errMsg?: String;
+};
+
+export interface TaskListStatus extends TaskListProps {
+  page: number;
+  isAll: boolean;
+  filter: Filter;
+}
+
+export type Filter = {
+  state: string;
+  labels: string;
+  category: string;
+  direction: string;
 };
