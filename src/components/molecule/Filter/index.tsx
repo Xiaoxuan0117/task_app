@@ -1,13 +1,17 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 import Dropdown from "../../atom/Dropdown";
 import RadioButton from "../../atom/RadioButton";
-
 import "./style.scss";
 
 export default function Filter() {
-  const statusOptions = ["Open", "Closed"];
-  const LabelsOptions = ["ToDo", "In Progress", "Done"];
-  const UserOptions = ["Created", "Assigned", "Mentioned"];
+  const {
+    filter: { state, labels, category },
+  } = useSelector((state: RootState) => state.taskList);
+  const statusOptions = ["All", "Open", "Closed"];
+  const LabelsOptions = ["All", "ToDo", "In Progress", "Done"];
+  const CategoryOptions = ["Created", "Assigned", "Mentioned"];
   const assigneeDate = [
     "user1",
     "user2",
@@ -23,9 +27,21 @@ export default function Filter() {
   return (
     <div className="filter">
       <div className="title">Filter</div>
-      <RadioButton options={statusOptions}></RadioButton>
-      <RadioButton options={LabelsOptions}></RadioButton>
-      <RadioButton options={UserOptions}></RadioButton>
+      <RadioButton
+        type="state"
+        select={state}
+        options={statusOptions}
+      ></RadioButton>
+      <RadioButton
+        type="labels"
+        select={labels}
+        options={LabelsOptions}
+      ></RadioButton>
+      <RadioButton
+        type="category"
+        select={category}
+        options={CategoryOptions}
+      ></RadioButton>
       <Dropdown
         class="column"
         inputStyle="small"

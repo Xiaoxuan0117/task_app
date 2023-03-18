@@ -28,7 +28,7 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    dispatch(fetchTaskList());
+    dispatch(fetchTaskList({ reLoad: false }));
   }, [dispatch]);
 
   useEffect(() => {

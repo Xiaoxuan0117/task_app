@@ -1,5 +1,5 @@
 export type TaskProps = {
-  assigneeUrl: string;
+  assigneeUrl?: string;
   assigneeAvatar?: string;
   time: string;
   issueUrl: string;
@@ -31,4 +31,13 @@ export type Filter = {
   labels: string;
   category: string;
   direction: string;
+};
+
+export type fetchTaskListPayload = {
+  error: boolean;
+  errMsg: string;
+  issueData: TaskProps[];
+  page: number;
+  isAll: boolean;
+  reLoad: boolean;
 };

@@ -23,7 +23,7 @@ export default function EditModal(props: EditModalProps): JSX.Element {
           </div>
         </div>
         <div className="label-select">
-          <RadioButton options={dammyData_three}></RadioButton>
+          <RadioButton type="labels" options={dammyData_three}></RadioButton>
         </div>
         <div className="markdown-section">
           <MarkdownEditor />

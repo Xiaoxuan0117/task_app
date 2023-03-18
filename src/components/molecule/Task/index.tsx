@@ -61,7 +61,9 @@ export default function Task(props: TaskProps): JSX.Element {
           </div>
         </div>
         <div className="right">
-          <Avatar image={assigneeAvatar} class="member" href={assigneeUrl} />
+          {assigneeUrl && (
+            <Avatar image={assigneeAvatar} class="member" href={assigneeUrl} />
+          )}
         </div>
       </div>
     </div>

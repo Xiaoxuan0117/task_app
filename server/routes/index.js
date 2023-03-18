@@ -38,6 +38,7 @@ router.get("/taskList", async function (req, res, next) {
       },
       params: {
         ...req.query,
+        filter: req.query.category,
         per_page: 10,
       },
     });

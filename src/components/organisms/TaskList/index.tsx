@@ -16,10 +16,8 @@ export default function TaskList(props: TaskListProps): JSX.Element {
           taskList.length !== 0 && "has-data"
         )}`}
       >
-        {typeof taskList !== "string" &&
-          taskList.map((task, index) => (
-            <Task key={`task-${index}`} {...task}></Task>
-          ))}
+        {taskList &&
+          taskList.map((task) => <Task key={task.id} {...task}></Task>)}
       </div>
       {isLoading === true && <Loading />}
       {errMsg && (
