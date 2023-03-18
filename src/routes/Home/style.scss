@@ -7,7 +7,8 @@
   background-color: $white;
 
   & .navi-section {
-    position: absolute;
+    z-index: 10;
+    position: fixed;
     width: 100%;
   }
 
@@ -26,6 +27,7 @@
     }
 
     & .controller-section {
+      width: 316px;
       padding: 80px 48px 80px 48px;
     }
   }
