@@ -1,12 +1,23 @@
 @import "../../../sass/basic";
 @import "../../../sass/color";
 
-.taskList {
-  border: 1.5px solid $blue;
-  border-radius: 5px;
-  overflow: hidden;
+.taskList-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 760px;
 
-  & .task-wrapper:last-child {
-    border-bottom: none;
+  & .taskList {
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+
+    &.has-data {
+      border: 1.5px solid $blue;
+    }
+
+    & .task-wrapper:last-child {
+      border-bottom: none;
+    }
   }
 }
