@@ -40,6 +40,7 @@ router.get("/taskList", async function (req, res, next) {
         ...req.query,
         filter: req.query.category,
         per_page: 10,
+        pulls: false,
       },
     });
     console.log(result.status);
@@ -50,3 +51,5 @@ router.get("/taskList", async function (req, res, next) {
   }
 });
 module.exports = router;
+
+// https://api.github.com/repos/micromark/micromark/issues
