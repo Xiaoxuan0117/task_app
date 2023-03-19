@@ -18,6 +18,7 @@
       font-size: $font-h3;
       color: $blue;
       font-weight: 600;
+      word-break: break-word;
 
       &.close {
         color: $dark-gray;
