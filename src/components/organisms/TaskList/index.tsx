@@ -11,6 +11,12 @@ export default function TaskList(props: TaskListProps): JSX.Element {
   const { taskList, isLoading, errMsg } = props;
   return (
     <div className="taskList-wrapper">
+      {errMsg && (
+        <div className="err">
+          {errMsg}
+          <Link to="/login">redirect to login page and try again{" :))"}</Link>
+        </div>
+      )}
       <div
         className={`taskList ${classNames(
           taskList.length !== 0 && "has-data"
@@ -20,12 +26,6 @@ export default function TaskList(props: TaskListProps): JSX.Element {
           taskList.map((task) => <Task key={task.id} {...task}></Task>)}
       </div>
       {isLoading === true && <Loading />}
-      {errMsg && (
-        <div className="err">
-          {errMsg}
-          <Link to="/login">redirect to login page and try again{" :))"}</Link>
-        </div>
-      )}
     </div>
   );
 }
