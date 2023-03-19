@@ -3,31 +3,36 @@
 
 .toggle-wrapper {
   position: relative;
-  display: inline-block;
 
   & .toggle {
+    display: block;
     position: relative;
-    background-color: $gray;
     width: 50px;
     height: 32px;
+    background-color: $gray;
     border-radius: 30px;
     border: 2px solid $blue;
     padding: 3px;
     overflow: hidden;
     transition: all 0.5s;
-    cursor: pointer;
     text-align: center;
     margin: 0;
+    cursor: pointer;
 
     &.open {
       background-color: $blue;
 
-      & .button {
+      & .button-click {
         left: 43%;
       }
     }
 
-    & .button {
+    &.loading {
+      opacity: 40%;
+      cursor: default;
+    }
+
+    & .button-click {
       position: absolute;
       top: 50%;
       left: 5%;

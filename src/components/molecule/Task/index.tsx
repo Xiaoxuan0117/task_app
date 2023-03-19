@@ -23,12 +23,18 @@ export default function Task(props: TaskProps): JSX.Element {
     number,
     assigneeAvatar,
   } = props;
+
+  const taskInfo = {
+    owner: creator,
+    repo: repo,
+    number: number,
+  };
   return (
     <div className="task-wrapper">
       <div className="task">
         <div className="left">
           <div className="toggle-section">
-            <Toggle isOpen={isOpen} />
+            <Toggle isOpen={isOpen} taskInfo={taskInfo} />
           </div>
           <div className="content-section">
             <div className="upper">

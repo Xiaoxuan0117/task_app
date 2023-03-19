@@ -12,6 +12,12 @@ type TaskDetailProps = {
   milestone_url: string;
 };
 
+const dammyTaskInfo = {
+  owner: "creator",
+  repo: "repo",
+  number: 0,
+};
+
 export default function TaskDetail(props: TaskDetailProps): JSX.Element {
   const { isOpen, labels, milestone, milestone_url } = props;
   return (
@@ -19,7 +25,7 @@ export default function TaskDetail(props: TaskDetailProps): JSX.Element {
       <div className="taskDetail">
         <div className="section status">
           <div className="title">Open/Closed</div>
-          <Toggle isOpen={isOpen} />
+          <Toggle isOpen={isOpen} taskInfo={dammyTaskInfo} />
         </div>
         <div className="section labels">
           <div className="title">Labels</div>
@@ -31,8 +37,12 @@ export default function TaskDetail(props: TaskDetailProps): JSX.Element {
         </div>
         <div className="section milestone">
           <div className="title">Milestone</div>
-          <LinkElement isRouter={false} class="task">
-            <div className="milestone">milestone</div>
+          <LinkElement
+            isRouter={false}
+            class="task"
+            href={milestone_url || "#"}
+          >
+            <div className="milestone">{milestone}</div>
           </LinkElement>
         </div>
       </div>

@@ -20,17 +20,22 @@ export type TaskListProps = {
   errMsg?: String;
 };
 
-export interface TaskListStatus extends TaskListProps {
-  page: number;
-  isAll: boolean;
-  filter: Filter;
-}
-
 export type Filter = {
   state: string;
   labels: string;
   category: string;
   direction: string;
+};
+
+export interface TaskListStatus extends TaskListProps {
+  page: number;
+  isAll: boolean;
+  filter: Filter;
+  isStateLoading: boolean;
+}
+
+export type GetTaskListParams = {
+  reLoad: boolean;
 };
 
 export type GetTaskListPayload = {
@@ -40,4 +45,35 @@ export type GetTaskListPayload = {
   page: number;
   isAll: boolean;
   reLoad: boolean;
+};
+
+export type GetTaskListResData = {
+  assignee: { avatar_url?: string; html_url?: string };
+  created_at: string;
+  html_url: string;
+  id: string;
+  labels: any[];
+  number: number;
+  repository: { name: string; html_url: string };
+  repository_url: string;
+  state: string;
+  title: string;
+  user: { login: string; html_url: string };
+};
+
+export type UpdateTaskParams = {
+  owner: string;
+  repo: string;
+  number: number;
+};
+
+export interface UpdateTaskEditParems extends UpdateTaskParams {
+  title?: string;
+  body?: string;
+  labels?: string;
+}
+
+export type UpdateStatePayload = {
+  taskIndex: number;
+  state: boolean;
 };

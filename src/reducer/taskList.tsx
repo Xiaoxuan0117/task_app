@@ -1,5 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TaskProps, TaskListStatus, Filter, GetTaskListPayload } from "../type";
+import {
+  TaskProps,
+  TaskListStatus,
+  Filter,
+  GetTaskListPayload,
+  GetTaskListParams,
+  GetTaskListResData,
+  UpdateStatePayload,
+  UpdateTaskParams,
+} from "../type";
 import axios from "axios";
 import { AppDispatch } from "../store";
 
@@ -15,6 +24,7 @@ const initialState: TaskListStatus = {
     category: "assigned",
     direction: "asc",
   },
+  isStateLoading: false,
 };
 
 export const scrollToButtom = createAsyncThunk<
@@ -34,7 +44,7 @@ export const scrollToButtom = createAsyncThunk<
 
 export const GetTaskList = createAsyncThunk<
   GetTaskListPayload,
-  { reLoad: boolean },
+  GetTaskListParams,
   { state: { taskList: { page: number; filter: Filter } } }
 >("taskList/getTaskList", async ({ reLoad }, { getState, rejectWithValue }) => {
   const {
@@ -56,19 +66,7 @@ export const GetTaskList = createAsyncThunk<
     });
     console.log(resData.data);
     const issueData: TaskProps[] = resData.data.map(
-      (issue: {
-        assignee: { avatar_url?: string; html_url?: string };
-        created_at: string;
-        html_url: string;
-        id: string;
-        labels: any[];
-        number: number;
-        repository: { name: string; html_url: string };
-        repository_url: string;
-        state: string;
-        title: string;
-        user: { login: string; html_url: string };
-      }) => {
+      (issue: GetTaskListResData) => {
         const {
           assignee,
           created_at,
@@ -147,6 +145,52 @@ export const setFilter = createAsyncThunk<
   return true;
 });
 
+export const UpdateState = createAsyncThunk<
+  UpdateStatePayload,
+  UpdateTaskParams,
+  {
+    state: { taskList: { taskList: TaskProps[] } };
+  }
+>(
+  "task/updateState",
+  async ({ owner, repo, number }, { getState, rejectWithValue }) => {
+    const { taskList } = getState().taskList;
+    const taskIndex = taskList.findIndex((task) => {
+      return (
+        task.creator === owner && task.repo === repo && task.number === number
+      );
+    });
+    const currentState = taskList[taskIndex].isOpen;
+    if (taskIndex === -1) {
+      console.log(taskIndex);
+      return rejectWithValue("no task found");
+    }
+
+    try {
+      const resData = await axios({
+        url: "api/updateState",
+        method: "get",
+        params: {
+          owner: owner,
+          repo: repo,
+          issue_number: number,
+          state: !currentState ? "open" : "closed",
+        },
+      });
+
+      return { taskIndex, state: resData.data === "open" ? true : false };
+    } catch (err: any) {
+      const {
+        response: {
+          status,
+          data: { message },
+        },
+      } = err;
+      return rejectWithValue(`status: ${status} / error message: ${message}`);
+    }
+  }
+);
+
 export const taskListSlice = createSlice({
   name: "taskList",
   initialState,
@@ -187,6 +231,18 @@ export const taskListSlice = createSlice({
         return state;
       })
       .addCase(scrollToButtom.fulfilled, (state, action) => {
+        return state;
+      })
+      .addCase(UpdateState.pending, (state, action) => {
+        state.isStateLoading = true;
+      })
+      .addCase(UpdateState.fulfilled, (state, action) => {
+        state.isStateLoading = false;
+        state.taskList[action.payload.taskIndex].isOpen = action.payload.state;
+      })
+      .addCase(UpdateState.rejected, (state, action) => {
+        state.isStateLoading = false;
+        state.errMsg = `sorry! something went wrong! ${action.payload}`;
         return state;
       });
   },

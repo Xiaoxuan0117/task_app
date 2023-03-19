@@ -52,4 +52,27 @@ router.get("/taskList", async function (req, res, next) {
 });
 module.exports = router;
 
-// https://api.github.com/repos/micromark/micromark/issues
+router.get("/updateState", async function (req, res) {
+  const { owner, repo, issue_number, state } = req.query;
+  console.log("into update", state);
+  try {
+    const result = await axios.patch(
+      `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}`,
+      {
+        state: state,
+      },
+      {
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: `Bearer ${req.cookies.access_token}`,
+        },
+      }
+    );
+
+    console.log("status", result.data.title, result.data.state);
+    res.status(result.status).send(result.data.state);
+  } catch (err) {
+    console.log("err", err.response.status);
+    res.status(err.response.status).send(err.response.data);
+  }
+});
