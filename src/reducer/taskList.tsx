@@ -116,14 +116,7 @@ export const GetTaskList = createAsyncThunk<
         data: { message },
       },
     } = err;
-    return {
-      error: true,
-      issueData: [],
-      errMsg: `sorry! something went wrong! status: ${status} / error message: ${message}`,
-      page: 0,
-      isAll: false,
-      reLoad,
-    };
+    return rejectWithValue(`status: ${status} / error message: ${message}`);
   }
 });
 
