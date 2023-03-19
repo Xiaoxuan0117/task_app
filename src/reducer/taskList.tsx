@@ -170,20 +170,19 @@ export const taskListSlice = createSlice({
     builder
       .addCase(fetchTaskList.pending, (state, action) => {
         state.isLoading = true;
+        if (action.meta.arg.reLoad) {
+          state.taskList = [];
+          state.page = 1;
+          state.isAll = false;
+        }
         return state;
       })
       .addCase(fetchTaskList.fulfilled, (state, action) => {
         state.isLoading = false;
         state.errMsg = action.payload.errMsg;
-        if (action.payload.reLoad) {
-          state.taskList = [...action.payload.issueData];
-          state.page = 2;
-          state.isAll = false;
-        } else {
-          state.taskList.push(...(action.payload.issueData || []));
-          state.page = state.page + action.payload.page;
-          state.isAll = action.payload.isAll;
-        }
+        state.taskList.push(...(action.payload.issueData || []));
+        state.page = state.page + action.payload.page;
+        state.isAll = action.payload.isAll;
         return state;
       })
       .addCase(fetchTaskList.rejected, (state, action) => {
