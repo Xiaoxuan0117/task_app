@@ -1,10 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-  TaskProps,
-  TaskListStatus,
-  Filter,
-  fetchTaskListPayload,
-} from "../type";
+import { TaskProps, TaskListStatus, Filter, GetTaskListPayload } from "../type";
 import axios from "axios";
 import { AppDispatch } from "../store";
 
@@ -32,13 +27,13 @@ export const scrollToButtom = createAsyncThunk<
 >("taskList/scrollToBottom", async (_, thunkApi) => {
   const { isAll, isLoading } = thunkApi.getState().taskList;
   if (!isAll && !isLoading) {
-    await thunkApi.dispatch(fetchTaskList({ reLoad: false }));
+    await thunkApi.dispatch(GetTaskList({ reLoad: false }));
   }
   return true;
 });
 
-export const fetchTaskList = createAsyncThunk<
-  fetchTaskListPayload,
+export const GetTaskList = createAsyncThunk<
+  GetTaskListPayload,
   { reLoad: boolean },
   { state: { taskList: { page: number; filter: Filter } } }
 >("taskList/getTaskList", async ({ reLoad }, { getState, rejectWithValue }) => {
@@ -147,7 +142,7 @@ export const setFilter = createAsyncThunk<
 
   thunkApi.dispatch(changeFilterState({ type, option }));
   if (!isLoading) {
-    await thunkApi.dispatch(fetchTaskList({ reLoad: true }));
+    await thunkApi.dispatch(GetTaskList({ reLoad: true }));
   }
   return true;
 });
@@ -168,7 +163,7 @@ export const taskListSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTaskList.pending, (state, action) => {
+      .addCase(GetTaskList.pending, (state, action) => {
         state.isLoading = true;
         if (action.meta.arg.reLoad) {
           state.taskList = [];
@@ -177,7 +172,7 @@ export const taskListSlice = createSlice({
         }
         return state;
       })
-      .addCase(fetchTaskList.fulfilled, (state, action) => {
+      .addCase(GetTaskList.fulfilled, (state, action) => {
         state.isLoading = false;
         state.errMsg = action.payload.errMsg;
         state.taskList.push(...(action.payload.issueData || []));
@@ -185,7 +180,7 @@ export const taskListSlice = createSlice({
         state.isAll = action.payload.isAll;
         return state;
       })
-      .addCase(fetchTaskList.rejected, (state, action) => {
+      .addCase(GetTaskList.rejected, (state, action) => {
         state.isLoading = false;
         state.errMsg = `sorry! something went wrong! ${action.payload}`;
         state.taskList = [];

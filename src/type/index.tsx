@@ -33,7 +33,7 @@ export type Filter = {
   direction: string;
 };
 
-export type fetchTaskListPayload = {
+export type GetTaskListPayload = {
   error: boolean;
   errMsg: string;
   issueData: TaskProps[];
