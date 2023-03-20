@@ -52,7 +52,14 @@ export const ScrollToButtom = createAsyncThunk<
 export const GetTaskList = createAsyncThunk<
   GetTaskListPayload,
   GetTaskListParams,
-  { state: { taskList: { page: number; filter: Filter } } }
+  {
+    state: {
+      taskList: {
+        page: number;
+        filter: Filter;
+      };
+    };
+  }
 >("taskList/getTaskList", async ({ reLoad }, { getState, rejectWithValue }) => {
   const {
     page,
