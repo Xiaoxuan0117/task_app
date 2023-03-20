@@ -73,8 +73,10 @@ export default function Task() {
           <div className="divide"></div>
           <div className="task-data">
             <div className="comment-section">
-              {commentsDate.map((comment) => (
-                <Comment {...comment}>{comment.children}</Comment>
+              {commentsDate.map((comment, index) => (
+                <Comment key={`comment=${index}`} {...comment}>
+                  {comment.children}
+                </Comment>
               ))}
             </div>
             <div className="detail-section">
