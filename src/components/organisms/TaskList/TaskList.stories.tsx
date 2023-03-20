@@ -22,6 +22,7 @@ const tasksDate = [
     creatorUrl: "https://github.com/Xiaoxuan0117",
     assigneeUrl: "https://github.com/Xiaoxuan0117",
     number: 5,
+    body: "no description provided",
   },
   {
     isOpen: false,
@@ -35,6 +36,7 @@ const tasksDate = [
     creatorUrl: "https://github.com/Xiaoxuan0117",
     assigneeUrl: "https://github.com/Xiaoxuan0117",
     number: 5,
+    body: "no description provided",
   },
   {
     isOpen: false,
@@ -48,6 +50,7 @@ const tasksDate = [
     creatorUrl: "https://github.com/Xiaoxuan0117",
     assigneeUrl: "https://github.com/Xiaoxuan0117",
     number: 5,
+    body: "no description provided",
   },
 ];
 

@@ -1,6 +1,7 @@
 export type TaskProps = {
   assigneeUrl?: string;
   assigneeAvatar?: string;
+  body: string;
   time: string;
   issueUrl: string;
   id?: string;
@@ -49,6 +50,7 @@ export type GetTaskListPayload = {
 
 export type GetTaskListResData = {
   assignee: { avatar_url?: string; html_url?: string };
+  body: string;
   created_at: string;
   html_url: string;
   id: string;

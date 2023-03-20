@@ -78,6 +78,7 @@ export const GetTaskList = createAsyncThunk<
           state,
           title,
           user,
+          body,
         } = issue;
         const { avatar_url, html_url: assignee_url } = assignee || {};
         const { name: repository_name, html_url: repo_url } = repository || {};
@@ -86,6 +87,7 @@ export const GetTaskList = createAsyncThunk<
         return {
           assigneeAvatar: avatar_url,
           assigneeUrl: assignee_url,
+          body,
           time: created_at,
           issueUrl: html_url,
           id,

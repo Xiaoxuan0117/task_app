@@ -22,6 +22,7 @@ export default function Task(props: TaskProps): JSX.Element {
     assigneeUrl,
     number,
     assigneeAvatar,
+    body,
   } = props;
 
   const taskInfo = {
@@ -29,6 +30,8 @@ export default function Task(props: TaskProps): JSX.Element {
     repo: repo,
     number: number,
   };
+
+  const briefBody = body.replace(/[^\w\s]/g, "");
   return (
     <div className="task-wrapper">
       <div className="task">
@@ -49,6 +52,9 @@ export default function Task(props: TaskProps): JSX.Element {
                   <Label key={`label-${index}`} children={label} />
                 ))}
               </div>
+            </div>
+            <div className="middle">
+              <p>{briefBody}</p>
             </div>
             <div className="lower">
               <div className="number"># {number}</div>
