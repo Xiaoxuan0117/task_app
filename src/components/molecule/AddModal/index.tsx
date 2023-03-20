@@ -7,6 +7,7 @@ import Button from "../../atom/Button";
 import closeButton from "../../../assets/closeButton.svg";
 
 import "./style.scss";
+import { setTaskSearchKeyword, taskSearch } from "../../../reducer/taskList";
 
 export default function AddModal() {
   const [options, setOpotions] = useState([
@@ -26,7 +27,7 @@ export default function AddModal() {
         <div className="title-section">
           <div className="label">Title</div>
           <div className="input-section">
-            <Input />
+            <Input changeEvent={setTaskSearchKeyword} />
           </div>
         </div>
         <div className="repo-select">
@@ -41,15 +42,15 @@ export default function AddModal() {
           <MarkdownEditor />
         </div>
         <div className="footer">
-          <Button class="secondary">
+          <Button clickEvent={taskSearch} class="secondary">
             <div>Cancel</div>
           </Button>
-          <Button class="primary">
+          <Button clickEvent={taskSearch} class="primary">
             <div>Update</div>
           </Button>
         </div>
         <div className="close-button">
-          <Button class="close">
+          <Button clickEvent={taskSearch} class="close">
             <img src={closeButton} alt="closeButton" />
           </Button>
         </div>

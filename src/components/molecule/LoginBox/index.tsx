@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
+import { taskSearch } from "../../../reducer/taskList";
 import Button from "../../atom/Button";
-import Input from "../../atom/Input";
 
 import "./style.scss";
 
@@ -13,19 +13,11 @@ export default function LoginBox() {
     <div className="login-wrapper">
       <div className="content">
         <div className="title">Login</div>
-        <div className="input-wrapper">
-          <div className="label">username</div>
-          <Input class="login"></Input>
-        </div>
-        <div className="input-wrapper">
-          <div className="label">password</div>
-          <Input class="login"></Input>
-        </div>
         <div className="submit">
           <a
             href={`https://github.com/login/oauth/authorize?client_id=${client_id}&scope=user,repo&state=from`}
           >
-            <Button class="primary">
+            <Button clickEvent={taskSearch} class="primary">
               <div>Submit</div>
             </Button>
           </a>

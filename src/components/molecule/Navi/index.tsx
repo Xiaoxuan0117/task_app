@@ -5,6 +5,7 @@ import Input from "../../atom/Input";
 import searchButton from "../../../assets/searchButton.svg";
 
 import "./style.scss";
+import { setTaskSearchKeyword, taskSearch } from "../../../reducer/taskList";
 
 type NaviProps = {
   repoOptions: string[];
@@ -27,8 +28,11 @@ export default function Navi(props: NaviProps): JSX.Element {
           ></Dropdown>
         </div>
         <div className="repo_search">
-          <Input placeholder="repository keywords" />
-          <Button class="search">
+          <Input
+            placeholder="repository keywords"
+            changeEvent={setTaskSearchKeyword}
+          />
+          <Button clickEvent={taskSearch} class="search">
             <img src={searchButton} alt="searchButton" />
           </Button>
         </div>

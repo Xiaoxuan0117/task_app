@@ -7,6 +7,7 @@ import searchButton from "../../../assets/searchButton.svg";
 import editButton from "../../../assets/editButton.svg";
 import editButton2 from "../../../assets/editButton2.svg";
 import closeButton from "../../../assets/closeButton.svg";
+import { taskSearch } from "../../../reducer/taskList";
 
 export default {
   /* 👇 The title prop is optional.
@@ -18,37 +19,37 @@ export default {
 } as ComponentMeta<typeof Button>;
 
 export const Primary: ComponentStory<typeof Button> = () => (
-  <Button class="primary">
+  <Button clickEvent={taskSearch} class="primary">
     <div>Add</div>
   </Button>
 );
 
 export const Disabled: ComponentStory<typeof Button> = () => (
-  <Button class="disabled">
+  <Button clickEvent={taskSearch} class="disabled">
     <div>Add</div>
   </Button>
 );
 
 export const Search: ComponentStory<typeof Button> = () => (
-  <Button class="search">
+  <Button clickEvent={taskSearch} class="search">
     <img src={searchButton} alt="searchButton" />
   </Button>
 );
 
 export const Edit: ComponentStory<typeof Button> = () => (
-  <Button class="edit">
+  <Button clickEvent={taskSearch} class="edit">
     <img src={editButton} alt="editButton" />
   </Button>
 );
 
 export const Edit2: ComponentStory<typeof Button> = () => (
-  <Button class="edit">
+  <Button clickEvent={taskSearch} class="edit">
     <img src={editButton2} alt="editButton" />
   </Button>
 );
 
 export const Close: ComponentStory<typeof Button> = () => (
-  <Button class="close">
+  <Button clickEvent={taskSearch} class="close">
     <img src={closeButton} alt="closeButton" />
   </Button>
 );

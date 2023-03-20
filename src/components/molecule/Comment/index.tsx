@@ -9,6 +9,7 @@ import Button from "../../atom/Button";
 import Markdown from "../../atom/Markdown";
 
 import "./style.scss";
+import { taskSearch } from "../../../reducer/taskList";
 
 export type CommentProps = {
   children: string;
@@ -35,7 +36,7 @@ export default function Comment(props: CommentProps): JSX.Element {
             <Time utcTime={time} />
           </div>
           <div className={`right ${classNames(allowEdit && "show")}`}>
-            <Button class="edit">
+            <Button clickEvent={taskSearch} class="edit">
               <img src={editButton} alt="editButton" />
             </Button>
           </div>

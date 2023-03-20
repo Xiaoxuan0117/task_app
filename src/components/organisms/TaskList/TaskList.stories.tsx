@@ -23,6 +23,7 @@ const tasksDate = [
     assigneeUrl: "https://github.com/Xiaoxuan0117",
     number: 5,
     body: "no description provided",
+    isSearchResult: false,
   },
   {
     isOpen: false,
@@ -37,6 +38,7 @@ const tasksDate = [
     assigneeUrl: "https://github.com/Xiaoxuan0117",
     number: 5,
     body: "no description provided",
+    isSearchResult: false,
   },
   {
     isOpen: false,
@@ -51,6 +53,7 @@ const tasksDate = [
     assigneeUrl: "https://github.com/Xiaoxuan0117",
     number: 5,
     body: "no description provided",
+    isSearchResult: false,
   },
 ];
 

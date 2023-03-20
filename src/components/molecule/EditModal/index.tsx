@@ -6,6 +6,7 @@ import MarkdownEditor from "../../atom/MarkdownEditor";
 import closeButton from "../../../assets/closeButton.svg";
 
 import "./style.scss";
+import { setTaskSearchKeyword, taskSearch } from "../../../reducer/taskList";
 
 type EditModalProps = {
   prevTitle: string;
@@ -19,7 +20,7 @@ export default function EditModal(props: EditModalProps): JSX.Element {
         <div className="title-section">
           <div className="label">Title</div>
           <div className="input-section">
-            <Input defaultInput={props.prevTitle} />
+            <Input input={props.prevTitle} changeEvent={setTaskSearchKeyword} />
           </div>
         </div>
         <div className="label-select">
@@ -29,15 +30,15 @@ export default function EditModal(props: EditModalProps): JSX.Element {
           <MarkdownEditor />
         </div>
         <div className="footer">
-          <Button class="primary">
+          <Button clickEvent={taskSearch} class="primary">
             <div>Cancel</div>
           </Button>
-          <Button class="primary">
+          <Button clickEvent={taskSearch} class="primary">
             <div>Update</div>
           </Button>
         </div>
         <div className="close-button">
-          <Button class="close">
+          <Button clickEvent={taskSearch} class="close">
             <img src={closeButton} alt="closeButton" />
           </Button>
         </div>

@@ -22,6 +22,7 @@ const data = {
   assigneeUrl: "https://github.com/Xiaoxuan0117",
   number: 5,
   body: "no description provided",
+  isSearchResult: false,
 };
 
 export const Primary: ComponentStory<typeof Task> = () => (
