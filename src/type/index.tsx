@@ -1,3 +1,5 @@
+import { CommentProps } from "../components/molecule/Comment";
+
 export type TaskProps = {
   assigneeUrl?: string;
   assigneeAvatar?: string;
@@ -83,4 +85,8 @@ export type UpdateStatePayload = {
   state: boolean;
 };
 
-export type TaskSidebarProps = {};
+export interface TaskDetailState extends TaskProps {
+  commentsData: CommentProps[];
+  milestone: string;
+  milestoneUrl: string;
+}
