@@ -29,7 +29,7 @@ const initialState: TaskListStatus = {
   isSearchMode: false,
 };
 
-export const scrollToButtom = createAsyncThunk<
+export const ScrollToButtom = createAsyncThunk<
   boolean,
   undefined,
   {
@@ -257,7 +257,7 @@ export const taskListSlice = createSlice({
         state.taskList = [];
         return state;
       })
-      .addCase(scrollToButtom.fulfilled, (state, action) => {
+      .addCase(ScrollToButtom.fulfilled, (state, action) => {
         return state;
       })
       .addCase(setFilter.pending, (state) => {
