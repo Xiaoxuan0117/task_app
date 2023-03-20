@@ -11,15 +11,17 @@ type LinkProps = {
 };
 
 export default function LinkDOM(props: LinkProps): JSX.Element {
-  if (props.isRouter) {
-    return <Link to="/"></Link>;
+  const { children, class: linkClass, href, isRouter } = props;
+  if (isRouter) {
+    return (
+      <Link to={href || "#"} className={`link ${linkClass}`}>
+        {children}
+      </Link>
+    );
   }
   return (
-    <a
-      className={`link ${props.class}`}
-      href={props.href ? `${props.href}` : `#`}
-    >
-      {props.children}
+    <a className={`link ${linkClass}`} href={href ? `${href}` : `#`}>
+      {children}
     </a>
   );
 }

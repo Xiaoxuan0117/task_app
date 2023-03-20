@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/task",
+    path: "/:repo/:number",
     element: <Task />,
   },
 ]);

@@ -48,7 +48,11 @@ export default function Task(props: TaskProps): JSX.Element {
               <LinkElement isRouter={false} class="tasklist" href={repoUrl}>
                 <div className="repo">{repo}</div>
               </LinkElement>
-              <LinkElement isRouter={false} class="tasklist" href={issueUrl}>
+              <LinkElement
+                isRouter={true}
+                class="tasklist"
+                href={`/${repo}/${number}`}
+              >
                 <div className="issue">{title}</div>
               </LinkElement>
               <div className="labels">

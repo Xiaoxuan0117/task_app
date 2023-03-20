@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import LinkElement from "../../components/atom/LinkElement";
 import Time from "../../components/atom/Time";
 import Comment, { CommentProps } from "../../components/molecule/Comment";
@@ -8,6 +9,8 @@ import TaskDetail from "../../components/organisms/TaskDetail";
 import "./style.scss";
 
 export default function Task() {
+  let { repo, number } = useParams();
+  console.log("task detail", repo, number);
   const commentsDate: CommentProps[] = [
     {
       children:
