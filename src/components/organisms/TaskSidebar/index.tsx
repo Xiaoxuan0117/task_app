@@ -5,7 +5,7 @@ import Toggle from "../../atom/Toggle";
 
 import "./style.scss";
 
-type TaskDetailProps = {
+type TaskSidebarProps = {
   isOpen: boolean;
   labels: string[];
   milestone: string;
@@ -18,7 +18,7 @@ const dammyTaskInfo = {
   number: 0,
 };
 
-export default function TaskDetail(props: TaskDetailProps): JSX.Element {
+export default function TaskSidebar(props: TaskSidebarProps): JSX.Element {
   const { isOpen, labels, milestone, milestone_url } = props;
   return (
     <div className="taskDetail-wrapper">

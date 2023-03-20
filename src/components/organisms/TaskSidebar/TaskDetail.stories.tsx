@@ -2,18 +2,18 @@ import React from "react";
 
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import TaskDetail from ".";
+import TaskSidebar from ".";
 
 export default {
-  title: "Organisms/TaskDetail",
-  component: TaskDetail,
-} as ComponentMeta<typeof TaskDetail>;
+  title: "Organisms/TaskSidebar",
+  component: TaskSidebar,
+} as ComponentMeta<typeof TaskSidebar>;
 
-export const Primary: ComponentStory<typeof TaskDetail> = () => (
-  <TaskDetail
+export const Primary: ComponentStory<typeof TaskSidebar> = () => (
+  <TaskSidebar
     isOpen={false}
     labels={["ToDo", "Bug"]}
     milestone={"new milestone"}
     milestone_url="https://github.com/xiaoxuan0117/task_app/milestone/1"
-  ></TaskDetail>
+  ></TaskSidebar>
 );

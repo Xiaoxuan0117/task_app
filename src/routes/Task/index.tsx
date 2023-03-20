@@ -4,7 +4,7 @@ import LinkElement from "../../components/atom/LinkElement";
 import Time from "../../components/atom/Time";
 import Comment, { CommentProps } from "../../components/molecule/Comment";
 import Navi from "../../components/molecule/Navi";
-import TaskDetail from "../../components/organisms/TaskDetail";
+import TaskSidebar from "../../components/organisms/TaskSidebar";
 
 import "./style.scss";
 
@@ -83,12 +83,12 @@ export default function Task() {
               ))}
             </div>
             <div className="detail-section">
-              <TaskDetail
+              <TaskSidebar
                 isOpen={false}
                 labels={["ToDo", "Bug"]}
                 milestone={"new milestone"}
                 milestone_url="https://github.com/xiaoxuan0117/task_app/milestone/1"
-              ></TaskDetail>
+              ></TaskSidebar>
             </div>
           </div>
         </div>
