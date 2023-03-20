@@ -6,7 +6,7 @@ import Controller from "../../components/organisms/Controller";
 import TaskList from "../../components/organisms/TaskList";
 import {
   GetTaskList,
-  ScrollToButtom,
+  TriggerGetTaskList,
   taskSearch,
 } from "../../reducer/taskList";
 import { RootState, useAppDispatch } from "../../store";
@@ -42,7 +42,7 @@ export default function Home() {
       let scrollY = window.scrollY || 0;
       let scrollHeight = html.scrollHeight || 0;
       if (innerHeight + Math.ceil(scrollY) >= scrollHeight) {
-        dispatch(ScrollToButtom());
+        dispatch(TriggerGetTaskList());
       }
     });
   }, [dispatch]);

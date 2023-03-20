@@ -21,7 +21,7 @@ const initialState: TaskListStatus = {
   filter: {
     state: "all",
     labels: "",
-    category: "assigned",
+    category: "created",
     direction: "asc",
   },
   isStateLoading: false,
@@ -29,7 +29,7 @@ const initialState: TaskListStatus = {
   isSearchMode: false,
 };
 
-export const ScrollToButtom = createAsyncThunk<
+export const TriggerGetTaskList = createAsyncThunk<
   boolean,
   undefined,
   {
@@ -264,7 +264,7 @@ export const taskListSlice = createSlice({
         state.taskList = [];
         return state;
       })
-      .addCase(ScrollToButtom.fulfilled, (state, action) => {
+      .addCase(TriggerGetTaskList.fulfilled, (state, action) => {
         return state;
       })
       .addCase(setFilter.pending, (state) => {
