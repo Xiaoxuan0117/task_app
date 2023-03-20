@@ -31,7 +31,11 @@ export default function Task(props: TaskProps): JSX.Element {
     number: number,
   };
 
-  const briefBody = body.replace(/[^\w\s]/g, "");
+  const briefBody = body ? (
+    body.replace(/[^\w\s]/g, "")
+  ) : (
+    <i>no description provided</i>
+  );
   return (
     <div className="task-wrapper">
       <div className="task">
