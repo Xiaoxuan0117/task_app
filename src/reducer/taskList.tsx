@@ -166,16 +166,16 @@ export const UpdateState = createAsyncThunk<
   "task/updateState",
   async ({ owner, repo, number }, { getState, rejectWithValue }) => {
     const { taskList } = getState().taskList;
+
     const taskIndex = taskList.findIndex((task) => {
       return (
         task.creator === owner && task.repo === repo && task.number === number
       );
     });
-    const currentState = taskList[taskIndex].isOpen;
     if (taskIndex === -1) {
-      console.log(taskIndex);
       return rejectWithValue("no task found");
     }
+    const currentState = taskList[taskIndex].isOpen;
 
     try {
       const resData = await axios({
