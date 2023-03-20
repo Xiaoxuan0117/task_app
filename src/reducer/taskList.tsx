@@ -96,7 +96,7 @@ export const GetTaskList = createAsyncThunk<
           repo: repository_name,
           repoUrl: repo_url,
           isOpen: state === "open" ? true : false,
-          issue: title,
+          title: title,
           creator: login,
           creatorUrl,
         };

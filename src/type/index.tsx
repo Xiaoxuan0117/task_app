@@ -10,7 +10,7 @@ export type TaskProps = {
   repo: string;
   repoUrl: string;
   isOpen: boolean;
-  issue: string;
+  title: string;
   creator: string;
   creatorUrl: string;
 };

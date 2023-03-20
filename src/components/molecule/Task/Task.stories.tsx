@@ -13,7 +13,7 @@ const data = {
   isOpen: false,
   repo: "username/repo",
   repoUrl: "https://github.com/xiaoxuan0117/task_app",
-  issue: "issue 1",
+  title: "issue 1",
   issueUrl: "https://github.com/xiaoxuan0117/task_app/issues",
   labels: ["Bug", "In Progress"],
   time: "2023-03-08T05:47:16Z",

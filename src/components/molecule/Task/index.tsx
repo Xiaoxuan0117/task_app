@@ -13,7 +13,7 @@ export default function Task(props: TaskProps): JSX.Element {
     isOpen,
     repo,
     repoUrl,
-    issue,
+    title,
     issueUrl,
     labels,
     time,
@@ -45,7 +45,7 @@ export default function Task(props: TaskProps): JSX.Element {
                 <div className="repo">{repo}</div>
               </LinkElement>
               <LinkElement isRouter={false} class="tasklist" href={issueUrl}>
-                <div className="issue">{issue}</div>
+                <div className="issue">{title}</div>
               </LinkElement>
               <div className="labels">
                 {labels.map((label, index) => (
