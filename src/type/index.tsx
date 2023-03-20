@@ -82,3 +82,5 @@ export type UpdateStatePayload = {
   taskIndex: number;
   state: boolean;
 };
+
+export type TaskSidebarProps = {};

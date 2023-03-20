@@ -8,7 +8,7 @@ import TaskSidebar from "../../components/organisms/TaskSidebar";
 
 import "./style.scss";
 
-export default function Task() {
+export default function TaskDetail() {
   let { repo, number } = useParams();
   console.log("task detail", repo, number);
   const commentsDate: CommentProps[] = [

@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./routes/Home";
 import Login from "./routes/Login";
-import Task from "./routes/Task";
+import TaskDetail from "./routes/TaskDetail";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/:repo/:number",
-    element: <Task />,
+    element: <TaskDetail />,
   },
 ]);
 
