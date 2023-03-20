@@ -25,6 +25,8 @@ const initialState: TaskListStatus = {
     direction: "asc",
   },
   isStateLoading: false,
+  taskSearchKeyword: "",
+  isSearchMode: false,
 };
 
 export const scrollToButtom = createAsyncThunk<
@@ -32,12 +34,17 @@ export const scrollToButtom = createAsyncThunk<
   undefined,
   {
     dispatch: AppDispatch;
-    state: { taskList: { isAll: boolean; isLoading: boolean } };
+    state: {
+      taskList: { isAll: boolean; isLoading: boolean; isSearchMode: boolean };
+    };
   }
->("taskList/scrollToBottom", async (_, thunkApi) => {
-  const { isAll, isLoading } = thunkApi.getState().taskList;
+>("taskList/scrollToBottom", async (_, { getState, dispatch }) => {
+  const { isAll, isLoading, isSearchMode } = getState().taskList;
   if (!isAll && !isLoading) {
-    await thunkApi.dispatch(GetTaskList({ reLoad: false }));
+    await dispatch(GetTaskList({ reLoad: false }));
+    if (isSearchMode) {
+      dispatch(taskSearch());
+    }
   }
   return true;
 });
@@ -99,9 +106,11 @@ export const GetTaskList = createAsyncThunk<
           title: title,
           creator: login,
           creatorUrl,
+          isSearchResult: false,
         };
       }
     );
+
     console.log("almost", issueData);
     return {
       error: false,
@@ -190,14 +199,37 @@ export const taskListSlice = createSlice({
   name: "taskList",
   initialState,
   reducers: {
-    changeFilterState: (
+    changeFilterState(
       state,
       action: PayloadAction<{ type: string; option: string }>
-    ) => {
+    ) {
       state.filter = {
         ...state.filter,
         [action.payload.type]: action.payload.option,
       };
+    },
+    setTaskSearchKeyword(state, action: PayloadAction<string>) {
+      state.taskSearchKeyword = action.payload;
+    },
+    taskSearch(state) {
+      if (state.taskSearchKeyword) {
+        const keyword = new RegExp(`${state.taskSearchKeyword}`, "i");
+        const result = state.taskList.map((task) => {
+          if (
+            keyword.test(task.repo) ||
+            keyword.test(task.title) ||
+            keyword.test(task.body)
+          ) {
+            return { ...task, isSearchResult: true };
+          } else {
+            return { ...task, isSearchResult: false };
+          }
+        });
+        state.taskList = result;
+        state.isSearchMode = true;
+      } else {
+        state.isSearchMode = false;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -228,6 +260,10 @@ export const taskListSlice = createSlice({
       .addCase(scrollToButtom.fulfilled, (state, action) => {
         return state;
       })
+      .addCase(setFilter.pending, (state) => {
+        state.taskSearchKeyword = "";
+        state.isSearchMode = false;
+      })
       .addCase(UpdateState.pending, (state, action) => {
         state.isStateLoading = true;
       })
@@ -243,6 +279,7 @@ export const taskListSlice = createSlice({
   },
 });
 
-export const { changeFilterState } = taskListSlice.actions;
+export const { changeFilterState, setTaskSearchKeyword, taskSearch } =
+  taskListSlice.actions;
 
 export default taskListSlice.reducer;

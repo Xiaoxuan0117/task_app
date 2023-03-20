@@ -5,18 +5,27 @@ import Filter from "../../molecule/Filter";
 import searchButton from "../../../assets/searchButton.svg";
 import Button from "../../atom/Button";
 import Order from "../../molecule/Order";
-
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
+import { setTaskSearchKeyword, taskSearch } from "../../../reducer/taskList";
 import "./style.scss";
 
 export default function Controller() {
+  const { taskSearchKeyword } = useSelector(
+    (state: RootState) => state.taskList
+  );
   return (
     <div className="controller">
-      <div className="search-section">
-        <Input placeholder="task keywords" />
-        <Button class="search">
+      <form className="search-section">
+        <Input
+          placeholder="task keywords"
+          input={taskSearchKeyword}
+          changeEvent={setTaskSearchKeyword}
+        />
+        <Button class="search" clickEvent={taskSearch}>
           <img src={searchButton} alt="searchButton" />
         </Button>
-      </div>
+      </form>
       <div className="filter-section">
         <Filter></Filter>
       </div>

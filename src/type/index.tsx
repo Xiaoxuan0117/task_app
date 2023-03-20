@@ -13,6 +13,7 @@ export type TaskProps = {
   title: string;
   creator: string;
   creatorUrl: string;
+  isSearchResult: boolean;
 };
 
 export type TaskListProps = {
@@ -33,6 +34,8 @@ export interface TaskListStatus extends TaskListProps {
   isAll: boolean;
   filter: Filter;
   isStateLoading: boolean;
+  taskSearchKeyword: string;
+  isSearchMode: boolean;
 }
 
 export type GetTaskListParams = {

@@ -4,7 +4,11 @@ import Button from "../../components/atom/Button";
 import Navi from "../../components/molecule/Navi";
 import Controller from "../../components/organisms/Controller";
 import TaskList from "../../components/organisms/TaskList";
-import { GetTaskList, scrollToButtom } from "../../reducer/taskList";
+import {
+  GetTaskList,
+  ScrollToButtom,
+  taskSearch,
+} from "../../reducer/taskList";
 import { RootState, useAppDispatch } from "../../store";
 
 import "./style.scss";
@@ -38,7 +42,7 @@ export default function Home() {
       let scrollY = window.scrollY || 0;
       let scrollHeight = html.scrollHeight || 0;
       if (innerHeight + Math.ceil(scrollY) >= scrollHeight) {
-        dispatch(scrollToButtom());
+        dispatch(ScrollToButtom());
       }
     });
   }, [dispatch]);
@@ -51,7 +55,7 @@ export default function Home() {
       <div className="content">
         <div className="taskList-section">
           <div className="add-button">
-            <Button class="primary">
+            <Button clickEvent={taskSearch} class="primary">
               <div>Add</div>
             </Button>
           </div>
