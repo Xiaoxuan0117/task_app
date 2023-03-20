@@ -26,7 +26,7 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
   }
 });
 
-/* GET issue */
+/* GET issues */
 router.get("/taskList", async function (req, res, next) {
   try {
     const result = await axios({
