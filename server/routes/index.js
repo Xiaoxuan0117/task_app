@@ -52,6 +52,7 @@ router.get("/taskList", async function (req, res, next) {
 });
 module.exports = router;
 
+/* PATCH issue state */
 router.get("/updateState", async function (req, res) {
   const { owner, repo, issue_number, state } = req.query;
   console.log("into update", state);
