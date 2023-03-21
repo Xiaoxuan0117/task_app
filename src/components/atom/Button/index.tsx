@@ -7,13 +7,13 @@ import "./style.scss";
 type ButtonProps = {
   children: JSX.Element;
   class?: string;
-  clickEvent: ActionCreatorWithoutPayload<"taskList/taskSearch">;
+  clickEvent?: ActionCreatorWithoutPayload<"taskList/taskSearch">;
 };
 
 export default function Button(props: ButtonProps): JSX.Element {
   const { children, class: buttonClass, clickEvent } = props;
   const dispatch = useAppDispatch();
-  return (
+  return clickEvent ? (
     <button
       className={`button ${buttonClass}`}
       onClick={(e) => {
@@ -23,5 +23,7 @@ export default function Button(props: ButtonProps): JSX.Element {
     >
       {children}
     </button>
+  ) : (
+    <button className={`button ${buttonClass}`}>{children}</button>
   );
 }
