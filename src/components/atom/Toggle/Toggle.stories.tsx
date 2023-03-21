@@ -16,5 +16,5 @@ const dammyTaskInfo = {
 };
 
 export const Primary: ComponentStory<typeof Toggle> = () => (
-  <Toggle isOpen={true} taskInfo={dammyTaskInfo} />
+  <Toggle isOpen={true} taskInfo={dammyTaskInfo} type="taskDetail" />
 );

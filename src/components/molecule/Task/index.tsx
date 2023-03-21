@@ -41,7 +41,7 @@ export default function Task(props: TaskProps): JSX.Element {
       <div className="task">
         <div className="left">
           <div className="toggle-section">
-            <Toggle isOpen={isOpen} taskInfo={taskInfo} />
+            <Toggle isOpen={isOpen} taskInfo={taskInfo} type="taskList" />
           </div>
           <div className="content-section">
             <div className="upper">
@@ -51,7 +51,7 @@ export default function Task(props: TaskProps): JSX.Element {
               <LinkElement
                 isRouter={true}
                 class="tasklist"
-                href={`/${repo}/${number}`}
+                href={`${creator}/${repo}/${number}`}
               >
                 <div className="issue">{title}</div>
               </LinkElement>

@@ -7,7 +7,7 @@ import {
   GetTaskListParams,
   GetTaskListResData,
   UpdateStatePayload,
-  UpdateTaskParams,
+  TaskRequiredInfo,
 } from "../type";
 import axios from "axios";
 import { AppDispatch } from "../store";
@@ -158,7 +158,7 @@ export const setFilter = createAsyncThunk<
 
 export const UpdateState = createAsyncThunk<
   UpdateStatePayload,
-  UpdateTaskParams,
+  TaskRequiredInfo,
   {
     state: { taskList: { taskList: TaskProps[] } };
   }
