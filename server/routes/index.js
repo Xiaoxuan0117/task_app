@@ -50,7 +50,6 @@ router.get("/taskList", async function (req, res, next) {
     res.status(err.response.status).send(err.response.data);
   }
 });
-module.exports = router;
 
 /* PATCH issue state */
 router.get("/updateState", async function (req, res) {
@@ -77,3 +76,36 @@ router.get("/updateState", async function (req, res) {
     res.status(err.response.status).send(err.response.data);
   }
 });
+
+/* GET issue */
+router.get("/taskDetail", async function (req, res) {
+  const { owner, repo, issue_number } = req.query;
+  console.log(owner, repo, issue_number);
+  try {
+    const result = await axios({
+      url: `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}`,
+      method: "get",
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${req.cookies.access_token}`,
+      },
+    });
+
+    const comment = await axios({
+      url: `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}/comments`,
+      method: "get",
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${req.cookies.access_token}`,
+      },
+    });
+    res
+      .status(result.status)
+      .send({ ...result.data, comments_data: comment.data });
+  } catch (err) {
+    console.log("err", err.response.status);
+    res.status(err.response.status).send(err.response.data);
+  }
+});
+
+module.exports = router;
