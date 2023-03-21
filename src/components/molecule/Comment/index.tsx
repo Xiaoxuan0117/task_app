@@ -1,7 +1,6 @@
 import * as React from "react";
 import classNames from "classnames";
 import Avatar from "../../atom/Avatar";
-import avatar from "../../../assets/avatar.png";
 import editButton from "../../../assets/editButton.svg";
 import LinkElement from "../../atom/LinkElement";
 import Time from "../../atom/Time";
@@ -12,16 +11,17 @@ import "./style.scss";
 import { taskSearch } from "../../../reducer/taskList";
 
 export type CommentProps = {
+  id: number;
   children: string;
   avatar?: string;
   username: string;
   user_url: string;
-  time: string;
-  allowEdit: boolean;
+  created_at: string;
+  allowEdit?: boolean;
 };
 
 export default function Comment(props: CommentProps): JSX.Element {
-  const { children, username, user_url, time, allowEdit } = props;
+  const { children, avatar, username, user_url, created_at, allowEdit } = props;
   return (
     <div className="comment">
       <div className="avatar-wrapper">
@@ -33,7 +33,7 @@ export default function Comment(props: CommentProps): JSX.Element {
             <LinkElement isRouter={false} class="task" href={user_url}>
               <div className="username">{username}</div>
             </LinkElement>
-            <Time utcTime={time} />
+            <Time utcTime={created_at} />
           </div>
           <div className={`right ${classNames(allowEdit && "show")}`}>
             <Button clickEvent={taskSearch} class="edit">
@@ -42,7 +42,9 @@ export default function Comment(props: CommentProps): JSX.Element {
           </div>
         </div>
         <div className="context-wrapper">
-          <Markdown>{children}</Markdown>
+          <Markdown>
+            {children ? children : "*no description provided*"}
+          </Markdown>
         </div>
       </div>
     </div>

@@ -14,9 +14,10 @@ const body =
 
 export const Primary: ComponentStory<typeof Comment> = () => (
   <Comment
+    id={123321}
     username="username"
     user_url="https://github.com/Xiaoxuan0117"
-    time="2023-03-08T05:47:16Z"
+    created_at="2023-03-08T05:47:16Z"
     allowEdit={true}
   >
     {body}
