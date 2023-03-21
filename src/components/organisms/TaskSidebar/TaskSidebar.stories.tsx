@@ -15,5 +15,10 @@ export const Primary: ComponentStory<typeof TaskSidebar> = () => (
     labels={["ToDo", "Bug"]}
     milestone={"new milestone"}
     milestone_url="https://github.com/xiaoxuan0117/task_app/milestone/1"
+    taskInfo={{
+      owner: "",
+      repo: "",
+      number: 0,
+    }}
   ></TaskSidebar>
 );
