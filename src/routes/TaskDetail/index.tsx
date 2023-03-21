@@ -58,26 +58,6 @@ export default function TaskDetail() {
     "user8",
   ];
 
-  const data: TaskDetailState = {
-    assigneeAvatar: "https://avatars.githubusercontent.com/u/94459764?v=4",
-    assigneeUrl: "https://github.com/xiaoxuan0117",
-    body: "Complete the layout of login page ",
-    time: "2023-03-08T03:24:17Z",
-    issueUrl: "https://github.com/xiaoxuan0117/task_app/issues/14",
-    id: "1614590745",
-    number: 14,
-    repo: "task_app",
-    repoUrl: "https://github.com/xiaoxuan0117/task_app",
-    isOpen: true,
-    title: "Layout_Login",
-    creator: "xiaoxuan0117",
-    creatorUrl: "https://github.com/xiaoxuan0117",
-    isSearchResult: false,
-    labels: ["bug", "ToDo"],
-    commentsData: commentsData,
-    milestone: "new milestone",
-    milestoneUrl: "https://github.com/xiaoxuan0117/task_app/milestone/1",
-  };
   return (
     <div className="task-page">
       <div className="navi-section">
