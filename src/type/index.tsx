@@ -68,13 +68,13 @@ export type GetTaskListResData = {
   user: { login: string; html_url: string };
 };
 
-export type UpdateTaskParams = {
+export type TaskRequiredInfo = {
   owner: string;
   repo: string;
   number: number;
 };
 
-export interface UpdateTaskEditParems extends UpdateTaskParams {
+export interface UpdateTaskEditParems extends TaskRequiredInfo {
   title?: string;
   body?: string;
   labels?: string;
@@ -85,8 +85,48 @@ export type UpdateStatePayload = {
   state: boolean;
 };
 
-export interface TaskDetailState extends TaskProps {
+export type GetTaskDetailPayLoad = {
+  assigneeUrl?: string;
+  assigneeAvatar?: string;
+  body: string;
+  time: string;
+  issueUrl: string;
+  id: number;
+  labels: string[];
+  number: number;
+  repo: string;
+  isOpen: boolean;
+  title: string;
+  creator: string;
+  creatorUrl: string;
+  creatorAvatar: string;
   commentsData: CommentProps[];
   milestone: string;
   milestoneUrl: string;
+};
+export interface TaskDetailState extends GetTaskDetailPayLoad {
+  isLoading: boolean;
+  errMsg: string;
+  isStateLoading: boolean;
 }
+
+export type GetTaskDetailResData = {
+  assignee: { avatar_url: string; html_url: string };
+  body: string;
+  created_at: string;
+  html_url: string;
+  id: number;
+  state: string;
+  title: string;
+  user: { login: string; html_url: string; avatar_url: string };
+  labels: { name: string }[];
+  comments_data: CommentType[];
+  milestone: { title: string; html_url: string };
+};
+
+export type CommentType = {
+  id: number;
+  body: string;
+  user: { avatar_url: string; login: string; html_url: string };
+  created_at: string;
+};
