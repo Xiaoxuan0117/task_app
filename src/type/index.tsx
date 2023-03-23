@@ -130,3 +130,11 @@ export type CommentType = {
   user: { avatar_url: string; login: string; html_url: string };
   created_at: string;
 };
+
+export type AddTaskState = {
+  title: string;
+  repository: string;
+  content: string;
+  isUploading: boolean;
+  isSuccess: boolean;
+};
