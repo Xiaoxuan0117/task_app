@@ -138,3 +138,10 @@ export type AddTaskState = {
   isUploading: boolean;
   isSuccess: boolean;
 };
+
+export type userState = {
+  name: string;
+  avatar: string;
+  user_url: string;
+  repo: string[];
+};
