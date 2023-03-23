@@ -139,9 +139,19 @@ export type AddTaskState = {
   isSuccess: boolean;
 };
 
-export type userState = {
+export type RepoState = {
+  id: number;
+  name: string;
+};
+
+export type GetUserPayload = {
   name: string;
   avatar: string;
-  user_url: string;
-  repo: string[];
+  userUrl: string;
+  repoList: RepoState[];
 };
+
+export interface userState extends GetUserPayload {
+  isLoading: boolean;
+  errMsg: string;
+}
