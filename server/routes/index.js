@@ -26,6 +26,38 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
   }
 });
 
+/*GET USER */
+router.get("/user", async function (req, res) {
+  try {
+    const result = await axios.get("https://api.github.com/user", {
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${req.cookies.access_token}`,
+      },
+    });
+    res.status(result.status).send(result.data);
+  } catch (err) {
+    console.log("err", err.response.status);
+    res.status(err.response.status).send(err.response.data);
+  }
+});
+
+/*GET REPOS */
+router.get("/repos", async function (req, res) {
+  try {
+    const result = await axios.get("https://api.github.com/user/repos", {
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${req.cookies.access_token}`,
+      },
+    });
+    res.status(result.status).send(result.data);
+  } catch (err) {
+    console.log("err", err.response.status);
+    res.status(err.response.status).send(err.response.data);
+  }
+});
+
 /* GET issues */
 router.get("/taskList", async function (req, res, next) {
   try {
