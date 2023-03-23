@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Link, Outlet } from "react-router-dom";
 import Button from "../../components/atom/Button";
 import Navi from "../../components/molecule/Navi";
 import Controller from "../../components/organisms/Controller";
 import TaskList from "../../components/organisms/TaskList";
-import {
-  GetTaskList,
-  TriggerGetTaskList,
-  taskSearch,
-} from "../../reducer/taskList";
+import { GetTaskList, TriggerGetTaskList } from "../../reducer/taskList";
 import { RootState, useAppDispatch } from "../../store";
 
 import "./style.scss";
@@ -55,9 +52,11 @@ export default function Home() {
       <div className="content">
         <div className="taskList-section">
           <div className="add-button">
-            <Button clickEvent={taskSearch} class="primary">
-              <div>Add</div>
-            </Button>
+            <Link to="/add">
+              <Button class="primary">
+                <div>New Task</div>
+              </Button>
+            </Link>
           </div>
           <TaskList
             isLoading={isLoading}
@@ -69,6 +68,7 @@ export default function Home() {
           <Controller />
         </div>
       </div>
+      <Outlet />
     </div>
   );
 }

@@ -9,11 +9,18 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./routes/Home";
 import Login from "./routes/Login";
 import TaskDetail from "./routes/TaskDetail";
+import AddModal from "./components/molecule/AddModal";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    children: [
+      {
+        path: "/add",
+        element: <AddModal />,
+      },
+    ],
   },
   {
     path: "/login",

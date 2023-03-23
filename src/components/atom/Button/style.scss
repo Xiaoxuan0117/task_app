@@ -22,6 +22,17 @@
     }
   }
 
+  &.secondary {
+    background-color: $white;
+    color: $dark-gray;
+    border: 1.5px solid $dark-gray;
+
+    &:hover {
+      background-color: $dark-gray;
+      color: $white;
+    }
+  }
+
   &.disabled {
     background-color: $gray;
     color: $white;
