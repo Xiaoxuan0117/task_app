@@ -5,23 +5,15 @@ import Input from "../../atom/Input";
 import MarkdownEditor from "../../atom/MarkdownEditor";
 import Button from "../../atom/Button";
 import closeButton from "../../../assets/closeButton.svg";
+import { RootState } from "../../../store";
+import { useSelector } from "react-redux";
 
 import "./style.scss";
 import { setTaskSearchKeyword, taskSearch } from "../../../reducer/taskList";
 import { Link } from "react-router-dom";
 
 export default function AddModal() {
-  const [options, setOpotions] = useState([
-    "user1",
-    "user2",
-    "user3",
-    "user1",
-    "user2",
-    "user3",
-    "user1",
-    "user2",
-    "user3",
-  ]);
+  const { repoList } = useSelector((state: RootState) => state.user);
   return (
     <div className="mask">
       <div className="modal-wrapper">
@@ -35,7 +27,7 @@ export default function AddModal() {
           <div className="repo-select">
             <Dropdown
               title="Repository"
-              options={options}
+              options={repoList}
               class="column"
               inputStyle="small"
             />

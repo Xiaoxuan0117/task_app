@@ -6,6 +6,7 @@ import Navi from "../../components/molecule/Navi";
 import Controller from "../../components/organisms/Controller";
 import TaskList from "../../components/organisms/TaskList";
 import { GetTaskList, TriggerGetTaskList } from "../../reducer/taskList";
+import { GetUser } from "../../reducer/user";
 import { RootState, useAppDispatch } from "../../store";
 
 import "./style.scss";
@@ -16,20 +17,12 @@ export default function Home() {
     isLoading,
     errMsg,
   } = useSelector((state: RootState) => state.taskList);
+  const { repoList } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
-  const dammyData = [
-    "user1",
-    "user2",
-    "user3",
-    "user4",
-    "user5",
-    "user6",
-    "user7",
-    "user8",
-  ];
 
   useEffect(() => {
     dispatch(GetTaskList({ reLoad: false }));
+    dispatch(GetUser());
   }, [dispatch]);
 
   useEffect(() => {
@@ -47,7 +40,7 @@ export default function Home() {
   return (
     <div className="home-page">
       <div className="navi-section">
-        <Navi repoOptions={dammyData} />
+        <Navi repoOptions={repoList} />
       </div>
       <div className="content">
         <div className="taskList-section">

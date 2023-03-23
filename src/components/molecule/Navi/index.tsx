@@ -6,9 +6,10 @@ import searchButton from "../../../assets/searchButton.svg";
 
 import "./style.scss";
 import { setTaskSearchKeyword, taskSearch } from "../../../reducer/taskList";
+import { RepoState } from "../../../type";
 
 type NaviProps = {
-  repoOptions: string[];
+  repoOptions: RepoState[];
 };
 
 export default function Navi(props: NaviProps): JSX.Element {

@@ -4,12 +4,13 @@ import classNames from "classnames";
 import dropdownIcon from "../../../assets/dropdownIcon.svg";
 
 import "./style.scss";
+import { RepoState } from "../../../type";
 
 type DropdownProps = {
   class?: string;
   inputStyle?: string;
   title: string;
-  options: string[];
+  options: RepoState[];
   optionChangeEvent?: () => void;
 };
 
@@ -27,15 +28,7 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
     setActive(false);
   };
 
-  const openDropdown = () => {
-    setActive(true);
-  };
-
   useEffect(() => {
-    setTimeout(() => {
-      setSelected("user1");
-    }, 3000);
-
     const handler = () => {
       closeDropdown();
     };
@@ -62,13 +55,13 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
           <ul>
             {options.length !== 0 ? (
               options.map((option, index) => (
-                <li key={`${option}-${index}`}>
+                <li key={`${option.id}`}>
                   <button
                     onBlur={() =>
                       index + 1 === options.length && closeDropdown()
                     }
                   >
-                    {option}
+                    {option.name}
                   </button>
                 </li>
               ))

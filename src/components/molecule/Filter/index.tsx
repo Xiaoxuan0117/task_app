@@ -42,12 +42,6 @@ export default function Filter() {
         select={category}
         options={CategoryOptions}
       ></RadioButton>
-      <Dropdown
-        class="column"
-        inputStyle="small"
-        title="Assignee"
-        options={assigneeDate}
-      ></Dropdown>
     </div>
   );
 }
