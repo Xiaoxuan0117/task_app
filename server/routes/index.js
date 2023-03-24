@@ -60,7 +60,19 @@ router.get("/repos", async function (req, res) {
 
 /* GET issues */
 router.get("/taskList", async function (req, res, next) {
-  const { owner, repo, page, state, labels, category, direction } = req.query;
+  const {
+    owner,
+    repo,
+    page,
+    state,
+    labels,
+    category,
+    direction,
+    created,
+    assignee,
+    mentioned,
+  } = req.query;
+  console.log("c", created, assignee, mentioned);
   const url =
     repo === "myIssue"
       ? "https://api.github.com/issues"
@@ -82,6 +94,9 @@ router.get("/taskList", async function (req, res, next) {
         filter: req.query.category,
         per_page: 10,
         pulls: false,
+        created,
+        assignee,
+        mentioned,
       },
     });
     console.log(result.status);

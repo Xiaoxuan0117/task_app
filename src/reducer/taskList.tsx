@@ -74,6 +74,17 @@ export const GetTaskList = createAsyncThunk<
     user: { name, showRepo },
   } = getState();
 
+  const repoCategory = (category: string) => {
+    switch (category) {
+      case "created":
+        return { created: name };
+      case "assigned":
+        return { assignee: name };
+      case "mentioned":
+        return { mentioned: name };
+    }
+  };
+
   try {
     const resData = await axios({
       url: "/api/taskList/",
@@ -86,6 +97,7 @@ export const GetTaskList = createAsyncThunk<
         labels: labels === "all" ? "" : labels,
         category: category,
         direction: direction,
+        ...repoCategory(category),
       },
     });
     console.log(resData.data);
@@ -157,13 +169,13 @@ export const setFilter = createAsyncThunk<
     dispatch: AppDispatch;
     state: { taskList: { isLoading: boolean } };
   }
->("taskList/setFilter", async ({ type, option }, thunkApi) => {
-  const { isLoading } = thunkApi.getState().taskList;
+>("taskList/setFilter", async ({ type, option }, { dispatch, getState }) => {
+  const { isLoading } = getState().taskList;
   console.log("type, option", type, option);
 
-  thunkApi.dispatch(changeFilterState({ type, option }));
+  dispatch(changeFilterState({ type, option }));
   if (!isLoading) {
-    await thunkApi.dispatch(GetTaskList({ reLoad: true }));
+    await dispatch(GetTaskList({ reLoad: true }));
   }
   return true;
 });
