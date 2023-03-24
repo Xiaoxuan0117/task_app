@@ -7,6 +7,7 @@ import searchButton from "../../../assets/searchButton.svg";
 import "./style.scss";
 import { setTaskSearchKeyword, taskSearch } from "../../../reducer/taskList";
 import { RepoState } from "../../../type";
+import { Link } from "react-router-dom";
 
 type NaviProps = {
   repoOptions: RepoState[];
@@ -18,7 +19,7 @@ export default function Navi(props: NaviProps): JSX.Element {
     <div className="navi-wrapper">
       <div className="navi">
         <div className="my-issue">
-          <a href="/">My Issue</a>
+          <Link to="/">My Issue</Link>
         </div>
         <div className="repo_select">
           <Dropdown
