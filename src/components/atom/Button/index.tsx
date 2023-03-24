@@ -31,7 +31,7 @@ export default function Button(props: ButtonProps): JSX.Element {
         return;
     }
   };
-  return (
+  return type ? (
     <button
       className={`button ${buttonClass}`}
       onClick={(e) => {
@@ -41,5 +41,7 @@ export default function Button(props: ButtonProps): JSX.Element {
     >
       {children}
     </button>
+  ) : (
+    <button className={`button ${buttonClass}`}>{children}</button>
   );
 }
