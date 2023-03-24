@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { AppDispatch } from "../store";
 import { GetUserPayload, RepoState, userState } from "../type";
+import { selectRepo } from "./addTask";
 
 const initialState: userState = {
   name: "",
@@ -32,6 +33,7 @@ export const GetUser = createAsyncThunk<
 
     if (repo) {
       dispatch(setShowRepo(repo));
+      dispatch(selectRepo(repo));
     }
     return {
       name: name,

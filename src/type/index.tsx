@@ -131,13 +131,22 @@ export type CommentType = {
   created_at: string;
 };
 
+export type InputError = {
+  title: boolean;
+  repo: boolean;
+  body: boolean;
+};
+
 export type AddTaskState = {
   title: string;
   repo: string;
   body: string;
   isUploading: boolean;
   isSuccess: boolean;
+  inputError: InputError;
 };
+
+export type PostTaskPayload = { isSuccess: boolean; inputError: InputError };
 
 export type RepoState = {
   id: number;

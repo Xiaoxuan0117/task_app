@@ -56,7 +56,6 @@
       & .markdown-section {
         margin-bottom: 20px;
         flex-grow: 1;
-        overflow-y: auto;
         width: 100%;
       }
 
@@ -73,6 +72,11 @@
         position: absolute;
         top: 10px;
         right: 10px;
+      }
+
+      & .required-alert {
+        font-size: $font-p;
+        color: $orange;
       }
     }
   }

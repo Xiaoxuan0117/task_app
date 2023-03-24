@@ -194,4 +194,30 @@ router.get("/taskDetail", async function (req, res) {
   }
 });
 
+/* POST issue */
+router.post("/postTask", async function (req, res) {
+  const { owner, repo } = req.query;
+  const { title, body } = req.body;
+  console.log("here", owner, repo, title, body);
+  try {
+    const result = await axios.post(
+      `https://api.github.com/repos/${owner}/${repo}/issues`,
+      {
+        title: title,
+        body: body,
+      },
+      {
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: `Bearer ${req.cookies.access_token}`,
+        },
+      }
+    );
+    res.status(result.status).send(result.data.state);
+  } catch (err) {
+    console.log("err", err.response.status, err.response.data);
+    res.status(err.response.status).send(err.response.data);
+  }
+});
+
 module.exports = router;

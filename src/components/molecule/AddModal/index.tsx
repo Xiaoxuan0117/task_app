@@ -8,14 +8,21 @@ import { RootState } from "../../../store";
 import { useSelector } from "react-redux";
 
 import "./style.scss";
-import { taskSearch } from "../../../reducer/taskList";
 import { Link } from "react-router-dom";
-import { selectRepo, setAddBody, setAddTitle } from "../../../reducer/addTask";
+import {
+  PostTask,
+  selectRepo,
+  setAddBody,
+  setAddTitle,
+} from "../../../reducer/addTask";
 
 export default function AddModal() {
   const {
     user: { repoList },
-    addTask: { repo },
+    addTask: {
+      repo,
+      inputError: { title: titleError, repo: repoError, body: bodyError },
+    },
   } = useSelector((state: RootState) => state);
   return (
     <div className="mask">
@@ -25,6 +32,9 @@ export default function AddModal() {
             <div className="label">Title</div>
             <div className="input-section">
               <Input changeEvent={setAddTitle} />
+              {titleError && (
+                <div className="required-alert">*Title required</div>
+              )}
             </div>
           </div>
           <div className="repo-select">
@@ -36,9 +46,13 @@ export default function AddModal() {
               type="select"
               selectEvent={selectRepo}
             />
+            {repoError && (
+              <div className="required-alert">*Repository required</div>
+            )}
           </div>
           <div className="markdown-section">
             <MarkdownEditor changeEvent={setAddBody} />
+            {bodyError && <div className="required-alert">*Body required</div>}
           </div>
           <div className="footer">
             <Link to="/">
@@ -46,7 +60,7 @@ export default function AddModal() {
                 <div>Cancel</div>
               </Button>
             </Link>
-            <Button clickEvent={taskSearch} class="primary">
+            <Button clickEvent={PostTask} class="primary">
               <div>Update</div>
             </Button>
           </div>
