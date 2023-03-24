@@ -8,6 +8,7 @@
     & .repo {
       font-size: $font-h3;
       color: $light-blue;
+      word-break: break-word;
 
       &.close {
         color: $dark-gray;
@@ -35,11 +36,13 @@
     & .repo {
       font-size: $font-h2;
       color: $light-blue;
+      word-break: break-word;
     }
 
     & .issue {
       font-size: $font-h1;
       color: $blue;
+      word-break: break-word;
     }
 
     & .username {
