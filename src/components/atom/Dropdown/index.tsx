@@ -6,20 +6,24 @@ import dropdownIcon from "../../../assets/dropdownIcon.svg";
 import "./style.scss";
 import { RepoState } from "../../../type";
 import { Link } from "react-router-dom";
+import { selectRepo } from "../../../reducer/addTask";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { useAppDispatch } from "../../../store";
 
 type DropdownProps = {
   class?: string;
-  inputStyle?: string;
   title: string;
+  value?: string;
   options: RepoState[];
   type: string;
+  selectEvent?: ActionCreatorWithPayload<any, "addTask/selectRepo">;
 };
 
 export default function Dropdown(props: DropdownProps): JSX.Element {
-  const { class: style, inputStyle, title, options, type } = props;
+  const { class: style, title, value, options, type } = props;
+  const dispatch = useAppDispatch();
 
   const [active, setActive] = useState(false);
-  const [selected, setSelected] = useState("My repo");
 
   const toggleDropdown = () => {
     setActive(active ? false : true);
@@ -63,6 +67,9 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
                     onBlur={() =>
                       index + 1 === options.length && closeDropdown()
                     }
+                    onClick={() => {
+                      dispatch(selectRepo(option.name));
+                    }}
                   >
                     {option.name}
                   </button>
@@ -86,14 +93,10 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
   return (
     <div className={`dropdown ${style}`}>
       <div className="title">{title}</div>
-      <div
-        className={`input-wrapper ${inputStyle} ${classNames(
-          active && "active"
-        )}`}
-      >
+      <div className={`input-wrapper ${classNames(active && "active")}`}>
         <button className="input" onClick={toggleDropdown}>
-          <div className={classNames(selected !== "My repo" && "selected")}>
-            {selected}
+          <div className={classNames(value && "selected")}>
+            {value ? value : "My repo"}
           </div>
           <div className="icon">
             <img src={dropdownIcon} alt="dropdownIcon" />

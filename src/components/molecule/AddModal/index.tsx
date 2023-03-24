@@ -11,9 +11,13 @@ import { useSelector } from "react-redux";
 import "./style.scss";
 import { setTaskSearchKeyword, taskSearch } from "../../../reducer/taskList";
 import { Link } from "react-router-dom";
+import { selectRepo } from "../../../reducer/addTask";
 
 export default function AddModal() {
-  const { repoList } = useSelector((state: RootState) => state.user);
+  const {
+    user: { repoList },
+    addTask: { repo },
+  } = useSelector((state: RootState) => state);
   return (
     <div className="mask">
       <div className="modal-wrapper">
@@ -27,10 +31,11 @@ export default function AddModal() {
           <div className="repo-select">
             <Dropdown
               title="Repository"
+              value={repo}
               options={repoList}
               class="column"
-              inputStyle="small"
               type="select"
+              selectEvent={selectRepo}
             />
           </div>
           <div className="markdown-section">

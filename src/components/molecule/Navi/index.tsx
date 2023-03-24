@@ -23,7 +23,6 @@ export default function Navi(props: NaviProps): JSX.Element {
         <div className="repo_select">
           <Dropdown
             class="row"
-            inputStyle="large"
             title="Repository"
             options={repoOptions}
             type="link"

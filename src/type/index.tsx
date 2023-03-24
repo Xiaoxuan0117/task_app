@@ -133,7 +133,7 @@ export type CommentType = {
 
 export type AddTaskState = {
   title: string;
-  repository: string;
+  repo: string;
   content: string;
   isUploading: boolean;
   isSuccess: boolean;

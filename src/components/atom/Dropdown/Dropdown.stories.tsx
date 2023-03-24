@@ -40,7 +40,6 @@ const dammyData_empty: any[] = [];
 export const Primary: ComponentStory<typeof Dropdown> = () => (
   <Dropdown
     class="row"
-    inputStyle="large"
     title="Repository"
     options={dammyData_empty}
     type="select"
@@ -50,7 +49,6 @@ export const Primary: ComponentStory<typeof Dropdown> = () => (
 export const Secondary: ComponentStory<typeof Dropdown> = () => (
   <Dropdown
     class="column"
-    inputStyle="small"
     title="Assignee"
     options={dummyData}
     type="select"

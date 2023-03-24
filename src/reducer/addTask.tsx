@@ -3,7 +3,7 @@ import { AddTaskState } from "../type";
 
 const initialState: AddTaskState = {
   title: "",
-  repository: "",
+  repo: "",
   content: "",
   isUploading: false,
   isSuccess: false,
@@ -12,8 +12,14 @@ const initialState: AddTaskState = {
 export const addTaskSlice = createSlice({
   name: "addTask",
   initialState,
-  reducers: {},
+  reducers: {
+    selectRepo(state, action) {
+      state.repo = action.payload;
+    },
+  },
   extraReducers: (builder) => {},
 });
+
+export const { selectRepo } = addTaskSlice.actions;
 
 export default addTaskSlice.reducer;
