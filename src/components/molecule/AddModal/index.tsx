@@ -30,6 +30,7 @@ export default function AddModal() {
               options={repoList}
               class="column"
               inputStyle="small"
+              type="select"
             />
           </div>
           <div className="markdown-section">

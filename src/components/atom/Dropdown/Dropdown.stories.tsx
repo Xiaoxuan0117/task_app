@@ -43,6 +43,7 @@ export const Primary: ComponentStory<typeof Dropdown> = () => (
     inputStyle="large"
     title="Repository"
     options={dammyData_empty}
+    type="select"
   ></Dropdown>
 );
 
@@ -52,5 +53,6 @@ export const Secondary: ComponentStory<typeof Dropdown> = () => (
     inputStyle="small"
     title="Assignee"
     options={dummyData}
+    type="select"
   ></Dropdown>
 );

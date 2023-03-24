@@ -12,11 +12,11 @@ type DropdownProps = {
   inputStyle?: string;
   title: string;
   options: RepoState[];
-  optionChangeEvent?: () => void;
+  type: string;
 };
 
 export default function Dropdown(props: DropdownProps): JSX.Element {
-  const { class: style, inputStyle, title, options } = props;
+  const { class: style, inputStyle, title, options, type } = props;
 
   const [active, setActive] = useState(false);
   const [selected, setSelected] = useState("My repo");
@@ -27,6 +27,53 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
 
   const closeDropdown = () => {
     setActive(false);
+  };
+
+  const setOption = (options: RepoState[], type: string) => {
+    switch (type) {
+      case "link":
+        return (
+          <ul>
+            {options.length !== 0 ? (
+              options.map((option, index) => (
+                <li key={`${option.id}`}>
+                  <Link to={`/${option.name}`}>
+                    <button
+                      onBlur={() =>
+                        index + 1 === options.length && closeDropdown()
+                      }
+                    >
+                      {option.name}
+                    </button>
+                  </Link>
+                </li>
+              ))
+            ) : (
+              <li>empty</li>
+            )}
+          </ul>
+        );
+      case "select":
+        return (
+          <ul>
+            {options.length !== 0 ? (
+              options.map((option, index) => (
+                <li key={`${option.id}`}>
+                  <button
+                    onBlur={() =>
+                      index + 1 === options.length && closeDropdown()
+                    }
+                  >
+                    {option.name}
+                  </button>
+                </li>
+              ))
+            ) : (
+              <li>empty</li>
+            )}
+          </ul>
+        );
+    }
   };
 
   useEffect(() => {
@@ -52,27 +99,7 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
             <img src={dropdownIcon} alt="dropdownIcon" />
           </div>
         </button>
-        <div className="options">
-          <ul>
-            {options.length !== 0 ? (
-              options.map((option, index) => (
-                <li key={`${option.id}`}>
-                  <Link to={`/${option.name}`}>
-                    <button
-                      onBlur={() =>
-                        index + 1 === options.length && closeDropdown()
-                      }
-                    >
-                      {option.name}
-                    </button>
-                  </Link>
-                </li>
-              ))
-            ) : (
-              <li>empty</li>
-            )}
-          </ul>
-        </div>
+        <div className="options">{setOption(options, type)}</div>
       </div>
     </div>
   );
