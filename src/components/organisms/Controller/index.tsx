@@ -7,7 +7,7 @@ import Button from "../../atom/Button";
 import Order from "../../molecule/Order";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
-import { setTaskSearchKeyword, taskSearch } from "../../../reducer/taskList";
+import { setTaskSearchKeyword } from "../../../reducer/taskList";
 import "./style.scss";
 
 export default function Controller() {
