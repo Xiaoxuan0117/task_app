@@ -106,6 +106,7 @@
             height: 100%;
             text-align: left;
             background-color: $white;
+            word-wrap: break-word;
 
             &:hover {
               cursor: pointer;

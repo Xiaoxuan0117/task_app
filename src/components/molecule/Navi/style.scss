@@ -23,6 +23,10 @@
 
     & .repo_select {
       margin-right: 17px;
+
+      & .input-wrapper {
+        width: 200px;
+      }
     }
 
     & .repo_search {
