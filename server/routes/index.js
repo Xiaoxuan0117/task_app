@@ -107,13 +107,6 @@ router.get("/taskList", async function (req, res, next) {
   }
 });
 
-// repo: repo,
-// page: reLoad ? 1 : page,
-// state: state,
-// labels: labels === "all" ? "" : labels,
-// category: category,
-// direction: direction,
-
 /* GET repo issues */
 router.get("/taskList/repo", async function (req, res, next) {
   const { owner, repo, page, state, labels, category, direction } = req.query;
