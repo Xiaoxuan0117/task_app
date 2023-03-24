@@ -9,12 +9,7 @@ import { useSelector } from "react-redux";
 
 import "./style.scss";
 import { Link } from "react-router-dom";
-import {
-  PostTask,
-  selectRepo,
-  setAddBody,
-  setAddTitle,
-} from "../../../reducer/addTask";
+import { selectRepo, setAddBody, setAddTitle } from "../../../reducer/addTask";
 
 export default function AddModal() {
   const {
@@ -55,18 +50,16 @@ export default function AddModal() {
             {bodyError && <div className="required-alert">*Body required</div>}
           </div>
           <div className="footer">
-            <Link to="/">
-              <Button class="secondary">
-                <div>Cancel</div>
-              </Button>
-            </Link>
-            <Button clickEvent={PostTask} class="primary">
+            <Button type="cancel" class="secondary">
+              <div>Cancel</div>
+            </Button>
+            <Button type="update" class="primary">
               <div>Update</div>
             </Button>
           </div>
           <div className="close-button">
             <Link to="/">
-              <Button class="close">
+              <Button type="cancel" class="close">
                 <img src={closeButton} alt="closeButton" />
               </Button>
             </Link>

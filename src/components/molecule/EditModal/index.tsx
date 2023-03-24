@@ -31,15 +31,15 @@ export default function EditModal(props: EditModalProps): JSX.Element {
           <MarkdownEditor changeEvent={setAddBody} />
         </div>
         <div className="footer">
-          <Button clickEvent={taskSearch} class="primary">
+          <Button type="cancel" class="primary">
             <div>Cancel</div>
           </Button>
-          <Button clickEvent={taskSearch} class="primary">
+          <Button type="update" class="primary">
             <div>Update</div>
           </Button>
         </div>
         <div className="close-button">
-          <Button clickEvent={taskSearch} class="close">
+          <Button type="cancel" class="close">
             <img src={closeButton} alt="closeButton" />
           </Button>
         </div>

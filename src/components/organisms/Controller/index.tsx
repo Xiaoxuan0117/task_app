@@ -22,7 +22,7 @@ export default function Controller() {
           input={taskSearchKeyword}
           changeEvent={setTaskSearchKeyword}
         />
-        <Button class="search" clickEvent={taskSearch}>
+        <Button type="taskSearch" class="search">
           <img src={searchButton} alt="searchButton" />
         </Button>
       </form>

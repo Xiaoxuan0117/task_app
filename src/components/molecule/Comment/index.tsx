@@ -36,7 +36,7 @@ export default function Comment(props: CommentProps): JSX.Element {
             <Time utcTime={created_at} />
           </div>
           <div className={`right ${classNames(allowEdit && "show")}`}>
-            <Button clickEvent={taskSearch} class="edit">
+            <Button class="edit">
               <img src={editButton} alt="editButton" />
             </Button>
           </div>

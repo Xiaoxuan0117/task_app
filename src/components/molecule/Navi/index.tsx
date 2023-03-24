@@ -33,7 +33,7 @@ export default function Navi(props: NaviProps): JSX.Element {
             placeholder="repository keywords"
             changeEvent={setTaskSearchKeyword}
           />
-          <Button clickEvent={taskSearch} class="search">
+          <Button class="search">
             <img src={searchButton} alt="searchButton" />
           </Button>
         </div>

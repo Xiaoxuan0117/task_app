@@ -1,45 +1,45 @@
-import { ActionCreatorWithoutPayload, AsyncThunk } from "@reduxjs/toolkit";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { PostTask } from "../../../reducer/addTask";
+import { taskSearch } from "../../../reducer/taskList";
 import { useAppDispatch } from "../../../store";
-import { PostTaskPayload } from "../../../type";
 
 import "./style.scss";
 
 type ButtonProps = {
   children: JSX.Element;
   class?: string;
-  clickEvent?:
-    | ActionCreatorWithoutPayload<"taskList/taskSearch">
-    | AsyncThunk<
-        PostTaskPayload,
-        undefined,
-        {
-          state: {
-            user: { name: string };
-            addTask: {
-              title: string;
-              repo: string;
-              body: string;
-            };
-          };
-        }
-      >;
+  type?: string;
 };
 
 export default function Button(props: ButtonProps): JSX.Element {
-  const { children, class: buttonClass, clickEvent } = props;
+  const { children, class: buttonClass, type } = props;
   const dispatch = useAppDispatch();
-  return clickEvent ? (
+  const navigate = useNavigate();
+
+  const clickEvent = (type: string) => {
+    switch (type) {
+      case "cancel":
+        return navigate(-1);
+      case "update":
+        return dispatch(PostTask());
+      case "taskSearch":
+        return dispatch(taskSearch());
+      case "openAddModal":
+        return navigate("add", { replace: false });
+      default:
+        return;
+    }
+  };
+  return (
     <button
       className={`button ${buttonClass}`}
       onClick={(e) => {
         e.preventDefault();
-        dispatch(clickEvent());
+        clickEvent(type || "");
       }}
     >
       {children}
     </button>
-  ) : (
-    <button className={`button ${buttonClass}`}>{children}</button>
   );
 }

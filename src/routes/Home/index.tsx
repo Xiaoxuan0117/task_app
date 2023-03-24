@@ -57,7 +57,7 @@ export default function Home() {
             <div className="repo bold">{repo ? repo : "My Issue"}</div>
             <div className="add-button">
               <Link to="/add">
-                <Button class="primary">
+                <Button type="openAddModal" class="primary">
                   <div>New Task</div>
                 </Button>
               </Link>
