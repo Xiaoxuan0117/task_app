@@ -18,7 +18,7 @@ export default function Markdown(prpos: MarkdownProps): JSX.Element {
   return (
     <ReactMarkdown
       className={`markdown`}
-      rehypePlugins={[rehypeRaw, rehypeSanitize]}
+      rehypePlugins={[rehypeRaw]}
       remarkPlugins={[remarkGemoji, remarkGfm]}
       components={{
         code({ node, inline, className, children, style, ...props }) {
@@ -28,7 +28,7 @@ export default function Markdown(prpos: MarkdownProps): JSX.Element {
               children={String(children).replace(/\n$/, "")}
               style={okaidia}
               language={match[1]}
-              PreLabel="div"
+              PreTag="div"
               {...props}
             />
           ) : (

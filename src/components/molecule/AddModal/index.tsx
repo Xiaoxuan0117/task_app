@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Dropdown from "../../atom/Dropdown";
 import Input from "../../atom/Input";
 import MarkdownEditor from "../../atom/MarkdownEditor";
@@ -19,6 +19,15 @@ export default function AddModal() {
       inputError: { title: titleError, repo: repoError, body: bodyError },
     },
   } = useSelector((state: RootState) => state);
+
+  useEffect(() => {
+    const body = document.body;
+    body.style.overflow = "hidden";
+
+    return () => {
+      body.style.overflow = "unset";
+    };
+  });
   return (
     <div className="mask">
       <div className="modal-wrapper">

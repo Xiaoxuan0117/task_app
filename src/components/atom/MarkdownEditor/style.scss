@@ -17,7 +17,7 @@
     & .write {
       display: flex;
       flex-direction: column;
-      flex: 1;
+      width: 50%;
 
       & .tab-wrapper {
         & .write-tab {
@@ -44,7 +44,7 @@
     & .preview {
       display: flex;
       flex-direction: column;
-      flex: 1;
+      width: 50%;
       border-left: 1.5px solid $blue;
       background-color: $pure-white;
 
