@@ -3,7 +3,7 @@
 
 .task-wrapper {
   width: 100%;
-  padding: 15px 0;
+  padding: 10px 0;
   border-bottom: 1.5px solid $blue;
   background-color: $white;
 
@@ -42,7 +42,7 @@
         }
 
         & .middle {
-          margin: 10px 0;
+          margin: 0;
           & p {
             display: -webkit-box;
             margin: 0;
@@ -64,6 +64,7 @@
           color: $dark-gray;
 
           & .number {
+            font-size: $font-p;
             margin-right: 6px;
           }
 
@@ -72,6 +73,7 @@
           }
 
           & .creator {
+            font-size: $font-p;
             display: flex;
             flex-direction: row;
             align-items: center;
