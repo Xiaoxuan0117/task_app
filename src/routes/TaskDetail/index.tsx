@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import LinkElement from "../../components/atom/LinkElement";
 import Loading from "../../components/atom/Loading";
 import Time from "../../components/atom/Time";
@@ -8,6 +8,7 @@ import Comment from "../../components/molecule/Comment";
 import Navi from "../../components/molecule/Navi";
 import TaskSidebar from "../../components/organisms/TaskSidebar";
 import { GetTaskDetail } from "../../reducer/taskDetail";
+import { GetUser } from "../../reducer/user";
 import { RootState, useAppDispatch } from "../../store";
 
 import "./style.scss";
@@ -29,55 +30,33 @@ export default function TaskDetail() {
     milestone,
     milestoneUrl,
     isLoading,
+    errMsg,
   } = useSelector((state: RootState) => state.taskDetail);
+  const { repoList } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(
-      GetTaskDetail({
-        owner: owner || "",
-        repo: repo || "",
-        number: parseInt(number || "0"),
-      })
-    );
+    getDefaultData();
+    async function getDefaultData() {
+      await dispatch(
+        GetTaskDetail({
+          owner: owner || "",
+          repo: repo || "",
+          number: parseInt(number || "0"),
+        })
+      );
+      await dispatch(GetUser(repo));
+    }
   }, [dispatch, number, owner, repo]);
-
-  const dummyData = [
-    {
-      id: 1,
-      name: "user1",
-    },
-    {
-      id: 2,
-      name: "user2",
-    },
-    {
-      id: 3,
-      name: "user3",
-    },
-    {
-      id: 4,
-      name: "user4",
-    },
-    {
-      id: 5,
-      name: "user5",
-    },
-    {
-      id: 6,
-      name: "user6",
-    },
-  ];
 
   return (
     <div className="task-page">
       <div className="navi-section">
-        <Navi repoOptions={dummyData} />
+        <Navi repoOptions={repoList} />
       </div>
       <div className="task-content">
-        {isLoading ? (
-          <Loading />
-        ) : (
+        {isLoading && <Loading />}
+        {!errMsg && time && !isLoading && (
           <div className="header">
             <LinkElement
               isRouter={false}
@@ -127,6 +106,14 @@ export default function TaskDetail() {
                 ></TaskSidebar>
               </div>
             </div>
+          </div>
+        )}
+        {errMsg && (
+          <div className="err">
+            {errMsg}
+            <Link to="/login">
+              redirect to login page and try again{" :))"}
+            </Link>
           </div>
         )}
       </div>
