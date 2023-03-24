@@ -90,7 +90,7 @@
       transition: all 0.5s;
 
       & ul {
-        width: 102%;
+        width: calc(100% + 15px);
         max-height: 130px;
         overflow-y: scroll;
         padding: 0;
