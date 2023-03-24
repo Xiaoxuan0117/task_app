@@ -34,6 +34,9 @@ export const GetUser = createAsyncThunk<
     if (repo) {
       dispatch(setShowRepo(repo));
       dispatch(selectRepo(repo));
+    } else {
+      dispatch(setShowRepo("myIssue"));
+      dispatch(selectRepo(""));
     }
     return {
       name: name,
