@@ -8,9 +8,9 @@ import { RootState } from "../../../store";
 import { useSelector } from "react-redux";
 
 import "./style.scss";
-import { setTaskSearchKeyword, taskSearch } from "../../../reducer/taskList";
+import { taskSearch } from "../../../reducer/taskList";
 import { Link } from "react-router-dom";
-import { selectRepo } from "../../../reducer/addTask";
+import { selectRepo, setAddTitle } from "../../../reducer/addTask";
 
 export default function AddModal() {
   const {
@@ -24,7 +24,7 @@ export default function AddModal() {
           <div className="title-section">
             <div className="label">Title</div>
             <div className="input-section">
-              <Input changeEvent={setTaskSearchKeyword} />
+              <Input changeEvent={setAddTitle} />
             </div>
           </div>
           <div className="repo-select">

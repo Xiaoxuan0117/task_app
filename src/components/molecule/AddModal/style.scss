@@ -55,7 +55,9 @@
 
       & .markdown-section {
         margin-bottom: 20px;
-        height: 100%;
+        flex-grow: 1;
+        overflow-y: auto;
+        width: 100%;
       }
 
       & .footer {
