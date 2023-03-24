@@ -5,6 +5,7 @@ import dropdownIcon from "../../../assets/dropdownIcon.svg";
 
 import "./style.scss";
 import { RepoState } from "../../../type";
+import { Link } from "react-router-dom";
 
 type DropdownProps = {
   class?: string;
@@ -56,13 +57,15 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
             {options.length !== 0 ? (
               options.map((option, index) => (
                 <li key={`${option.id}`}>
-                  <button
-                    onBlur={() =>
-                      index + 1 === options.length && closeDropdown()
-                    }
-                  >
-                    {option.name}
-                  </button>
+                  <Link to={`/${option.name}`}>
+                    <button
+                      onBlur={() =>
+                        index + 1 === options.length && closeDropdown()
+                      }
+                    >
+                      {option.name}
+                    </button>
+                  </Link>
                 </li>
               ))
             ) : (

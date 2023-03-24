@@ -60,16 +60,62 @@ router.get("/repos", async function (req, res) {
 
 /* GET issues */
 router.get("/taskList", async function (req, res, next) {
+  const { owner, repo, page, state, labels, category, direction } = req.query;
+  const url =
+    repo === "myIssue"
+      ? "https://api.github.com/issues"
+      : `https://api.github.com/repos/${owner}/${repo}/issues`;
   try {
     const result = await axios({
-      url: "https://api.github.com/issues",
+      url: url,
       method: "get",
       headers: {
         Accept: "application/vnd.github+json",
         Authorization: `Bearer ${req.cookies.access_token}`,
       },
       params: {
-        ...req.query,
+        page,
+        state,
+        labels,
+        category,
+        direction,
+        filter: req.query.category,
+        per_page: 10,
+        pulls: false,
+      },
+    });
+    console.log(result.status);
+    res.status(result.status).send(result.data);
+  } catch (err) {
+    console.log("err", err.response.status);
+    res.status(err.response.status).send(err.response.data);
+  }
+});
+
+// repo: repo,
+// page: reLoad ? 1 : page,
+// state: state,
+// labels: labels === "all" ? "" : labels,
+// category: category,
+// direction: direction,
+
+/* GET repo issues */
+router.get("/taskList/repo", async function (req, res, next) {
+  const { owner, repo, page, state, labels, category, direction } = req.query;
+  try {
+    const result = await axios({
+      url: `https://api.github.com/repos/${owner}/${repo}/issues`,
+      method: "get",
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${req.cookies.access_token}`,
+      },
+      params: {
+        page,
+        state,
+        labels,
+        category,
+        direction,
         filter: req.query.category,
         per_page: 10,
         pulls: false,

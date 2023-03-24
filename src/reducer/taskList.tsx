@@ -36,6 +36,7 @@ export const TriggerGetTaskList = createAsyncThunk<
     dispatch: AppDispatch;
     state: {
       taskList: { isAll: boolean; isLoading: boolean; isSearchMode: boolean };
+      user: { showRepo: string };
     };
   }
 >("taskList/scrollToBottom", async (_, { getState, dispatch }) => {
@@ -58,19 +59,28 @@ export const GetTaskList = createAsyncThunk<
         page: number;
         filter: Filter;
       };
+      user: {
+        name: string;
+        showRepo: string;
+      };
     };
   }
 >("taskList/getTaskList", async ({ reLoad }, { getState, rejectWithValue }) => {
   const {
-    page,
-    filter: { state, labels, category, direction },
-  } = getState().taskList;
+    taskList: {
+      page,
+      filter: { state, labels, category, direction },
+    },
+    user: { name, showRepo },
+  } = getState();
 
   try {
     const resData = await axios({
-      url: "/api/taskList",
+      url: "/api/taskList/",
       method: "get",
       params: {
+        owner: name,
+        repo: showRepo,
         page: reLoad ? 1 : page,
         state: state,
         labels: labels === "all" ? "" : labels,
@@ -107,8 +117,10 @@ export const GetTaskList = createAsyncThunk<
           id,
           labels: labels_arr,
           number,
-          repo: repository_name,
-          repoUrl: repo_url,
+          repo: repository_name ? repository_name : showRepo,
+          repoUrl: repo_url
+            ? repo_url
+            : `https://github.com/${name}/${showRepo}`,
           isOpen: state === "open" ? true : false,
           title: title,
           creator: login,
@@ -238,6 +250,9 @@ export const taskListSlice = createSlice({
         state.isSearchMode = false;
       }
     },
+    resetTaskList() {
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -286,7 +301,11 @@ export const taskListSlice = createSlice({
   },
 });
 
-export const { changeFilterState, setTaskSearchKeyword, taskSearch } =
-  taskListSlice.actions;
+export const {
+  changeFilterState,
+  setTaskSearchKeyword,
+  taskSearch,
+  resetTaskList,
+} = taskListSlice.actions;
 
 export default taskListSlice.reducer;

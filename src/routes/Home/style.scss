@@ -21,8 +21,17 @@
     & .taskList-section {
       padding: 80px 48px 80px 80px;
 
-      & .add-button {
+      & .head {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         margin-bottom: 30px;
+
+        & .repo.bold {
+          font-size: $font-h1;
+          font-weight: 700;
+          color: $blue;
+        }
       }
     }
 

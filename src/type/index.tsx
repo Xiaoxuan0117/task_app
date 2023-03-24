@@ -61,7 +61,7 @@ export type GetTaskListResData = {
   id: string;
   labels: any[];
   number: number;
-  repository: { name: string; html_url: string };
+  repository?: { name: string; html_url: string };
   repository_url: string;
   state: string;
   title: string;
@@ -154,4 +154,5 @@ export type GetUserPayload = {
 export interface userState extends GetUserPayload {
   isLoading: boolean;
   errMsg: string;
+  showRepo: string;
 }

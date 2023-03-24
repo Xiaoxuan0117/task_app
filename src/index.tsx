@@ -17,7 +17,17 @@ const router = createBrowserRouter([
     element: <Home />,
     children: [
       {
-        path: "/add",
+        path: "add",
+        element: <AddModal />,
+      },
+    ],
+  },
+  {
+    path: "/:repo",
+    element: <Home />,
+    children: [
+      {
+        path: "add",
         element: <AddModal />,
       },
     ],
@@ -27,7 +37,7 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: ":owner/:repo/:number",
+    path: "/:owner/:repo/:number",
     element: <TaskDetail />,
   },
 ]);

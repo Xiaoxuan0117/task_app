@@ -1,17 +1,22 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import Button from "../../components/atom/Button";
 import Navi from "../../components/molecule/Navi";
 import Controller from "../../components/organisms/Controller";
 import TaskList from "../../components/organisms/TaskList";
-import { GetTaskList, TriggerGetTaskList } from "../../reducer/taskList";
+import {
+  GetTaskList,
+  resetTaskList,
+  TriggerGetTaskList,
+} from "../../reducer/taskList";
 import { GetUser } from "../../reducer/user";
 import { RootState, useAppDispatch } from "../../store";
 
 import "./style.scss";
 
 export default function Home() {
+  const { repo } = useParams();
   const {
     taskList: taskListData,
     isLoading,
@@ -21,9 +26,13 @@ export default function Home() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(GetTaskList({ reLoad: false }));
-    dispatch(GetUser());
-  }, [dispatch]);
+    dispatch(resetTaskList());
+    getDefaultData();
+    async function getDefaultData() {
+      await dispatch(GetUser(repo));
+      await dispatch(GetTaskList({ reLoad: false }));
+    }
+  }, [dispatch, repo]);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -44,12 +53,15 @@ export default function Home() {
       </div>
       <div className="content">
         <div className="taskList-section">
-          <div className="add-button">
-            <Link to="/add">
-              <Button class="primary">
-                <div>New Task</div>
-              </Button>
-            </Link>
+          <div className="head">
+            <div className="repo bold">{repo ? repo : "My Issue"}</div>
+            <div className="add-button">
+              <Link to="/add">
+                <Button class="primary">
+                  <div>New Task</div>
+                </Button>
+              </Link>
+            </div>
           </div>
           <TaskList
             isLoading={isLoading}

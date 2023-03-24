@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { AppDispatch } from "../store";
 import { GetUserPayload, RepoState, userState } from "../type";
 
 const initialState: userState = {
@@ -9,42 +10,54 @@ const initialState: userState = {
   repoList: [],
   isLoading: false,
   errMsg: "",
+  showRepo: "myIssue",
 };
 
-export const GetUser = createAsyncThunk<GetUserPayload, undefined, {}>(
-  "user/GetUser",
-  async (_, { rejectWithValue }) => {
-    try {
-      const resData = await axios.get("/api/user");
-      console.log("resData", resData);
-      const { name, avatar_url, html_url } = resData.data;
-      const repoData = await axios.get("/api/repos");
-      console.log("repoData", repoData);
-      const repos = repoData.data.map((repo: RepoState) => {
-        return { id: repo.id, name: repo.name };
-      });
-      return {
-        name: name,
-        avatar: avatar_url,
-        userUrl: html_url,
-        repoList: repos,
-      };
-    } catch (err: any) {
-      const {
-        response: {
-          status,
-          data: { message },
-        },
-      } = err;
-      return rejectWithValue(`status: ${status} / error message: ${message}`);
-    }
+export const GetUser = createAsyncThunk<
+  GetUserPayload,
+  string | undefined,
+  {
+    dispatch: AppDispatch;
   }
-);
+>("user/GetUser", async (repo, { dispatch, rejectWithValue }) => {
+  try {
+    const resData = await axios.get("/api/user");
+    console.log("resData", resData);
+    const { name, avatar_url, html_url } = resData.data;
+    const repoData = await axios.get("/api/repos");
+    console.log("repoData", repoData);
+    const repos = repoData.data.map((repo: RepoState) => {
+      return { id: repo.id, name: repo.name };
+    });
+
+    if (repo) {
+      dispatch(setShowRepo(repo));
+    }
+    return {
+      name: name,
+      avatar: avatar_url,
+      userUrl: html_url,
+      repoList: repos,
+    };
+  } catch (err: any) {
+    const {
+      response: {
+        status,
+        data: { message },
+      },
+    } = err;
+    return rejectWithValue(`status: ${status} / error message: ${message}`);
+  }
+});
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setShowRepo(state, action) {
+      state.showRepo = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(GetUser.pending, (state) => {
@@ -63,5 +76,7 @@ export const userSlice = createSlice({
       });
   },
 });
+
+export const { setShowRepo } = userSlice.actions;
 
 export default userSlice.reducer;
