@@ -16,10 +16,13 @@ export const addTaskSlice = createSlice({
     selectRepo(state, action) {
       state.repo = action.payload;
     },
+    setAddTitle(state, action) {
+      state.title = action.payload;
+    },
   },
   extraReducers: (builder) => {},
 });
 
-export const { selectRepo } = addTaskSlice.actions;
+export const { selectRepo, setAddTitle } = addTaskSlice.actions;
 
 export default addTaskSlice.reducer;

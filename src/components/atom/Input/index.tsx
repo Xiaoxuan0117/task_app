@@ -10,10 +10,9 @@ type InputProps = {
   label?: string;
   input?: string;
   placeholder?: string;
-  changeEvent: ActionCreatorWithPayload<
-    string,
-    "taskList/setTaskSearchKeyword"
-  >;
+  changeEvent:
+    | ActionCreatorWithPayload<string, "taskList/setTaskSearchKeyword">
+    | ActionCreatorWithPayload<any, "addTask/setAddTitle">;
 };
 
 export default function Input(props: InputProps): JSX.Element {
