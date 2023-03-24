@@ -14,7 +14,6 @@ export default function Task(props: TaskProps): JSX.Element {
     repo,
     repoUrl,
     title,
-    issueUrl,
     labels,
     time,
     creator,
