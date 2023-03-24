@@ -5,6 +5,7 @@ import Button from "../../components/atom/Button";
 import Navi from "../../components/molecule/Navi";
 import Controller from "../../components/organisms/Controller";
 import TaskList from "../../components/organisms/TaskList";
+import { resetAddTask } from "../../reducer/addTask";
 import {
   GetTaskList,
   resetTaskList,
@@ -27,6 +28,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(resetTaskList());
+    dispatch(resetAddTask());
     getDefaultData();
     async function getDefaultData() {
       await dispatch(GetUser(repo));

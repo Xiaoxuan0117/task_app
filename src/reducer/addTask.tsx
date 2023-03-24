@@ -77,6 +77,9 @@ export const addTaskSlice = createSlice({
       state.body = action.payload;
       state.inputError.body = false;
     },
+    resetAddTask() {
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -94,6 +97,7 @@ export const addTaskSlice = createSlice({
   },
 });
 
-export const { selectRepo, setAddTitle, setAddBody } = addTaskSlice.actions;
+export const { selectRepo, setAddTitle, setAddBody, resetAddTask } =
+  addTaskSlice.actions;
 
 export default addTaskSlice.reducer;
