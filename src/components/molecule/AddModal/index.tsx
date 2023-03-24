@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import "./style.scss";
 import { taskSearch } from "../../../reducer/taskList";
 import { Link } from "react-router-dom";
-import { selectRepo, setAddTitle } from "../../../reducer/addTask";
+import { selectRepo, setAddBody, setAddTitle } from "../../../reducer/addTask";
 
 export default function AddModal() {
   const {
@@ -38,7 +38,7 @@ export default function AddModal() {
             />
           </div>
           <div className="markdown-section">
-            <MarkdownEditor />
+            <MarkdownEditor changeEvent={setAddBody} />
           </div>
           <div className="footer">
             <Link to="/">

@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import React from "react";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "../../../store";
 
 import Markdown from "../Markdown";
 
 import "./style.scss";
 
-export default function MarkdownEditor() {
-  const [input, setInput] = useState("value");
+type MarkdownEditorProps = {
+  changeEvent: ActionCreatorWithPayload<any, "addTask/setAddBody">;
+};
+
+export default function MarkdownEditor(
+  props: MarkdownEditorProps
+): JSX.Element {
+  const { changeEvent } = props;
+  const { body } = useSelector((state: RootState) => state.addTask);
+  const dispatch = useAppDispatch();
 
   return (
     <div className={"markdown-wrapper"}>
@@ -16,15 +27,17 @@ export default function MarkdownEditor() {
           </div>
           <textarea
             className={`textarea`}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
+            value={body}
+            onChange={(e) => {
+              dispatch(changeEvent(e.target.value));
+            }}
           ></textarea>
         </div>
         <div className="preview">
           <div className="tab-wrapper">
             <div className={`preview-tab`}>Preview</div>
           </div>
-          <Markdown>{input}</Markdown>
+          <Markdown>{body}</Markdown>
         </div>
       </div>
     </div>

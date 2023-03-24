@@ -3,6 +3,7 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import MarkdownEditor from ".";
+import { setAddBody } from "../../../reducer/addTask";
 
 export default {
   title: "Atom/MarkdownEditor",
@@ -10,5 +11,5 @@ export default {
 } as ComponentMeta<typeof MarkdownEditor>;
 
 export const Primary: ComponentStory<typeof MarkdownEditor> = () => (
-  <MarkdownEditor />
+  <MarkdownEditor changeEvent={setAddBody} />
 );

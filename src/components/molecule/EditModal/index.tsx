@@ -7,6 +7,7 @@ import closeButton from "../../../assets/closeButton.svg";
 
 import "./style.scss";
 import { setTaskSearchKeyword, taskSearch } from "../../../reducer/taskList";
+import { setAddBody } from "../../../reducer/addTask";
 
 type EditModalProps = {
   prevTitle: string;
@@ -27,7 +28,7 @@ export default function EditModal(props: EditModalProps): JSX.Element {
           <RadioButton type="labels" options={dammyData_three}></RadioButton>
         </div>
         <div className="markdown-section">
-          <MarkdownEditor />
+          <MarkdownEditor changeEvent={setAddBody} />
         </div>
         <div className="footer">
           <Button clickEvent={taskSearch} class="primary">
