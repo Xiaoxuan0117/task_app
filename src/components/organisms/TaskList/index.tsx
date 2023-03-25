@@ -1,10 +1,10 @@
 import classNames from "classnames";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { TriggerGetTaskList } from "../../../reducer/taskList";
 import { RootState, useAppDispatch } from "../../../store";
 import { TaskListProps } from "../../../type";
+import ErrorMessage from "../../atom/ErrorMessage";
 import Loading from "../../atom/Loading";
 import Task from "../../molecule/Task";
 
@@ -39,12 +39,7 @@ export default function TaskList(props: TaskListProps): JSX.Element {
   });
   return (
     <div id="taskList-wrapper" className="taskList-wrapper">
-      {errMsg && (
-        <div className="err">
-          {errMsg}
-          <Link to="/login">redirect to login page and try again{" :))"}</Link>
-        </div>
-      )}
+      {errMsg && <ErrorMessage text={errMsg} />}
       <div
         className={`taskList ${classNames(
           taskListArr().length !== 0 && "has-data"

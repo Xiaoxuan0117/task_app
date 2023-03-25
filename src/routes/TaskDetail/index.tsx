@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, Outlet, useParams } from "react-router-dom";
+import ErrorMessage from "../../components/atom/ErrorMessage";
 import LinkElement from "../../components/atom/LinkElement";
 import Loading from "../../components/atom/Loading";
 import Time from "../../components/atom/Time";
@@ -111,14 +112,7 @@ export default function TaskDetail() {
               </div>
             </div>
           )}
-          {errMsg && (
-            <div className="err">
-              {errMsg}
-              <Link to="/login">
-                redirect to login page and try again{" :))"}
-              </Link>
-            </div>
-          )}
+          {errMsg && <ErrorMessage text={errMsg} />}
         </div>
       </div>
       <Outlet />

@@ -20,14 +20,4 @@
       border-bottom: none;
     }
   }
-
-  & .err {
-    display: flex;
-    flex-direction: column;
-    color: $blue;
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: $gray;
-    margin: 10px 0;
-  }
 }
