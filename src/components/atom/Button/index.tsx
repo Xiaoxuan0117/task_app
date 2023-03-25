@@ -21,7 +21,7 @@ export default function Button(props: ButtonProps): JSX.Element {
     switch (type) {
       case "cancel":
         return navigate(-1);
-      case "update":
+      case "add":
         return dispatch(PostTask());
       case "taskSearch":
         return dispatch(taskSearch());

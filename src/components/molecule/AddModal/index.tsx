@@ -67,7 +67,7 @@ export default function AddModal() {
             <Button type="cancel" class="secondary">
               <div>Cancel</div>
             </Button>
-            <Button type="update" class="primary">
+            <Button type="add" class="primary">
               <div>Submit New Task</div>
             </Button>
           </div>
