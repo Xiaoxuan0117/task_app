@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { PostTask } from "../../../reducer/addTask";
+import { UpdateTask } from "../../../reducer/editTask";
 import { taskSearch } from "../../../reducer/taskList";
 import { useAppDispatch } from "../../../store";
 
@@ -23,6 +24,8 @@ export default function Button(props: ButtonProps): JSX.Element {
         return navigate(-1);
       case "add":
         return dispatch(PostTask());
+      case "update":
+        return dispatch(UpdateTask());
       case "taskSearch":
         return dispatch(taskSearch());
       case "openAddModal":

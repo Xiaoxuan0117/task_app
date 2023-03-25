@@ -21,31 +21,31 @@ export default function RadioButton(props: RadioButtonProps): JSX.Element {
   } = props;
   const dispatch = useAppDispatch();
 
-  const clickEvent = (optionLowerCase: string) => {
+  const clickEvent = (option: string, optionLowerCase: string) => {
     switch (clickType) {
       case "filter":
         return dispatch(
           setFilter({ type: queryParam, option: optionLowerCase })
         );
       case "edit":
-        return dispatch(selectStatus(optionLowerCase));
+        return dispatch(selectStatus(option));
     }
   };
 
   return (
     <div className="radio-wrapper">
       <div className="radio">
-        {options.map((option) => {
+        {options.map((option, index) => {
           const optionLowerCase: string = option.toLowerCase();
           const keyValue = optionLowerCase.replace(/\s+/g, "-");
           return (
             <button
-              key={keyValue}
+              key={`${index}-${keyValue}`}
               className={`"option" ${classNames(
                 select === optionLowerCase && "active"
               )} ${keyValue}`}
               onClick={() => {
-                clickEvent(optionLowerCase);
+                clickEvent(option, optionLowerCase);
               }}
             >
               {option}

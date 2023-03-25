@@ -15,9 +15,12 @@ type EditModalProps = {
 
 export default function EditModal(props: EditModalProps): JSX.Element {
   const LabelsOptions = ["ToDo", "In Progress", "Done"];
-  const { title, status, body } = useSelector(
-    (state: RootState) => state.editTask
-  );
+  const {
+    title,
+    status,
+    body,
+    inputError: { title: titleError, status: statusError, body: bodyError },
+  } = useSelector((state: RootState) => state.editTask);
 
   useEffect(() => {
     const body = document.body;
@@ -35,6 +38,9 @@ export default function EditModal(props: EditModalProps): JSX.Element {
             <div className="label">Title</div>
             <div className="input-section">
               <Input input={title} type="editTitle" />
+              {titleError && (
+                <div className="required-alert">*Title required</div>
+              )}
             </div>
           </div>
           <div className="label-select">
@@ -43,9 +49,17 @@ export default function EditModal(props: EditModalProps): JSX.Element {
               options={LabelsOptions}
               select={status.toLowerCase()}
             ></RadioButton>
+            {statusError && (
+              <div className="required-alert">*Status required</div>
+            )}
           </div>
           <div className="markdown-section">
             <MarkdownEditor type="editBody" body={body} />
+            {bodyError && (
+              <div className="required-alert">
+                *Body needs at least 30 words
+              </div>
+            )}
           </div>
           <div className="footer">
             <Button type="cancel" class="secondary">
