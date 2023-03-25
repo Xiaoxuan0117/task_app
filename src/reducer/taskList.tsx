@@ -22,7 +22,7 @@ const initialState: TaskListStatus = {
     state: "all",
     labels: "",
     category: "created",
-    direction: "asc",
+    direction: "desc",
   },
   isStateLoading: false,
   taskSearchKeyword: "",
