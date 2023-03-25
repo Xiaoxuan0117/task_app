@@ -10,5 +10,5 @@ export default {
 } as ComponentMeta<typeof Loading>;
 
 export const Primary: ComponentStory<typeof Loading> = () => (
-  <Loading></Loading>
+  <Loading text="Loading"></Loading>
 );

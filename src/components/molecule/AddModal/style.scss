@@ -68,16 +68,31 @@
         }
       }
 
-      & .close-button {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-      }
-
       & .required-alert {
         font-size: $font-p;
         color: $orange;
       }
+    }
+
+    & .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    & .loading-section {
+      display: flex;
+      justify-content: center;
+    }
+
+    & .success-section {
+      display: flex;
+      justify-content: center;
+    }
+
+    & .error-section {
+      display: flex;
+      justify-content: center;
     }
   }
 }

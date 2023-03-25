@@ -2,10 +2,15 @@ import React from "react";
 
 import "./style.scss";
 
-export default function Loading() {
+type LoadingProps = {
+  text: string;
+};
+
+export default function Loading(props: LoadingProps): JSX.Element {
+  const { text } = props;
   return (
     <div className="loading">
-      <div className="title">Loading</div>
+      <div className="title">{text}</div>
       <div className="progress-box">
         <div className="progress"></div>
       </div>

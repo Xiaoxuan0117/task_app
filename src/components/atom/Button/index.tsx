@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { PostTask } from "../../../reducer/addTask";
 import { UpdateTask } from "../../../reducer/editTask";
-import { taskSearch } from "../../../reducer/taskList";
+import { GetTaskList, taskSearch } from "../../../reducer/taskList";
 import { useAppDispatch } from "../../../store";
 
 import "./style.scss";
@@ -22,6 +22,11 @@ export default function Button(props: ButtonProps): JSX.Element {
     switch (type) {
       case "cancel":
         return navigate(-1);
+      case "close-refresh":
+        return (async function () {
+          navigate(-1);
+          dispatch(GetTaskList({ reLoad: true }));
+        })();
       case "add":
         return dispatch(PostTask());
       case "update":

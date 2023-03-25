@@ -9,6 +9,7 @@ const initialState: AddTaskState = {
   isUploading: false,
   isSuccess: false,
   inputError: { title: false, repo: false, body: false },
+  errMsg: "",
 };
 
 export const PostTask = createAsyncThunk<
@@ -90,6 +91,10 @@ export const addTaskSlice = createSlice({
     resetAddTask() {
       return initialState;
     },
+    resetSubmitResult(state) {
+      state.isSuccess = false;
+      state.errMsg = "";
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -103,11 +108,17 @@ export const addTaskSlice = createSlice({
       })
       .addCase(PostTask.rejected, (state, action) => {
         state.isUploading = false;
+        state.errMsg = `sorry! something went wrong! ${action.payload}`;
       });
   },
 });
 
-export const { selectRepo, setAddTitle, setAddBody, resetAddTask } =
-  addTaskSlice.actions;
+export const {
+  selectRepo,
+  setAddTitle,
+  setAddBody,
+  resetAddTask,
+  resetSubmitResult,
+} = addTaskSlice.actions;
 
 export default addTaskSlice.reducer;

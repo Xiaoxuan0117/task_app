@@ -57,7 +57,7 @@ export default function TaskDetail() {
       </div>
       <div className="task-content">
         <div className="task-flex">
-          {isLoading && <Loading />}
+          {isLoading && <Loading text="Loading" />}
           {!errMsg && time && !isLoading && (
             <div className="detail">
               <div className="header">

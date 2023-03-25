@@ -48,7 +48,7 @@ export default function TaskList(props: TaskListProps): JSX.Element {
         {taskListArr() &&
           taskListArr().map((task) => <Task key={task.id} {...task}></Task>)}
       </div>
-      {isLoading === true && <Loading />}
+      {isLoading && <Loading text="Loading" />}
     </div>
   );
 }

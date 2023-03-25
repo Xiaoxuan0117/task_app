@@ -21,7 +21,7 @@ export type TaskProps = {
 export type TaskListProps = {
   isLoading: boolean;
   taskList: TaskProps[];
-  errMsg?: String;
+  errMsg?: string;
 };
 
 export type Filter = {
@@ -144,6 +144,7 @@ export type AddTaskState = {
   isUploading: boolean;
   isSuccess: boolean;
   inputError: AddInputError;
+  errMsg: string;
 };
 
 export type AddTaskPayload = {
