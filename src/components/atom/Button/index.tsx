@@ -15,7 +15,7 @@ type ButtonProps = {
 };
 
 export default function Button(props: ButtonProps): JSX.Element {
-  let { owner, repo, number } = useParams();
+  let { repoOwner, repo, number } = useParams();
   const { children, class: buttonClass, type } = props;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ export default function Button(props: ButtonProps): JSX.Element {
           navigate(-1);
           dispatch(
             GetTaskDetail({
-              owner: owner || "",
+              owner: repoOwner || "",
               repo: repo || "",
               number: parseInt(number || "0"),
             })
