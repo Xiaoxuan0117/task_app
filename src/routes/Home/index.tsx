@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, Outlet, useParams } from "react-router-dom";
 import Button from "../../components/atom/Button";
 import Navi from "../../components/molecule/Navi";
+import Profile from "../../components/molecule/Profile";
 import Controller from "../../components/organisms/Controller";
 import TaskList from "../../components/organisms/TaskList";
 import { resetAddTask } from "../../reducer/addTask";
@@ -52,6 +53,9 @@ export default function Home() {
     <div className="home-page">
       <div className="navi-section">
         <Navi repoOptions={repoList} />
+      </div>
+      <div className="profile-section">
+        <Profile />
       </div>
       <div className="content">
         <div className="taskList-section">

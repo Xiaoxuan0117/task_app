@@ -20,7 +20,12 @@ export default function LinkDOM(props: LinkProps): JSX.Element {
     );
   }
   return (
-    <a className={`link ${linkClass}`} href={href ? `${href}` : `#`}>
+    <a
+      className={`link ${linkClass}`}
+      href={href ? `${href}` : `#`}
+      target="_blank"
+      rel="noreferrer"
+    >
       {children}
     </a>
   );
