@@ -1,0 +1,17 @@
+@import "../../../sass/basic";
+@import "../../../sass/color";
+
+.err-wrapper {
+  font-size: $font-h4;
+  color: $blue;
+
+  & .err {
+    display: flex;
+    flex-direction: column;
+    color: $blue;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: $gray;
+    margin: 10px 0;
+  }
+}
