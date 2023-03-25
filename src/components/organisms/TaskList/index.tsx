@@ -16,7 +16,7 @@ export default function TaskList(props: TaskListProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const taskListArr = () => {
-    if (taskList) {
+    if (taskList.length) {
       if (isSearchMode) {
         return taskList.filter((task) => task.isSearchResult === true);
       } else {
@@ -41,12 +41,15 @@ export default function TaskList(props: TaskListProps): JSX.Element {
     <div id="taskList-wrapper" className="taskList-wrapper">
       {errMsg && <ErrorMessage text={errMsg} />}
       <div
-        className={`taskList ${classNames(
-          taskListArr().length !== 0 && "has-data"
-        )}`}
+        className={`taskList ${classNames(taskListArr().length && "has-data")}`}
       >
-        {taskListArr() &&
-          taskListArr().map((task) => <Task key={task.id} {...task}></Task>)}
+        {taskListArr().length
+          ? taskListArr().map((task) => <Task key={task.id} {...task}></Task>)
+          : !isLoading && (
+              <div className="empty">
+                <i>no task</i>
+              </div>
+            )}
       </div>
       {isLoading && <Loading text="Loading" />}
     </div>

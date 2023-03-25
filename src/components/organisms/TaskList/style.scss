@@ -20,4 +20,9 @@
       border-bottom: none;
     }
   }
+
+  & .empty {
+    font-size: $font-h4;
+    color: $blue;
+  }
 }
