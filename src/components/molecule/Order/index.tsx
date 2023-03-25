@@ -6,7 +6,7 @@ import RadioButton from "../../atom/RadioButton";
 import "./style.scss";
 
 export default function Order() {
-  const ordersOptions = ["Asc", "Desc"];
+  const ordersOptions = ["Desc", "Asc"];
   const {
     filter: { direction },
   } = useSelector((state: RootState) => state.taskList);
