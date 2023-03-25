@@ -11,6 +11,7 @@ export type TaskProps = {
   number: number;
   repo: string;
   repoUrl: string;
+  repoOwner: string;
   isOpen: boolean;
   title: string;
   creator: string;
@@ -61,7 +62,11 @@ export type GetTaskListResData = {
   id: string;
   labels: any[];
   number: number;
-  repository?: { name: string; html_url: string };
+  repository?: {
+    name: string;
+    html_url: string;
+    owner: { login: string };
+  };
   repository_url: string;
   state: string;
   title: string;

@@ -13,6 +13,7 @@ export default function Task(props: TaskProps): JSX.Element {
     isOpen,
     repo,
     repoUrl,
+    repoOwner,
     title,
     labels,
     time,
@@ -45,12 +46,12 @@ export default function Task(props: TaskProps): JSX.Element {
           <div className="content-section">
             <div className="upper">
               <LinkElement isRouter={false} class="tasklist" href={repoUrl}>
-                <div className="repo">{repo}</div>
+                <div className="repo">{`${repoOwner}/${repo}`}</div>
               </LinkElement>
               <LinkElement
                 isRouter={true}
                 class="tasklist"
-                href={`/${creator}/${repo}/${number}`}
+                href={`/${repoOwner}/${repo}/${number}`}
               >
                 <div className="issue">{title}</div>
               </LinkElement>
