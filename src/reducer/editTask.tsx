@@ -9,6 +9,7 @@ const initialState: EditTaskState = {
   isUploading: false,
   isSuccess: false,
   inputError: { title: false, status: false, body: false },
+  errMsg: "",
 };
 
 export const UpdateTask = createAsyncThunk<
@@ -109,6 +110,10 @@ export const editTaskSlice = createSlice({
     resetAddTask() {
       return initialState;
     },
+    resetUpdateResult(state) {
+      state.isSuccess = false;
+      state.errMsg = "";
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -122,6 +127,7 @@ export const editTaskSlice = createSlice({
       })
       .addCase(UpdateTask.rejected, (state, action) => {
         state.isUploading = false;
+        state.errMsg = `sorry! something went wrong! ${action.payload}`;
       });
   },
 });
@@ -132,6 +138,7 @@ export const {
   selectStatus,
   setEditBody,
   resetAddTask,
+  resetUpdateResult,
 } = editTaskSlice.actions;
 
 export default editTaskSlice.reducer;

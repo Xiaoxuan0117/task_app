@@ -56,7 +56,7 @@ export default function AddModal() {
         <div className="success-section">
           <UploadSuccess text="New Task Uploaded Successfully!!" />
           <div className="close-button">
-            <Button type="close-refresh" class="close">
+            <Button type="addCloseRefresh" class="close">
               <img src={closeButton} alt="closeButton" />
             </Button>
           </div>

@@ -165,6 +165,7 @@ export type EditTaskState = {
   isUploading: boolean;
   isSuccess: boolean;
   inputError: EditInputError;
+  errMsg: string;
 };
 
 export type EditTaskPayload = {

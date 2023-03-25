@@ -1,7 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { PostTask } from "../../../reducer/addTask";
 import { UpdateTask } from "../../../reducer/editTask";
+import { GetTaskDetail } from "../../../reducer/taskDetail";
 import { GetTaskList, taskSearch } from "../../../reducer/taskList";
 import { useAppDispatch } from "../../../store";
 
@@ -14,6 +15,7 @@ type ButtonProps = {
 };
 
 export default function Button(props: ButtonProps): JSX.Element {
+  let { owner, repo, number } = useParams();
   const { children, class: buttonClass, type } = props;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -22,10 +24,21 @@ export default function Button(props: ButtonProps): JSX.Element {
     switch (type) {
       case "cancel":
         return navigate(-1);
-      case "close-refresh":
+      case "addCloseRefresh":
         return (async function () {
           navigate(-1);
           dispatch(GetTaskList({ reLoad: true }));
+        })();
+      case "editCloseRefresh":
+        return (async function () {
+          navigate(-1);
+          dispatch(
+            GetTaskDetail({
+              owner: owner || "",
+              repo: repo || "",
+              number: parseInt(number || "0"),
+            })
+          );
         })();
       case "add":
         return dispatch(PostTask());
