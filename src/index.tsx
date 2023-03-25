@@ -10,6 +10,7 @@ import Home from "./routes/Home";
 import Login from "./routes/Login";
 import TaskDetail from "./routes/TaskDetail";
 import AddModal from "./components/molecule/AddModal";
+import EditModal from "./components/molecule/EditModal";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,12 @@ const router = createBrowserRouter([
   {
     path: "/:owner/:repo/:number",
     element: <TaskDetail />,
+    children: [
+      {
+        path: "edit",
+        element: <EditModal />,
+      },
+    ],
   },
 ]);
 

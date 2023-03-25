@@ -9,6 +9,7 @@ import Markdown from "../../atom/Markdown";
 
 import "./style.scss";
 import { taskSearch } from "../../../reducer/taskList";
+import { Link } from "react-router-dom";
 
 export type CommentProps = {
   id: number;
@@ -35,11 +36,13 @@ export default function Comment(props: CommentProps): JSX.Element {
             </LinkElement>
             <Time utcTime={created_at} />
           </div>
-          <div className={`right ${classNames(allowEdit && "show")}`}>
-            <Button class="edit">
-              <img src={editButton} alt="editButton" />
-            </Button>
-          </div>
+          <Link to="edit">
+            <div className={`right ${classNames(allowEdit && "show")}`}>
+              <Button class="edit">
+                <img src={editButton} alt="editButton" />
+              </Button>
+            </div>
+          </Link>
         </div>
         <div className="context-wrapper">
           <Markdown>

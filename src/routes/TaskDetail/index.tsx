@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import LinkElement from "../../components/atom/LinkElement";
 import Loading from "../../components/atom/Loading";
 import Time from "../../components/atom/Time";
@@ -121,6 +121,7 @@ export default function TaskDetail() {
           )}
         </div>
       </div>
+      <Outlet />
     </div>
   );
 }
