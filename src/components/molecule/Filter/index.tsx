@@ -19,17 +19,17 @@ export default function Filter() {
     <div className="filter">
       <div className="title">Filter</div>
       <RadioButton
-        type="state"
+        type={{ clickType: "filter", queryParam: "state" }}
         select={state}
         options={statusOptions}
       ></RadioButton>
       <RadioButton
-        type="labels"
+        type={{ clickType: "filter", queryParam: "labels" }}
         select={labels}
         options={LabelsOptions}
       ></RadioButton>
       <RadioButton
-        type="category"
+        type={{ clickType: "filter", queryParam: "category" }}
         select={category}
         options={CategoryOptions}
       ></RadioButton>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../../atom/Button";
 import Input from "../../atom/Input";
 import RadioButton from "../../atom/RadioButton";
@@ -14,7 +14,16 @@ type EditModalProps = {
 };
 
 export default function EditModal(props: EditModalProps): JSX.Element {
-  const dammyData_three = ["ToDo", "In Progress", "Done"];
+  const LabelsOptions = ["ToDo", "In Progress", "Done"];
+
+  useEffect(() => {
+    const body = document.body;
+    body.style.overflow = "hidden";
+
+    return () => {
+      body.style.overflow = "unset";
+    };
+  });
   return (
     <div className="mask">
       <div className="modal-wrapper">
@@ -29,7 +38,10 @@ export default function EditModal(props: EditModalProps): JSX.Element {
             </div>
           </div>
           <div className="label-select">
-            <RadioButton type="labels" options={dammyData_three}></RadioButton>
+            <RadioButton
+              type={{ clickType: "edit", queryParam: "" }}
+              options={LabelsOptions}
+            ></RadioButton>
           </div>
           <div className="markdown-section">
             <MarkdownEditor changeEvent={setAddBody} />

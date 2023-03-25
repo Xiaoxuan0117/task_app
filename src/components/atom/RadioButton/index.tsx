@@ -8,13 +8,28 @@ import "./style.scss";
 type RadioButtonProps = {
   class?: string;
   options: string[];
-  type: string;
+  type: { clickType: string; queryParam: string };
   select?: string;
 };
 
 export default function RadioButton(props: RadioButtonProps): JSX.Element {
-  const { options, type, select } = props;
+  const {
+    options,
+    type: { clickType, queryParam },
+    select,
+  } = props;
   const dispatch = useAppDispatch();
+
+  const clickEvent = (optionLowerCase: string) => {
+    switch (clickType) {
+      case "filter":
+        return dispatch(
+          setFilter({ type: queryParam, option: optionLowerCase })
+        );
+      case "edit":
+        return;
+    }
+  };
 
   return (
     <div className="radio-wrapper">
@@ -28,9 +43,9 @@ export default function RadioButton(props: RadioButtonProps): JSX.Element {
               className={`"option" ${classNames(
                 select === optionLowerCase && "active"
               )} ${keyValue}`}
-              onClick={() =>
-                dispatch(setFilter({ type, option: optionLowerCase }))
-              }
+              onClick={() => {
+                clickEvent(optionLowerCase);
+              }}
             >
               {option}
             </button>

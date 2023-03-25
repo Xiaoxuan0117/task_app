@@ -14,13 +14,22 @@ const dammyData_three = ["ToDo", "In Progress", "Done"];
 const dammyData_three2 = ["Created", "Assigned", "Mentioned"];
 
 export const Two: ComponentStory<typeof RadioButton> = () => (
-  <RadioButton type="state" options={dammyData_two}></RadioButton>
+  <RadioButton
+    type={{ clickType: "filter", queryParam: "category" }}
+    options={dammyData_two}
+  ></RadioButton>
 );
 
 export const Three: ComponentStory<typeof RadioButton> = () => (
-  <RadioButton type="labels" options={dammyData_three}></RadioButton>
+  <RadioButton
+    type={{ clickType: "filter", queryParam: "category" }}
+    options={dammyData_three}
+  ></RadioButton>
 );
 
 export const Three2: ComponentStory<typeof RadioButton> = () => (
-  <RadioButton type="category" options={dammyData_three2}></RadioButton>
+  <RadioButton
+    type={{ clickType: "filter", queryParam: "category" }}
+    options={dammyData_three2}
+  ></RadioButton>
 );

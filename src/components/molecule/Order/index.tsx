@@ -15,7 +15,7 @@ export default function Order() {
     <div className="order">
       <div className="title">Order</div>
       <RadioButton
-        type="direction"
+        type={{ clickType: "filter", queryParam: "direction" }}
         select={direction}
         options={ordersOptions}
       ></RadioButton>
