@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { AddTaskState, PostTaskPayload } from "../type";
+import { AddTaskState, AddTaskPayload } from "../type";
 
 const initialState: AddTaskState = {
   title: "",
@@ -12,7 +12,7 @@ const initialState: AddTaskState = {
 };
 
 export const PostTask = createAsyncThunk<
-  PostTaskPayload,
+  AddTaskPayload,
   undefined,
   {
     state: {
@@ -33,7 +33,7 @@ export const PostTask = createAsyncThunk<
     return matches ? matches.length : 0;
   }
   console.log("body", body, countWords(body));
-  if (!title || !repo || !body) {
+  if (!title || !repo || !body || countWords(body) < 30) {
     const inputError = {
       title: !title,
       repo: !repo,

@@ -131,7 +131,7 @@ export type CommentType = {
   created_at: string;
 };
 
-export type InputError = {
+export type AddInputError = {
   title: boolean;
   repo: boolean;
   body: boolean;
@@ -143,7 +143,7 @@ export type AddTaskState = {
   body: string;
   isUploading: boolean;
   isSuccess: boolean;
-  inputError: InputError;
+  inputError: AddInputError;
 };
 
 export type PostTaskPayload = { isSuccess: boolean; inputError: InputError };
