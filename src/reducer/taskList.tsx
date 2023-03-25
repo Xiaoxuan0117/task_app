@@ -210,9 +210,7 @@ export const UpdateState = createAsyncThunk<
     const currentState = taskList[taskIndex].isOpen;
 
     try {
-      const resData = await axios({
-        url: "api/updateState",
-        method: "get",
+      const resData = await axios.get("/api/updateState", {
         params: {
           owner: owner,
           repo: repo,
