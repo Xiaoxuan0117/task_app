@@ -2,9 +2,7 @@
 @import "../../../sass/color";
 
 .mask {
-  display: flex;
   position: fixed;
-  justify-content: center;
   top: 0;
   left: 0;
   width: 100%;
@@ -13,13 +11,16 @@
   z-index: 10;
   overflow-y: scroll;
 
-  .modal-wrapper {
-    position: absolute;
+  & .modal-wrapper {
+    position: relative;
     top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     border-radius: 9px;
     background-color: $white;
     padding: 32px;
     width: 80%;
+    margin-bottom: 50px;
 
     & .modal {
       display: flex;
@@ -55,9 +56,7 @@
 
       & .markdown-section {
         margin-bottom: 20px;
-        flex-grow: 1;
         width: 100%;
-        // overflow-y: auto;
       }
 
       & .footer {
