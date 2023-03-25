@@ -33,7 +33,9 @@ export default function TaskDetail() {
     isLoading,
     errMsg,
   } = useSelector((state: RootState) => state.taskDetail);
-  const { repoList } = useSelector((state: RootState) => state.user);
+  const { name: user, repoList } = useSelector(
+    (state: RootState) => state.user
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -86,7 +88,7 @@ export default function TaskDetail() {
                     username={creator}
                     user_url={creatorUrl}
                     created_at={time}
-                    allowEdit={true}
+                    allowEdit={user === creator}
                   >
                     {body}
                   </Comment>
