@@ -107,12 +107,12 @@ export const editTaskSlice = createSlice({
       state.body = action.payload;
       state.inputError.body = false;
     },
-    resetAddTask() {
-      return initialState;
-    },
     resetUpdateResult(state) {
       state.isSuccess = false;
       state.errMsg = "";
+    },
+    resetEditTask() {
+      return initialState;
     },
   },
   extraReducers: (builder) => {
@@ -137,7 +137,7 @@ export const {
   setEditTitle,
   selectStatus,
   setEditBody,
-  resetAddTask,
+  resetEditTask,
   resetUpdateResult,
 } = editTaskSlice.actions;
 

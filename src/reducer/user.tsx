@@ -62,6 +62,9 @@ export const userSlice = createSlice({
     setShowRepo(state, action) {
       state.showRepo = action.payload;
     },
+    resetUser() {
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -82,6 +85,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setShowRepo } = userSlice.actions;
+export const { setShowRepo, resetUser } = userSlice.actions;
 
 export default userSlice.reducer;

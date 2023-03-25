@@ -168,6 +168,9 @@ export const taskDetailSlice = createSlice({
     UpdateTaskDetailState(state, action) {
       state.isOpen = action.payload;
     },
+    resetTaskDetail() {
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -201,6 +204,7 @@ export const taskDetailSlice = createSlice({
   },
 });
 
-export const { UpdateTaskDetailState } = taskDetailSlice.actions;
+export const { UpdateTaskDetailState, resetTaskDetail } =
+  taskDetailSlice.actions;
 
 export default taskDetailSlice.reducer;

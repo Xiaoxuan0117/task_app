@@ -88,12 +88,12 @@ export const addTaskSlice = createSlice({
       state.body = action.payload;
       state.inputError.body = false;
     },
-    resetAddTask() {
-      return initialState;
-    },
     resetSubmitResult(state) {
       state.isSuccess = false;
       state.errMsg = "";
+    },
+    resetAddTask() {
+      return initialState;
     },
   },
   extraReducers: (builder) => {
