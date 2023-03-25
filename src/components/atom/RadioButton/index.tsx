@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import React from "react";
+import { selectStatus } from "../../../reducer/editTask";
 import { setFilter } from "../../../reducer/taskList";
 import { useAppDispatch } from "../../../store";
 
@@ -27,7 +28,7 @@ export default function RadioButton(props: RadioButtonProps): JSX.Element {
           setFilter({ type: queryParam, option: optionLowerCase })
         );
       case "edit":
-        return;
+        return dispatch(selectStatus(optionLowerCase));
     }
   };
 

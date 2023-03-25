@@ -11,5 +11,5 @@ export default {
 } as ComponentMeta<typeof MarkdownEditor>;
 
 export const Primary: ComponentStory<typeof MarkdownEditor> = () => (
-  <MarkdownEditor changeEvent={setAddBody} />
+  <MarkdownEditor type="" body="" />
 );

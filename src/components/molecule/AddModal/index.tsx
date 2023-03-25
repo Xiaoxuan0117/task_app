@@ -9,13 +9,14 @@ import { useSelector } from "react-redux";
 
 import "./style.scss";
 import { Link } from "react-router-dom";
-import { selectRepo, setAddBody, setAddTitle } from "../../../reducer/addTask";
+import { selectRepo } from "../../../reducer/addTask";
 
 export default function AddModal() {
   const {
     user: { repoList },
     addTask: {
       repo,
+      body,
       inputError: { title: titleError, repo: repoError, body: bodyError },
     },
   } = useSelector((state: RootState) => state);
@@ -35,7 +36,7 @@ export default function AddModal() {
           <div className="title-section">
             <div className="label">Title</div>
             <div className="input-section">
-              <Input changeEvent={setAddTitle} />
+              <Input type="addTitle" />
               {titleError && (
                 <div className="required-alert">*Title required</div>
               )}
@@ -55,7 +56,7 @@ export default function AddModal() {
             )}
           </div>
           <div className="markdown-section">
-            <MarkdownEditor changeEvent={setAddBody} />
+            <MarkdownEditor type="addBody" body={body} />
             {bodyError && (
               <div className="required-alert">
                 *Body needs at least 30 words

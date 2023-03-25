@@ -7,6 +7,7 @@ import {
   TaskDetailState,
   TaskRequiredInfo,
 } from "../type";
+import { syncEditTask } from "./editTask";
 
 const initialState: TaskDetailState = {
   assigneeAvatar: "",
@@ -37,7 +38,7 @@ export const GetTaskDetail = createAsyncThunk<
   {}
 >(
   "taskDetail/GetTaskDetail",
-  async ({ owner, repo, number }, { rejectWithValue }) => {
+  async ({ owner, repo, number }, { dispatch, rejectWithValue }) => {
     try {
       const resData = await axios.get("/api/taskDetail", {
         params: {
@@ -80,6 +81,20 @@ export const GetTaskDetail = createAsyncThunk<
 
       console.log(commentsData);
 
+      const status = labels_arr.filter(
+        (label) =>
+          label.match(/^ToDo$/gi) ||
+          label.match(/^In\sProgress$/gi) ||
+          label.match(/^Done$/gi)
+      )[0];
+      console.log("status", labels_arr, status);
+      dispatch(
+        syncEditTask({
+          title: title || "",
+          status: status || "",
+          body: body || "",
+        })
+      );
       return {
         assigneeAvatar: avatar_url,
         assigneeUrl: assignee_url,

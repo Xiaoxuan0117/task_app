@@ -4,11 +4,11 @@ import { EditTaskState, EditTaskPayload } from "../type";
 
 const initialState: EditTaskState = {
   title: "",
-  labels: "",
+  status: "",
   body: "",
   isUploading: false,
   isSuccess: false,
-  inputError: { title: false, labels: false, body: false },
+  inputError: { title: false, status: false, body: false },
 };
 
 export const UpdateTask = createAsyncThunk<
@@ -19,17 +19,17 @@ export const UpdateTask = createAsyncThunk<
       user: { name: string };
       editTask: {
         title: string;
-        labels: string;
+        status: string;
         body: string;
       };
-      taskDetail: { repo: string; number: number };
+      taskDetail: { repo: string; number: number; labels: string[] };
     };
   }
 >("editTask/UpdateTask", async (_, { getState, rejectWithValue }) => {
   const {
     user: { name },
-    editTask: { title, labels, body },
-    taskDetail: { repo, number },
+    editTask: { title, status, body },
+    taskDetail: { repo, number, labels },
   } = getState();
 
   function countWords(str: string) {
@@ -37,10 +37,10 @@ export const UpdateTask = createAsyncThunk<
     return matches ? matches.length : 0;
   }
   console.log("body", body, countWords(body));
-  if (!title || !labels || !body) {
+  if (!title || !status || !body) {
     const inputError = {
       title: !title,
-      labels: !labels,
+      status: !status,
       body: !body || countWords(body) < 30,
     };
     return { inputError, isSuccess: false };
@@ -52,7 +52,7 @@ export const UpdateTask = createAsyncThunk<
     //   {
     //     title,
     //     body,
-    //     labels,
+    //     status,
     //   },
     //   {
     //     params: {
@@ -80,12 +80,18 @@ export const editTaskSlice = createSlice({
   name: "editTask",
   initialState,
   reducers: {
+    syncEditTask(state, action) {
+      state.title = action.payload.title;
+      state.status = action.payload.status;
+      state.body = action.payload.body;
+    },
     setEditTitle(state, action) {
       state.title = action.payload;
       state.inputError.title = false;
     },
-    selectLabels(state, action) {
-      state.inputError.labels = false;
+    selectStatus(state, action) {
+      state.status = action.payload;
+      state.inputError.status = false;
     },
     setEditBody(state, action) {
       state.body = action.payload;
@@ -111,7 +117,12 @@ export const editTaskSlice = createSlice({
   },
 });
 
-export const { setEditTitle, selectLabels, setEditBody, resetAddTask } =
-  editTaskSlice.actions;
+export const {
+  syncEditTask,
+  setEditTitle,
+  selectStatus,
+  setEditBody,
+  resetAddTask,
+} = editTaskSlice.actions;
 
 export default editTaskSlice.reducer;

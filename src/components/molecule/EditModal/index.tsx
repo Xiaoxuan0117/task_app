@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 import Button from "../../atom/Button";
 import Input from "../../atom/Input";
 import RadioButton from "../../atom/RadioButton";
@@ -6,8 +8,6 @@ import MarkdownEditor from "../../atom/MarkdownEditor";
 import closeButton from "../../../assets/closeButton.svg";
 
 import "./style.scss";
-import { setTaskSearchKeyword, taskSearch } from "../../../reducer/taskList";
-import { setAddBody } from "../../../reducer/addTask";
 
 type EditModalProps = {
   prevTitle?: string;
@@ -15,6 +15,9 @@ type EditModalProps = {
 
 export default function EditModal(props: EditModalProps): JSX.Element {
   const LabelsOptions = ["ToDo", "In Progress", "Done"];
+  const { title, status, body } = useSelector(
+    (state: RootState) => state.editTask
+  );
 
   useEffect(() => {
     const body = document.body;
@@ -31,20 +34,18 @@ export default function EditModal(props: EditModalProps): JSX.Element {
           <div className="title-section">
             <div className="label">Title</div>
             <div className="input-section">
-              <Input
-                input={props.prevTitle}
-                changeEvent={setTaskSearchKeyword}
-              />
+              <Input input={title} type="editTitle" />
             </div>
           </div>
           <div className="label-select">
             <RadioButton
               type={{ clickType: "edit", queryParam: "" }}
               options={LabelsOptions}
+              select={status.toLowerCase()}
             ></RadioButton>
           </div>
           <div className="markdown-section">
-            <MarkdownEditor changeEvent={setAddBody} />
+            <MarkdownEditor type="editBody" body={body} />
           </div>
           <div className="footer">
             <Button type="cancel" class="secondary">

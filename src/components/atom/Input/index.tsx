@@ -1,31 +1,42 @@
 import React from "react";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 
 import { useAppDispatch } from "../../../store";
 
 import "./style.scss";
+import { setTaskSearchKeyword } from "../../../reducer/taskList";
+import { setAddTitle } from "../../../reducer/addTask";
+import { setEditTitle } from "../../../reducer/editTask";
 
 type InputProps = {
   class?: string;
   label?: string;
   input?: string;
   placeholder?: string;
-  changeEvent:
-    | ActionCreatorWithPayload<string, "taskList/setTaskSearchKeyword">
-    | ActionCreatorWithPayload<any, "addTask/setAddTitle">;
+  type: string;
 };
 
 export default function Input(props: InputProps): JSX.Element {
-  const { changeEvent } = props;
+  const { type } = props;
   const dispatch = useAppDispatch();
+
+  const clickEvent = (type: string, e: string) => {
+    switch (type) {
+      case "searchTask":
+        return dispatch(setTaskSearchKeyword(e));
+      case "addTitle":
+        return dispatch(setAddTitle(e));
+      case "editTitle":
+        return dispatch(setEditTitle(e));
+      default:
+        return;
+    }
+  };
   return (
     <input
       className={props.class}
       value={props.input}
       placeholder={props.placeholder}
-      onChange={(e) => {
-        dispatch(changeEvent(e.target.value));
-      }}
+      onChange={(e) => clickEvent(type, e.target.value)}
     ></input>
   );
 }

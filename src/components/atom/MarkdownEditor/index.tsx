@@ -1,6 +1,8 @@
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import React from "react";
 import { useSelector } from "react-redux";
+import { setAddBody } from "../../../reducer/addTask";
+import { setEditBody } from "../../../reducer/editTask";
 import { RootState, useAppDispatch } from "../../../store";
 
 import Markdown from "../Markdown";
@@ -8,15 +10,26 @@ import Markdown from "../Markdown";
 import "./style.scss";
 
 type MarkdownEditorProps = {
-  changeEvent: ActionCreatorWithPayload<any, "addTask/setAddBody">;
+  type: string;
+  body: string;
 };
 
 export default function MarkdownEditor(
   props: MarkdownEditorProps
 ): JSX.Element {
-  const { changeEvent } = props;
-  const { body } = useSelector((state: RootState) => state.addTask);
+  const { type, body } = props;
   const dispatch = useAppDispatch();
+
+  const changeEvent = (type: string, e: string) => {
+    switch (type) {
+      case "addBody":
+        return dispatch(setAddBody(e));
+      case "editBody":
+        return dispatch(setEditBody(e));
+      default:
+        return;
+    }
+  };
 
   return (
     <div className={"markdown-wrapper"}>
@@ -29,7 +42,7 @@ export default function MarkdownEditor(
             className={`textarea`}
             value={body}
             onChange={(e) => {
-              dispatch(changeEvent(e.target.value));
+              changeEvent(type, e.target.value);
             }}
           ></textarea>
         </div>

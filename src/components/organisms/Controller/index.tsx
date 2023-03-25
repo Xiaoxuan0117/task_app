@@ -20,7 +20,7 @@ export default function Controller() {
         <Input
           placeholder="task keywords"
           input={taskSearchKeyword}
-          changeEvent={setTaskSearchKeyword}
+          type="searchTask"
         />
         <Button type="taskSearch" class="search">
           <img src={searchButton} alt="searchButton" />

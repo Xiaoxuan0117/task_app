@@ -153,13 +153,13 @@ export type AddTaskPayload = {
 
 export type EditInputError = {
   title: boolean;
-  labels: boolean;
+  status: boolean;
   body: boolean;
 };
 
 export type EditTaskState = {
   title: string;
-  labels: string;
+  status: string;
   body: string;
   isUploading: boolean;
   isSuccess: boolean;
