@@ -41,7 +41,7 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
             {options.length !== 0 ? (
               options.map((option, index) => (
                 <li key={`${option.id}`}>
-                  <Link to={`/${option.name}`}>
+                  <Link to={`/${option.repoOwner}/${option.name}`}>
                     <button
                       onBlur={() =>
                         index + 1 === options.length && closeDropdown()

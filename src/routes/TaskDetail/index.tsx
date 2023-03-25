@@ -15,7 +15,7 @@ import { RootState, useAppDispatch } from "../../store";
 import "./style.scss";
 
 export default function TaskDetail() {
-  let { owner, repo, number } = useParams();
+  let { repoOwner, repo, number } = useParams();
   const {
     body,
     time,
@@ -41,14 +41,14 @@ export default function TaskDetail() {
     async function getDefaultData() {
       await dispatch(
         GetTaskDetail({
-          owner: owner || "",
+          owner: repoOwner || "",
           repo: repo || "",
           number: parseInt(number || "0"),
         })
       );
-      await dispatch(GetUser(repo));
+      await dispatch(GetUser({ repoOwner: repoOwner || "", name: repo || "" }));
     }
-  }, [dispatch, number, owner, repo]);
+  }, [dispatch, number, repoOwner, repo]);
 
   return (
     <div className="task-page">
@@ -64,7 +64,7 @@ export default function TaskDetail() {
                 <LinkElement
                   isRouter={false}
                   class="task"
-                  href={`https://github.com/${owner}/${repo}`}
+                  href={`https://github.com/${repoOwner}/${repo}`}
                 >
                   <div className="repo">{repo}</div>
                 </LinkElement>
@@ -103,7 +103,7 @@ export default function TaskDetail() {
                     milestone={milestone}
                     milestone_url={milestoneUrl}
                     taskInfo={{
-                      owner: owner || "",
+                      owner: repoOwner || "",
                       repo: repo || "",
                       number: parseInt(number || "0"),
                     }}

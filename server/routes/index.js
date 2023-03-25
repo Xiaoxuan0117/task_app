@@ -74,7 +74,7 @@ router.get("/taskList", async function (req, res, next) {
   } = req.query;
   console.log("c", created, assignee, mentioned);
   const url =
-    repo === "myIssue"
+    repo.length === 0
       ? "https://api.github.com/issues"
       : `https://api.github.com/repos/${owner}/${repo}/issues`;
   try {

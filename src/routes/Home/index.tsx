@@ -18,13 +18,13 @@ import { RootState, useAppDispatch } from "../../store";
 import "./style.scss";
 
 export default function Home() {
-  const { repo } = useParams();
+  const { repoOwner, repo } = useParams();
   const {
     taskList: taskListData,
     isLoading,
     errMsg,
   } = useSelector((state: RootState) => state.taskList);
-  const { repoList } = useSelector((state: RootState) => state.user);
+  const { repoList, showRepo } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -32,10 +32,10 @@ export default function Home() {
     dispatch(resetAddTask());
     getDefaultData();
     async function getDefaultData() {
-      await dispatch(GetUser(repo));
+      await dispatch(GetUser({ repoOwner: repoOwner || "", name: repo || "" }));
       await dispatch(GetTaskList({ reLoad: false }));
     }
-  }, [dispatch, repo]);
+  }, [dispatch, repoOwner, repo]);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -60,7 +60,9 @@ export default function Home() {
       <div className="content">
         <div className="taskList-section">
           <div className="head">
-            <div className="repo bold">{repo ? repo : "My Issue"}</div>
+            <div className="repo bold">
+              {showRepo.repoOwner}/{showRepo.name ? showRepo.name : "My Issue"}
+            </div>
             <div className="add-button">
               <Link to="/add">
                 <Button type="openAddModal" class="primary">

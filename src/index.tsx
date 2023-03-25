@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/:repo",
+    path: "/:repoOwner/:repo",
     element: <Home />,
     children: [
       {
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/:owner/:repo/:number",
+    path: "/:repoOwner/:repo/:number",
     element: <TaskDetail />,
     children: [
       {

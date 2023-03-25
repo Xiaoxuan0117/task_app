@@ -181,6 +181,7 @@ export type EditTaskPayload = {
 export type RepoState = {
   id: number;
   name: string;
+  repoOwner: string;
 };
 
 export type GetUserPayload = {
@@ -190,8 +191,13 @@ export type GetUserPayload = {
   repoList: RepoState[];
 };
 
+export type ShowRepo = {
+  repoOwner: string;
+  name: string;
+};
+
 export interface userState extends GetUserPayload {
   isLoading: boolean;
   errMsg: string;
-  showRepo: string;
+  showRepo: ShowRepo;
 }

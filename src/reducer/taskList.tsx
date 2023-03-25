@@ -36,7 +36,6 @@ export const TriggerGetTaskList = createAsyncThunk<
     dispatch: AppDispatch;
     state: {
       taskList: { isAll: boolean; isLoading: boolean; isSearchMode: boolean };
-      user: { showRepo: string };
     };
   }
 >("taskList/scrollToBottom", async (_, { getState, dispatch }) => {
@@ -61,7 +60,7 @@ export const GetTaskList = createAsyncThunk<
       };
       user: {
         name: string;
-        showRepo: string;
+        showRepo: { repoOwner: string; name: string };
       };
     };
   }
@@ -71,7 +70,10 @@ export const GetTaskList = createAsyncThunk<
       page,
       filter: { state, labels, category, direction },
     },
-    user: { name, showRepo },
+    user: {
+      name,
+      showRepo: { repoOwner, name: repoName },
+    },
   } = getState();
 
   const repoCategory = (category: string) => {
@@ -90,8 +92,8 @@ export const GetTaskList = createAsyncThunk<
       url: "/api/taskList/",
       method: "get",
       params: {
-        owner: name,
-        repo: showRepo,
+        owner: repoOwner,
+        repo: repoName,
         page: reLoad ? 1 : page,
         state: state,
         labels: labels === "all" ? "" : labels,
@@ -122,7 +124,7 @@ export const GetTaskList = createAsyncThunk<
           html_url: repo_url,
           owner,
         } = repository || {};
-        const { login: repoOwner } = owner || {};
+        const { login: repoLogin } = owner || {};
         const { login, html_url: creatorUrl } = user || {};
         const labels_arr = labels.map((label) => label.name);
         return {
@@ -134,11 +136,11 @@ export const GetTaskList = createAsyncThunk<
           id,
           labels: labels_arr,
           number,
-          repo: repository_name ? repository_name : showRepo,
+          repo: repository_name ? repository_name : repoName,
           repoUrl: repo_url
             ? repo_url
-            : `https://github.com/${name}/${showRepo}`,
-          repoOwner,
+            : `https://github.com/${repoOwner}/${repoName}`,
+          repoOwner: repoLogin ? repoLogin : repoOwner,
           isOpen: state === "open" ? true : false,
           title: title,
           creator: login,
