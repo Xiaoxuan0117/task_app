@@ -29,15 +29,6 @@ export default function Navi(props: NaviProps): JSX.Element {
             type="link"
           ></Dropdown>
         </div>
-        <div className="repo_search">
-          <Input
-            placeholder="repository keywords"
-            changeEvent={setTaskSearchKeyword}
-          />
-          <Button class="search">
-            <img src={searchButton} alt="searchButton" />
-          </Button>
-        </div>
       </div>
     </div>
   );
