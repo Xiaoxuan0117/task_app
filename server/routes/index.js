@@ -221,4 +221,31 @@ router.post("/postTask", async function (req, res) {
   }
 });
 
+/* PATCH issue */
+router.post("/updateTask", async function (req, res) {
+  const { owner, repo, issue_number } = req.query;
+  const { title, body, labels } = req.body;
+  console.log("here", owner, repo, title, body);
+  try {
+    const result = await axios.patch(
+      `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}`,
+      {
+        title: title,
+        body: body,
+        labels: labels,
+      },
+      {
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: `Bearer ${req.cookies.access_token}`,
+        },
+      }
+    );
+    res.status(result.status).send(result.data.state);
+  } catch (err) {
+    console.log("err", err.response.status, err.response.data);
+    res.status(err.response.status).send(err.response.data);
+  }
+});
+
 module.exports = router;

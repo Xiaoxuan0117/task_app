@@ -146,7 +146,30 @@ export type AddTaskState = {
   inputError: AddInputError;
 };
 
-export type PostTaskPayload = { isSuccess: boolean; inputError: InputError };
+export type AddTaskPayload = {
+  isSuccess: boolean;
+  inputError: AddInputError;
+};
+
+export type EditInputError = {
+  title: boolean;
+  labels: boolean;
+  body: boolean;
+};
+
+export type EditTaskState = {
+  title: string;
+  labels: string;
+  body: string;
+  isUploading: boolean;
+  isSuccess: boolean;
+  inputError: EditInputError;
+};
+
+export type EditTaskPayload = {
+  isSuccess: boolean;
+  inputError: EditInputError;
+};
 
 export type RepoState = {
   id: number;

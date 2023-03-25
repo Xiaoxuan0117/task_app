@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import taskListReducer from "../reducer/taskList";
 import taskDetailReducer from "../reducer/taskDetail";
 import addTaskReducer from "../reducer/addTask";
+import editTaskReducer from "../reducer/editTask";
 import userReducer from "../reducer/user";
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
     taskList: taskListReducer,
     taskDetail: taskDetailReducer,
     addTask: addTaskReducer,
+    editTask: editTaskReducer,
     user: userReducer,
   },
 });
