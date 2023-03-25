@@ -5,6 +5,7 @@ import Filter from "../../molecule/Filter";
 import searchButton from "../../../assets/searchButton.svg";
 import Button from "../../atom/Button";
 import Order from "../../molecule/Order";
+import closeButton from "../../../assets/closeButton.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { setTaskSearchKeyword } from "../../../reducer/taskList";
@@ -31,6 +32,11 @@ export default function Controller() {
       </div>
       <div className="order-section">
         <Order></Order>
+      </div>
+      <div className="close-button">
+        <Button type="toggleFilter" class="close">
+          <img src={closeButton} alt="closeButton" />
+        </Button>
       </div>
     </div>
   );

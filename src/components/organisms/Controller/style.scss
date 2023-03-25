@@ -5,6 +5,7 @@
   position: fixed;
   display: flex;
   flex-direction: column;
+
   & .search-section {
     display: flex;
     flex-direction: row;
@@ -25,5 +26,20 @@
 
   & .order-section {
     margin-bottom: 30px;
+  }
+
+  & .close-button {
+    display: none;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+  }
+
+  @media screen and (max-width: 1023px) {
+    position: relative;
+
+    & .close-button {
+      display: block;
+    }
   }
 }

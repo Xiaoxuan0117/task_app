@@ -3,7 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PostTask } from "../../../reducer/addTask";
 import { UpdateTask } from "../../../reducer/editTask";
 import { GetTaskDetail } from "../../../reducer/taskDetail";
-import { GetTaskList, taskSearch } from "../../../reducer/taskList";
+import {
+  GetTaskList,
+  taskSearch,
+  toggleFilter,
+} from "../../../reducer/taskList";
 import { useAppDispatch } from "../../../store";
 
 import "./style.scss";
@@ -48,6 +52,8 @@ export default function Button(props: ButtonProps): JSX.Element {
         return dispatch(taskSearch());
       case "openAddModal":
         return navigate("add", { replace: false });
+      case "toggleFilter":
+        return dispatch(toggleFilter());
       default:
         return;
     }

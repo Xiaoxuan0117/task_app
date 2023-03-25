@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, Outlet, useParams } from "react-router-dom";
@@ -6,6 +7,7 @@ import Navi from "../../components/molecule/Navi";
 import Profile from "../../components/molecule/Profile";
 import Controller from "../../components/organisms/Controller";
 import TaskList from "../../components/organisms/TaskList";
+import filter from "../../assets/filter.svg";
 import { resetAddTask } from "../../reducer/addTask";
 import {
   GetTaskList,
@@ -23,6 +25,7 @@ export default function Home() {
     taskList: taskListData,
     isLoading,
     errMsg,
+    isFilterOpen,
   } = useSelector((state: RootState) => state.taskList);
   const { repoList, showRepo } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
@@ -63,12 +66,19 @@ export default function Home() {
             <div className="repo bold">
               {showRepo.repoOwner}/{showRepo.name ? showRepo.name : "My Issue"}
             </div>
-            <div className="add-button">
-              <Link to="/add">
-                <Button type="openAddModal" class="primary">
-                  <div>New Task</div>
+            <div className="function">
+              <div className="add-button">
+                <Link to="/add">
+                  <Button type="openAddModal" class="primary">
+                    <div>New Task</div>
+                  </Button>
+                </Link>
+              </div>
+              <div className="filter-button">
+                <Button type="toggleFilter" class="close">
+                  <img src={filter} alt="filter" />
                 </Button>
-              </Link>
+              </div>
             </div>
           </div>
           <TaskList
@@ -77,7 +87,9 @@ export default function Home() {
             errMsg={errMsg}
           ></TaskList>
         </div>
-        <div className="controller-section">
+        <div
+          className={`controller-section ${classNames(isFilterOpen && "open")}`}
+        >
           <Controller />
         </div>
       </div>

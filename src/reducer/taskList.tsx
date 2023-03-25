@@ -27,6 +27,7 @@ const initialState: TaskListStatus = {
   isStateLoading: false,
   taskSearchKeyword: "",
   isSearchMode: false,
+  isFilterOpen: false,
 };
 
 export const TriggerGetTaskList = createAsyncThunk<
@@ -268,6 +269,9 @@ export const taskListSlice = createSlice({
         state.isSearchMode = false;
       }
     },
+    toggleFilter(state) {
+      state.isFilterOpen = !state.isFilterOpen;
+    },
     resetTaskList() {
       return initialState;
     },
@@ -323,6 +327,7 @@ export const {
   changeFilterState,
   setTaskSearchKeyword,
   taskSearch,
+  toggleFilter,
   resetTaskList,
 } = taskListSlice.actions;
 
