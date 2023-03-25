@@ -197,7 +197,7 @@ router.get("/taskDetail", async function (req, res) {
 /* POST issue */
 router.post("/postTask", async function (req, res) {
   const { owner, repo } = req.query;
-  const { title, body } = req.body;
+  const { title, body, labels } = req.body;
   console.log("here", owner, repo, title, body);
   try {
     const result = await axios.post(
@@ -205,6 +205,7 @@ router.post("/postTask", async function (req, res) {
       {
         title: title,
         body: body,
+        labels: labels,
       },
       {
         headers: {

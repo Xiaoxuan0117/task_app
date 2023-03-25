@@ -28,8 +28,17 @@ export const PostTask = createAsyncThunk<
   const { name } = getState().user;
   const { title, repo, body } = getState().addTask;
 
+  function countWords(str: string) {
+    var matches = str.match(/[\u00ff-\uffff]|\S+/g);
+    return matches ? matches.length : 0;
+  }
+  console.log("body", body, countWords(body));
   if (!title || !repo || !body) {
-    const inputError = { title: !title, repo: !repo, body: !body };
+    const inputError = {
+      title: !title,
+      repo: !repo,
+      body: !body || countWords(body) < 30,
+    };
     return { inputError, isSuccess: false };
   }
 
@@ -39,6 +48,7 @@ export const PostTask = createAsyncThunk<
       {
         title,
         body,
+        labels: ["ToDo"],
       },
       {
         params: {

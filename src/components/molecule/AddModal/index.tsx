@@ -56,7 +56,11 @@ export default function AddModal() {
           </div>
           <div className="markdown-section">
             <MarkdownEditor changeEvent={setAddBody} />
-            {bodyError && <div className="required-alert">*Body required</div>}
+            {bodyError && (
+              <div className="required-alert">
+                *Body needs at least 30 words
+              </div>
+            )}
           </div>
           <div className="footer">
             <Button type="cancel" class="secondary">
