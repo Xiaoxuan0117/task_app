@@ -11,7 +11,7 @@ import "./style.scss";
 export default function Task(props: TaskProps): JSX.Element {
   const {
     isOpen,
-    repo,
+    repoName,
     repoUrl,
     repoOwner,
     title,
@@ -26,8 +26,8 @@ export default function Task(props: TaskProps): JSX.Element {
   } = props;
 
   const taskInfo = {
-    owner: repoOwner,
-    repo: repo,
+    repoOwner: repoOwner,
+    repoName: repoName,
     number: number,
   };
 
@@ -46,12 +46,12 @@ export default function Task(props: TaskProps): JSX.Element {
           <div className="content-section">
             <div className="upper">
               <LinkElement isRouter={false} class="tasklist" href={repoUrl}>
-                <div className="repo">{`${repoOwner}/${repo}`}</div>
+                <div className="repo">{`${repoOwner}/${repoName}`}</div>
               </LinkElement>
               <LinkElement
                 isRouter={true}
                 class="tasklist"
-                href={`/${repoOwner}/${repo}/${number}`}
+                href={`/${repoOwner}/${repoName}/${number}`}
               >
                 <div className="issue">{title}</div>
               </LinkElement>

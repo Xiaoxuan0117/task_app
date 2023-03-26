@@ -11,7 +11,7 @@ const initialState: userState = {
   repoList: [],
   isLoading: false,
   errMsg: "",
-  showRepo: { repoOwner: "", name: "" },
+  showRepo: { repoOwner: "", repoName: "" },
 };
 
 export const GetUser = createAsyncThunk<
@@ -22,7 +22,8 @@ export const GetUser = createAsyncThunk<
   }
 >(
   "user/GetUser",
-  async ({ repoOwner, name: repoName }, { dispatch, rejectWithValue }) => {
+  async ({ repoOwner, repoName }, { dispatch, rejectWithValue }) => {
+    console.log("get user");
     try {
       const resData = await axios.get("/api/user");
       console.log("resData", resData);
@@ -31,7 +32,11 @@ export const GetUser = createAsyncThunk<
       console.log("repoData", repoData);
       const repos = repoData.data.map(
         (repo: { id: number; name: string; owner: { login: string } }) => {
-          return { id: repo.id, name: repo.name, repoOwner: repo.owner.login };
+          return {
+            id: repo.id,
+            repoName: repo.name,
+            repoOwner: repo.owner.login,
+          };
         }
       );
       console.log("repoData", repoData);
@@ -39,13 +44,13 @@ export const GetUser = createAsyncThunk<
       if (repoOwner && repoName) {
         dispatch(
           setShowRepo({
-            repoOwner,
-            name: repoName,
+            repoOwner: repoOwner,
+            repoName: repoName,
           })
         );
         dispatch(selectRepo(repoName));
       } else {
-        dispatch(setShowRepo({ repoOwner: name, name: "" }));
+        dispatch(setShowRepo({ repoOwner: name, repoName: "" }));
         dispatch(selectRepo(""));
       }
       return {
@@ -72,7 +77,7 @@ export const userSlice = createSlice({
   reducers: {
     setShowRepo(state, action) {
       state.showRepo.repoOwner = action.payload.repoOwner;
-      state.showRepo.name = action.payload.name;
+      state.showRepo.repoName = action.payload.repoName;
     },
     resetUser() {
       return initialState;

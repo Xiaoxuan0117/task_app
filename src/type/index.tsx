@@ -9,7 +9,7 @@ export type TaskProps = {
   id?: string;
   labels: string[];
   number: number;
-  repo: string;
+  repoName: string;
   repoUrl: string;
   repoOwner: string;
   isOpen: boolean;
@@ -75,8 +75,8 @@ export type GetTaskListResData = {
 };
 
 export type TaskRequiredInfo = {
-  owner: string;
-  repo: string;
+  repoOwner: string;
+  repoName: string;
   number: number;
 };
 
@@ -101,7 +101,7 @@ export type GetTaskDetailPayLoad = {
   id: number;
   labels: string[];
   number: number;
-  repo: string;
+  repoName: string;
   isOpen: boolean;
   title: string;
   creator: string;
@@ -190,7 +190,7 @@ export type EditTaskPayload = {
 
 export type RepoState = {
   id: number;
-  name: string;
+  repoName: string;
   repoOwner: string;
 };
 
@@ -203,7 +203,7 @@ export type GetUserPayload = {
 
 export type ShowRepo = {
   repoOwner: string;
-  name: string;
+  repoName: string;
 };
 
 export interface userState extends GetUserPayload {

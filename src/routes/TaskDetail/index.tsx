@@ -16,7 +16,7 @@ import { RootState, useAppDispatch } from "../../store";
 import "./style.scss";
 
 export default function TaskDetail() {
-  let { repoOwner, repo, number } = useParams();
+  let { repoOwner, repoName, number } = useParams();
   const {
     body,
     time,
@@ -46,14 +46,16 @@ export default function TaskDetail() {
     async function getDefaultData() {
       await dispatch(
         GetTaskDetail({
-          owner: repoOwner || "",
-          repo: repo || "",
+          repoOwner: repoOwner || "",
+          repoName: repoName || "",
           number: parseInt(number || "0"),
         })
       );
-      await dispatch(GetUser({ repoOwner: repoOwner || "", name: repo || "" }));
+      await dispatch(
+        GetUser({ repoOwner: repoOwner || "", repoName: repoName || "" })
+      );
     }
-  }, [dispatch, number, repoOwner, repo]);
+  }, [dispatch, number, repoOwner, repoName]);
 
   return (
     <div className="task-page">
@@ -69,9 +71,9 @@ export default function TaskDetail() {
                 <LinkElement
                   isRouter={false}
                   class="task"
-                  href={`https://github.com/${repoOwner}/${repo}`}
+                  href={`https://github.com/${repoOwner}/${repoName}`}
                 >
-                  <div className="repo">{repo}</div>
+                  <div className="repo">{repoName}</div>
                 </LinkElement>
                 <LinkElement isRouter={false} class="task" href={issueUrl}>
                   <div className="issue">{title}</div>
@@ -113,8 +115,8 @@ export default function TaskDetail() {
                     milestone_url={milestoneUrl}
                     assignees={assignees || []}
                     taskInfo={{
-                      owner: repoOwner || "",
-                      repo: repo || "",
+                      repoOwner: repoOwner || "",
+                      repoName: repoName || "",
                       number: parseInt(number || "0"),
                     }}
                   ></TaskSidebar>

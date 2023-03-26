@@ -41,13 +41,13 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
             {options.length !== 0 ? (
               options.map((option, index) => (
                 <li key={`${option.id}`}>
-                  <Link to={`/${option.repoOwner}/${option.name}`}>
+                  <Link to={`/${option.repoOwner}/${option.repoName}`}>
                     <button
                       onBlur={() =>
                         index + 1 === options.length && closeDropdown()
                       }
                     >
-                      {option.name}
+                      {option.repoName}
                     </button>
                   </Link>
                 </li>
@@ -68,10 +68,10 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
                       index + 1 === options.length && closeDropdown()
                     }
                     onClick={() => {
-                      dispatch(selectRepo(option.name));
+                      dispatch(selectRepo(option.repoName));
                     }}
                   >
-                    {option.name}
+                    {option.repoName}
                   </button>
                 </li>
               ))

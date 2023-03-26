@@ -18,7 +18,7 @@ const initialState: TaskDetailState = {
   issueUrl: "",
   id: 0,
   number: 0,
-  repo: "",
+  repoName: "",
   isOpen: true,
   title: "",
   creator: "",
@@ -40,12 +40,12 @@ export const GetTaskDetail = createAsyncThunk<
   {}
 >(
   "taskDetail/GetTaskDetail",
-  async ({ owner, repo, number }, { dispatch, rejectWithValue }) => {
+  async ({ repoOwner, repoName, number }, { dispatch, rejectWithValue }) => {
     try {
       const resData = await axios.get("/api/taskDetail", {
         params: {
-          owner,
-          repo,
+          owner: repoOwner,
+          repo: repoName,
           issue_number: number,
         },
       });
@@ -112,7 +112,7 @@ export const GetTaskDetail = createAsyncThunk<
         issueUrl: html_url,
         id: id,
         number: number,
-        repo: repo,
+        repoName: repoName,
         isOpen: state === "open" ? true : false,
         title: title,
         creator: login,
@@ -143,15 +143,15 @@ export const UpdateDetailState = createAsyncThunk<
   }
 >(
   "task/UpdateDetailState",
-  async ({ owner, repo, number }, { getState, rejectWithValue }) => {
+  async ({ repoOwner, repoName, number }, { getState, rejectWithValue }) => {
     const { isOpen } = getState().taskDetail;
     console.log("should in here");
 
     try {
       const resData = await axios.get("/api/updateState", {
         params: {
-          owner: owner,
-          repo: repo,
+          owner: repoOwner,
+          repo: repoName,
           issue_number: number,
           state: !isOpen ? "open" : "closed",
         },

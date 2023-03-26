@@ -10,8 +10,8 @@ export default {
 } as ComponentMeta<typeof Toggle>;
 
 const dummyTaskInfo = {
-  owner: "creator",
-  repo: "repo",
+  repoOwner: "creator",
+  repoName: "repo",
   number: 0,
 };
 

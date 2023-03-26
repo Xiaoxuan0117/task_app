@@ -61,7 +61,7 @@ export const GetTaskList = createAsyncThunk<
       };
       user: {
         name: string;
-        showRepo: { repoOwner: string; name: string };
+        showRepo: { repoOwner: string; repoName: string };
       };
     };
   }
@@ -73,7 +73,7 @@ export const GetTaskList = createAsyncThunk<
     },
     user: {
       name,
-      showRepo: { repoOwner, name: repoName },
+      showRepo: { repoOwner, repoName },
     },
   } = getState();
 
@@ -137,7 +137,7 @@ export const GetTaskList = createAsyncThunk<
           id,
           labels: labels_arr,
           number,
-          repo: repository_name ? repository_name : repoName,
+          repoName: repository_name ? repository_name : repoName,
           repoUrl: repo_url
             ? repo_url
             : `https://github.com/${repoOwner}/${repoName}`,
@@ -197,12 +197,14 @@ export const UpdateState = createAsyncThunk<
   }
 >(
   "task/updateState",
-  async ({ owner, repo, number }, { getState, rejectWithValue }) => {
+  async ({ repoOwner, repoName, number }, { getState, rejectWithValue }) => {
     const { taskList } = getState().taskList;
 
     const taskIndex = taskList.findIndex((task) => {
       return (
-        task.repoOwner === owner && task.repo === repo && task.number === number
+        task.repoOwner === repoOwner &&
+        task.repoName === repoName &&
+        task.number === number
       );
     });
     if (taskIndex === -1) {
@@ -213,8 +215,8 @@ export const UpdateState = createAsyncThunk<
     try {
       const resData = await axios.get("/api/updateState", {
         params: {
-          owner: owner,
-          repo: repo,
+          owner: repoOwner,
+          repo: repoName,
           issue_number: number,
           state: !currentState ? "open" : "closed",
         },
@@ -254,7 +256,7 @@ export const taskListSlice = createSlice({
         const keyword = new RegExp(`${state.taskSearchKeyword}`, "i");
         const result = state.taskList.map((task) => {
           if (
-            keyword.test(task.repo) ||
+            keyword.test(task.repoName) ||
             keyword.test(task.title) ||
             keyword.test(task.body)
           ) {

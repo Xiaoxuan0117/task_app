@@ -17,7 +17,7 @@ export const PostTask = createAsyncThunk<
   undefined,
   {
     state: {
-      user: { name: string };
+      user: { showRepo: { repoOwner: string; repoName: string } };
       addTask: {
         title: string;
         repo: string;
@@ -26,7 +26,7 @@ export const PostTask = createAsyncThunk<
     };
   }
 >("addTask/PostTask", async (_, { getState, rejectWithValue }) => {
-  const { name } = getState().user;
+  const { repoOwner, repoName } = getState().user.showRepo;
   const { title, repo, body } = getState().addTask;
 
   function countWords(str: string) {
@@ -53,8 +53,8 @@ export const PostTask = createAsyncThunk<
       },
       {
         params: {
-          owner: name,
-          repo,
+          owner: repoOwner,
+          repo: repoName,
         },
       }
     );

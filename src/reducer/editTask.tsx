@@ -17,20 +17,22 @@ export const UpdateTask = createAsyncThunk<
   undefined,
   {
     state: {
-      user: { name: string };
+      user: { showRepo: { repoOwner: string; repoName: string } };
       editTask: {
         title: string;
         status: string;
         body: string;
       };
-      taskDetail: { repo: string; number: number; labels: string[] };
+      taskDetail: { number: number; labels: string[] };
     };
   }
 >("editTask/UpdateTask", async (_, { getState, rejectWithValue }) => {
   const {
-    user: { name },
+    user: {
+      showRepo: { repoOwner, repoName },
+    },
     editTask: { title, status, body },
-    taskDetail: { repo, number, labels },
+    taskDetail: { number, labels },
   } = getState();
 
   function countWords(str: string) {
@@ -66,8 +68,8 @@ export const UpdateTask = createAsyncThunk<
       },
       {
         params: {
-          owner: name,
-          repo,
+          owner: repoOwner,
+          repo: repoName,
           issue_number: number,
         },
       }

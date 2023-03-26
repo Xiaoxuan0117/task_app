@@ -20,7 +20,7 @@ import { RootState, useAppDispatch } from "../../store";
 import "./style.scss";
 
 export default function Home() {
-  const { repoOwner, repo } = useParams();
+  const { repoOwner, repoName } = useParams();
   const {
     taskList: taskListData,
     isLoading,
@@ -35,10 +35,12 @@ export default function Home() {
     dispatch(resetAddTask());
     getDefaultData();
     async function getDefaultData() {
-      await dispatch(GetUser({ repoOwner: repoOwner || "", name: repo || "" }));
+      await dispatch(
+        GetUser({ repoOwner: repoOwner || "", repoName: repoName || "" })
+      );
       await dispatch(GetTaskList({ reLoad: false }));
     }
-  }, [dispatch, repoOwner, repo]);
+  }, [dispatch, repoOwner, repoName]);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -64,7 +66,8 @@ export default function Home() {
         <div className="taskList-section">
           <div className="head">
             <div className="repo bold">
-              {showRepo.repoOwner}/{showRepo.name ? showRepo.name : "My Issue"}
+              {showRepo.repoOwner}/
+              {showRepo.repoName ? showRepo.repoName : "My Issue"}
             </div>
             <div className="function">
               <div className="add-button">

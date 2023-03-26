@@ -12,32 +12,32 @@ export default {
 const dummyData = [
   {
     id: 1,
-    name: "user1",
+    repoName: "user1",
     repoOwner: "xiaoxuan0117",
   },
   {
     id: 2,
-    name: "user2",
+    repoName: "user2",
     repoOwner: "xiaoxuan0117",
   },
   {
     id: 3,
-    name: "user3",
+    repoName: "user3",
     repoOwner: "xiaoxuan0117",
   },
   {
     id: 4,
-    name: "user4",
+    repoName: "user4",
     repoOwner: "xiaoxuan0117",
   },
   {
     id: 5,
-    name: "user5",
+    repoName: "user5",
     repoOwner: "xiaoxuan0117",
   },
   {
     id: 6,
-    name: "user6",
+    repoName: "user6",
     repoOwner: "xiaoxuan0117",
   },
 ];

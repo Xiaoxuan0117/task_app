@@ -15,7 +15,7 @@ type TaskSidebarProps = {
   milestone: string;
   milestone_url: string;
   assignees: Assignee[];
-  taskInfo: { owner: string; repo: string; number: number };
+  taskInfo: { repoOwner: string; repoName: string; number: number };
 };
 
 export default function TaskSidebar(props: TaskSidebarProps): JSX.Element {
