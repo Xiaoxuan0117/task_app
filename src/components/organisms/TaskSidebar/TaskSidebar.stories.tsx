@@ -20,5 +20,6 @@ export const Primary: ComponentStory<typeof TaskSidebar> = () => (
       repo: "",
       number: 0,
     }}
+    assignees={[]}
   ></TaskSidebar>
 );

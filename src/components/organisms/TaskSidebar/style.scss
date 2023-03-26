@@ -28,6 +28,18 @@
           flex-wrap: wrap;
         }
       }
+
+      &.assignees {
+        & .list {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+
+          & .avatar-wrapper {
+            margin-right: 5px;
+          }
+        }
+      }
     }
   }
 

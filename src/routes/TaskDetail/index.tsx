@@ -31,6 +31,7 @@ export default function TaskDetail() {
     commentsData,
     milestone,
     milestoneUrl,
+    assignees,
     isLoading,
     errMsg,
     isDetailOpen,
@@ -110,6 +111,7 @@ export default function TaskDetail() {
                     labels={labels}
                     milestone={milestone}
                     milestone_url={milestoneUrl}
+                    assignees={assignees || []}
                     taskInfo={{
                       owner: repoOwner || "",
                       repo: repo || "",

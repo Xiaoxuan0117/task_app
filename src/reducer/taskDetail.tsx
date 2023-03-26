@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import {
+  Assignee,
   CommentType,
   GetTaskDetailPayLoad,
   GetTaskDetailResData,
@@ -51,6 +52,7 @@ export const GetTaskDetail = createAsyncThunk<
       console.log("task detail", resData.data);
       const {
         assignee,
+        assignees,
         body,
         created_at,
         html_url,
@@ -63,6 +65,10 @@ export const GetTaskDetail = createAsyncThunk<
         milestone,
       }: GetTaskDetailResData = resData.data;
       const labels_arr = labels.map((label: { name: string }) => label.name);
+      const assignees_arr = assignees.map((assignee: Assignee) => ({
+        avatar_url: assignee.avatar_url,
+        html_url: assignee.html_url,
+      }));
       const { avatar_url, html_url: assignee_url } = assignee || {};
       const { login, html_url: user_url, avatar_url: user_avatar } = user || {};
       const { title: milestone_title, html_url: milestone_url } =
@@ -99,6 +105,7 @@ export const GetTaskDetail = createAsyncThunk<
       return {
         assigneeAvatar: avatar_url,
         assigneeUrl: assignee_url,
+        assignees: assignees_arr,
         body: body,
         time: created_at,
         issueUrl: html_url,

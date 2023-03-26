@@ -94,6 +94,7 @@ export type UpdateStatePayload = {
 export type GetTaskDetailPayLoad = {
   assigneeUrl?: string;
   assigneeAvatar?: string;
+  assignees?: Assignee[];
   body: string;
   time: string;
   issueUrl: string;
@@ -117,8 +118,14 @@ export interface TaskDetailState extends GetTaskDetailPayLoad {
   isDetailOpen: boolean;
 }
 
+export type Assignee = {
+  avatar_url: string;
+  html_url: string;
+};
+
 export type GetTaskDetailResData = {
   assignee: { avatar_url: string; html_url: string };
+  assignees: Assignee[];
   body: string;
   created_at: string;
   html_url: string;
