@@ -26,7 +26,7 @@ export default function Task(props: TaskProps): JSX.Element {
   } = props;
 
   const taskInfo = {
-    owner: creator,
+    owner: repoOwner,
     repo: repo,
     number: number,
   };

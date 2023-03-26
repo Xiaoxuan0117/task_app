@@ -202,7 +202,7 @@ export const UpdateState = createAsyncThunk<
 
     const taskIndex = taskList.findIndex((task) => {
       return (
-        task.creator === owner && task.repo === repo && task.number === number
+        task.repoOwner === owner && task.repo === repo && task.number === number
       );
     });
     if (taskIndex === -1) {
