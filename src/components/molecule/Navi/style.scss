@@ -12,6 +12,10 @@
     flex-wrap: wrap;
     padding: 15px 50px;
 
+    @media screen and (max-width: 768px) {
+      padding: 15px 30px;
+    }
+
     & .my-issue {
       margin-right: 44px;
       & a {
