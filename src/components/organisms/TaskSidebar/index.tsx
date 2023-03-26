@@ -31,9 +31,11 @@ export default function TaskSidebar(props: TaskSidebarProps): JSX.Element {
         <div className="section labels">
           <div className="title">Labels</div>
           <div className="labels">
-            {labels.map((label, index) => (
-              <Label key={`lable=${index}`}>{label}</Label>
-            ))}
+            {labels.length
+              ? labels.map((label, index) => (
+                  <Label key={`lable=${index}`}>{label}</Label>
+                ))
+              : "no labels"}
           </div>
         </div>
         <div className="section milestone">
