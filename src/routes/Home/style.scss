@@ -26,6 +26,11 @@
     flex-direction: row;
     justify-content: center;
     padding-top: 40px;
+    width: 100%;
+
+    @media screen and (max-width: 1023px) {
+      display: block;
+    }
 
     & .taskList-section {
       padding: 80px 20px 80px 20px;
@@ -36,6 +41,10 @@
         justify-content: space-between;
         flex-wrap: wrap;
         margin-bottom: 30px;
+
+        @media screen and (max-width: 534px) {
+          flex-direction: column;
+        }
 
         & .repo.bold {
           font-size: $font-h1;
