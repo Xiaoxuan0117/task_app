@@ -4,6 +4,10 @@
 .taskDetail-wrapper {
   padding: 20px;
 
+  @media screen and (max-width: 1023px) {
+    padding: 0 10px 0 0;
+  }
+
   & .taskDetail {
     display: flex;
     flex-direction: column;
