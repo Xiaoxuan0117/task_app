@@ -54,6 +54,14 @@
             justify-content: end;
           }
         }
+
+        & .detail-button {
+          display: none;
+
+          @media screen and (max-width: 1023px) {
+            display: block;
+          }
+        }
       }
     }
 
