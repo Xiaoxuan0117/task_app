@@ -5,17 +5,20 @@
   display: flex;
   flex-direction: row;
   margin-bottom: 25px;
+  width: 100%;
 
   @media screen and (max-width: 1023px) {
-    flex-wrap: wrap;
+    display: block;
   }
 
   & .avatar-wrapper {
+    width: 5%;
     position: relative;
     margin-right: 14px;
   }
 
   & .content {
+    width: 95%;
     display: flex;
     flex-direction: column;
 
@@ -59,9 +62,13 @@
       border-radius: 5px;
       background-color: $white;
       overflow: hidden;
+      width: 100%;
 
       & .markdown {
         height: 100%;
+        width: 100%;
+        word-break: break-word;
+        margin: 0;
       }
     }
   }

@@ -27,7 +27,7 @@
         padding: 100px 40px;
       }
 
-      @media screen and (max-width: 1023px) {
+      @media screen and (max-width: 534px) {
         padding: 120px 40px;
       }
 
@@ -56,15 +56,22 @@
         & .task-data {
           display: flex;
           flex-direction: row;
+          width: 100%;
 
           & .comment-section {
             margin-right: 20px;
+            width: 80%;
+
+            @media screen and (max-width: 1023px) {
+              width: 100%;
+            }
           }
 
           & .detail-section {
-            @media screen and (max-width: 768px) {
+            width: 20%;
+            @media screen and (max-width: 1023px) {
               position: absolute;
-              top: 210px;
+              top: 250px;
               right: 10px;
               padding: 30px 60px 30px 30px;
               padding-bottom: 0;
@@ -73,10 +80,6 @@
               transform: translateX(110%);
               border-radius: 10px;
               transition: all 0.5s;
-
-              @media screen and (max-width: 558px) {
-                top: 220px;
-              }
 
               &.open {
                 transform: translateX(0);
