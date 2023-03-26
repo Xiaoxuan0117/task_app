@@ -22,7 +22,9 @@
       }
 
       &.labels {
-        & .labels {
+        & .list {
+          color: $blue;
+          font-size: $font-h5;
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
@@ -31,6 +33,8 @@
 
       &.assignees {
         & .list {
+          color: $blue;
+          font-size: $font-h5;
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
