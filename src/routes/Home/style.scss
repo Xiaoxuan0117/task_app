@@ -75,6 +75,10 @@
         border-radius: 10px;
         transition: all 0.5s;
 
+        @media screen and (max-width: 558px) {
+          top: 110px;
+        }
+
         &.open {
           transform: translateX(0);
         }
