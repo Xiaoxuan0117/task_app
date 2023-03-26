@@ -28,7 +28,7 @@
     padding-top: 40px;
 
     & .taskList-section {
-      padding: 80px 20px 80px 40px;
+      padding: 80px 20px 80px 20px;
 
       & .head {
         display: flex;
@@ -61,7 +61,7 @@
 
     & .controller-section {
       width: 316px;
-      padding: 80px 40px 40px 20px;
+      padding: 80px 20px 40px 20px;
 
       @media screen and (max-width: 1023px) {
         position: absolute;

@@ -2,24 +2,27 @@
 @import "../../../sass/color";
 
 .task-wrapper {
+  display: flex;
   width: 100%;
   padding: 10px 0;
   border-bottom: 1.5px solid $blue;
   background-color: $white;
 
+  & .toggle-section {
+    padding: 0 16px;
+  }
+
   & .task {
     display: flex;
     flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
     justify-content: space-between;
 
     & .left {
       display: flex;
       flex-direction: row;
-
-      & .toggle-section {
-        padding: 0 16px;
-      }
 
       & .content-section {
         display: flex;
@@ -60,6 +63,7 @@
         & .lower {
           display: flex;
           flex-direction: row;
+          flex-wrap: wrap;
           align-items: center;
           color: $dark-gray;
 

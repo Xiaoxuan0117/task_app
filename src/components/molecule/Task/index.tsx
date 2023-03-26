@@ -38,11 +38,11 @@ export default function Task(props: TaskProps): JSX.Element {
   );
   return (
     <div className="task-wrapper">
+      <div className="toggle-section">
+        <Toggle isOpen={isOpen} taskInfo={taskInfo} type="taskList" />
+      </div>
       <div className="task">
         <div className="left">
-          <div className="toggle-section">
-            <Toggle isOpen={isOpen} taskInfo={taskInfo} type="taskList" />
-          </div>
           <div className="content-section">
             <div className="upper">
               <LinkElement isRouter={false} class="tasklist" href={repoUrl}>
