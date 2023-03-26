@@ -12,25 +12,54 @@
 
   & img {
     width: 100%;
+    object-fit: cover;
   }
 
   & code {
-    font-size: $font-p;
     background-color: $gray;
     border-radius: 5px;
     padding: 1px 4px;
     color: $blue;
   }
 
-  & table,
-  th,
+  & table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  & th,
   td {
     border: 1px solid $dark-gray;
-    border-collapse: collapse;
+    padding: 5px;
   }
 
   & h1,
   h2 {
     border-bottom: 1px solid $dark-gray;
+  }
+
+  & p {
+    margin: 0;
+  }
+
+  & a {
+    color: $light-blue;
+  }
+
+  & blockquote {
+    margin: 20px 40px 20px 10px;
+    padding-left: 10px;
+    border-left: 5px solid $gray;
+    color: $dark-gray;
+  }
+
+  & ul,
+  ol {
+    padding-left: 30px;
+  }
+
+  & .task-list-item {
+    list-style: none;
+    display: flex;
+    align-items: center;
   }
 }

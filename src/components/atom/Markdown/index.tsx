@@ -6,7 +6,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { okaidia } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { nord } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 import "./style.scss";
 
@@ -26,7 +26,7 @@ export default function Markdown(prpos: MarkdownProps): JSX.Element {
           return !inline && match ? (
             <SyntaxHighlighter
               children={String(children).replace(/\n$/, "")}
-              style={okaidia}
+              style={nord}
               language={match[1]}
               PreTag="div"
               {...props}

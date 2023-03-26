@@ -46,7 +46,8 @@
       flex-direction: column;
       width: 50%;
       border-left: 1.5px solid $blue;
-      background-color: $pure-white;
+      background-color: #fafafa;
+      color: $black;
 
       & .tab-wrapper {
         & .preview-tab {
