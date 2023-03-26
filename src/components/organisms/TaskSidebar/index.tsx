@@ -55,7 +55,7 @@ export default function TaskSidebar(props: TaskSidebarProps): JSX.Element {
           <div className="list">
             {assignees.length
               ? assignees.map((assignee) => (
-                  <div className="avatar-wrapper">
+                  <div key={assignee.id} className="avatar-wrapper">
                     <Avatar
                       image={assignee.avatar_url}
                       class="member"

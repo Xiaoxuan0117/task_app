@@ -119,6 +119,7 @@ export interface TaskDetailState extends GetTaskDetailPayLoad {
 }
 
 export type Assignee = {
+  id: number;
   avatar_url: string;
   html_url: string;
 };

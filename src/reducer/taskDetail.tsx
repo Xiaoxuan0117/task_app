@@ -66,6 +66,7 @@ export const GetTaskDetail = createAsyncThunk<
       }: GetTaskDetailResData = resData.data;
       const labels_arr = labels.map((label: { name: string }) => label.name);
       const assignees_arr = assignees.map((assignee: Assignee) => ({
+        id: assignee.id,
         avatar_url: assignee.avatar_url,
         html_url: assignee.html_url,
       }));
