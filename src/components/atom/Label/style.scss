@@ -12,6 +12,7 @@
     background-color: $light-blue;
     padding: 2px 15px 1px;
     color: $white;
+    white-space: nowrap;
 
     &.todo {
       border: 1px solid $blue;
