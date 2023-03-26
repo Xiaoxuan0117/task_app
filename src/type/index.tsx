@@ -40,6 +40,7 @@ export interface TaskListStatus extends TaskListProps {
   taskSearchKeyword: string;
   isSearchMode: boolean;
   isFilterOpen: boolean;
+  token: boolean;
 }
 
 export type GetTaskListParams = {

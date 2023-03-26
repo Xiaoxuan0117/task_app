@@ -5,11 +5,13 @@ import { Link, Outlet, useParams } from "react-router-dom";
 import Button from "../../components/atom/Button";
 import Navi from "../../components/molecule/Navi";
 import Profile from "../../components/molecule/Profile";
+import Welcome from "../../components/molecule/Welcome";
 import Controller from "../../components/organisms/Controller";
 import TaskList from "../../components/organisms/TaskList";
 import filter from "../../assets/filter.svg";
 import { resetAddTask } from "../../reducer/addTask";
 import {
+  checkToken,
   GetTaskList,
   resetTaskList,
   TriggerGetTaskList,
@@ -26,6 +28,7 @@ export default function Home() {
     isLoading,
     errMsg,
     isFilterOpen,
+    token,
   } = useSelector((state: RootState) => state.taskList);
   const { repoList, showRepo } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
@@ -33,6 +36,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(resetTaskList());
     dispatch(resetAddTask());
+    dispatch(checkToken());
     getDefaultData();
     async function getDefaultData() {
       await dispatch(
@@ -97,6 +101,9 @@ export default function Home() {
         </div>
       </div>
       <Outlet />
+      <div className={`welcome-section ${classNames(!token && "open")}`}>
+        <Welcome />
+      </div>
     </div>
   );
 }

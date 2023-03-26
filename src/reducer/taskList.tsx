@@ -10,6 +10,7 @@ import {
   TaskRequiredInfo,
 } from "../type";
 import axios from "axios";
+import cookie from "cookie";
 import { AppDispatch } from "../store";
 
 const initialState: TaskListStatus = {
@@ -28,6 +29,7 @@ const initialState: TaskListStatus = {
   taskSearchKeyword: "",
   isSearchMode: false,
   isFilterOpen: false,
+  token: false,
 };
 
 export const TriggerGetTaskList = createAsyncThunk<
@@ -274,6 +276,10 @@ export const taskListSlice = createSlice({
     toggleFilter(state) {
       state.isFilterOpen = !state.isFilterOpen;
     },
+    checkToken(state) {
+      const { access_token } = cookie.parse(document.cookie);
+      state.token = access_token ? true : false;
+    },
     resetTaskList() {
       return initialState;
     },
@@ -330,6 +336,7 @@ export const {
   setTaskSearchKeyword,
   taskSearch,
   toggleFilter,
+  checkToken,
   resetTaskList,
 } = taskListSlice.actions;
 
