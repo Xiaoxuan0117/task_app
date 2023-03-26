@@ -19,10 +19,11 @@
     border-radius: 30px;
 
     & .userIcon {
-      opacity: 0;
+      display: none;
     }
 
     & .userAvatar {
+      display: flex;
       & .profile {
         width: 84px;
         height: 84px;
@@ -44,7 +45,7 @@
   }
 
   & .userAvatar {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;

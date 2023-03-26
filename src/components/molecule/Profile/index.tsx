@@ -1,7 +1,6 @@
 import React from "react";
 
 import profile from "../../../assets/profile.svg";
-import avatar from "../../../assets/avatar.png";
 import Avatar from "../../atom/Avatar";
 
 import "./style.scss";
