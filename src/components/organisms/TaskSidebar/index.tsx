@@ -40,15 +40,17 @@ export default function TaskSidebar(props: TaskSidebarProps): JSX.Element {
         </div>
         <div className="section milestone">
           <div className="title">Milestone</div>
-          <LinkElement
-            isRouter={false}
-            class="task"
-            href={milestone_url || "#"}
-          >
-            <div className="milestone">
-              {milestone ? milestone : "no milestone"}
-            </div>
-          </LinkElement>
+          {milestone ? (
+            <LinkElement
+              isRouter={false}
+              class="task"
+              href={milestone_url || "#"}
+            >
+              <div className="milestone">{milestone}</div>
+            </LinkElement>
+          ) : (
+            <div className="empty">no milestone</div>
+          )}
         </div>
         <div className="section assignees">
           <div className="title">Assignees</div>

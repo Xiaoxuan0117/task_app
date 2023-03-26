@@ -31,6 +31,13 @@
         }
       }
 
+      &.milestone {
+        & .empty {
+          color: $blue;
+          font-size: $font-h5;
+        }
+      }
+
       &.assignees {
         & .list {
           color: $blue;
