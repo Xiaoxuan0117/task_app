@@ -41,13 +41,13 @@ const dummyData = [
     repoOwner: "xiaoxuan0117",
   },
 ];
-const dammyData_empty: any[] = [];
+const dummyData_empty: any[] = [];
 
 export const Primary: ComponentStory<typeof Dropdown> = () => (
   <Dropdown
     class="row"
     title="Repository"
-    options={dammyData_empty}
+    options={dummyData_empty}
     type="select"
   ></Dropdown>
 );
