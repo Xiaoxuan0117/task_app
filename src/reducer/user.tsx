@@ -27,7 +27,7 @@ export const GetUser = createAsyncThunk<
     try {
       const resData = await axios.get("/api/user");
       console.log("resData", resData);
-      const { name, avatar_url, html_url } = resData.data;
+      const { login, avatar_url, html_url } = resData.data;
       const repoData = await axios.get("/api/repos");
       console.log("repoData", repoData);
       const repos = repoData.data.map(
@@ -50,11 +50,11 @@ export const GetUser = createAsyncThunk<
         );
         dispatch(selectRepo(repoName));
       } else {
-        dispatch(setShowRepo({ repoOwner: name, repoName: "" }));
+        dispatch(setShowRepo({ repoOwner: login, repoName: "" }));
         dispatch(selectRepo(""));
       }
       return {
-        name: name,
+        name: login,
         avatar: avatar_url,
         userUrl: html_url,
         repoList: repos,
