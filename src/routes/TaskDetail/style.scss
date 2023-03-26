@@ -56,6 +56,29 @@
           & .comment-section {
             margin-right: 20px;
           }
+
+          & .detail-section {
+            @media screen and (max-width: 768px) {
+              position: absolute;
+              top: 210px;
+              right: 10px;
+              padding: 30px 60px 30px 30px;
+              padding-bottom: 0;
+              background-color: $white;
+              box-shadow: -1px 1px 4px $dark-gray;
+              transform: translateX(110%);
+              border-radius: 10px;
+              transition: all 0.5s;
+
+              @media screen and (max-width: 558px) {
+                top: 220px;
+              }
+
+              &.open {
+                transform: translateX(0);
+              }
+            }
+          }
         }
       }
     }

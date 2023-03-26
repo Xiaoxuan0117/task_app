@@ -36,15 +36,20 @@
         }
       }
 
-      & .right {
-        display: none;
+      & .function {
+        display: flex;
+        flex-direction: row;
 
-        &.show {
-          display: block;
-        }
+        & .right {
+          display: none;
 
-        & .button {
-          justify-content: end;
+          &.show {
+            display: block;
+          }
+
+          & .button {
+            justify-content: end;
+          }
         }
       }
     }

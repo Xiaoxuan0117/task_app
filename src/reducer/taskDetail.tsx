@@ -30,6 +30,7 @@ const initialState: TaskDetailState = {
   isLoading: true,
   errMsg: "",
   isStateLoading: false,
+  isDetailOpen: false,
 };
 
 export const GetTaskDetail = createAsyncThunk<
@@ -168,6 +169,9 @@ export const taskDetailSlice = createSlice({
     UpdateTaskDetailState(state, action) {
       state.isOpen = action.payload;
     },
+    toggleDetail(state) {
+      state.isDetailOpen = !state.isDetailOpen;
+    },
     resetTaskDetail() {
       return initialState;
     },
@@ -204,7 +208,7 @@ export const taskDetailSlice = createSlice({
   },
 });
 
-export const { UpdateTaskDetailState, resetTaskDetail } =
+export const { UpdateTaskDetailState, resetTaskDetail, toggleDetail } =
   taskDetailSlice.actions;
 
 export default taskDetailSlice.reducer;

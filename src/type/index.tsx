@@ -114,6 +114,7 @@ export interface TaskDetailState extends GetTaskDetailPayLoad {
   isLoading: boolean;
   errMsg: string;
   isStateLoading: boolean;
+  isDetailOpen: boolean;
 }
 
 export type GetTaskDetailResData = {

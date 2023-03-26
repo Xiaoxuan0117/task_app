@@ -6,6 +6,7 @@ import LinkElement from "../../atom/LinkElement";
 import Time from "../../atom/Time";
 import Button from "../../atom/Button";
 import Markdown from "../../atom/Markdown";
+import detail from "../../../assets/detail.svg";
 
 import "./style.scss";
 import { taskSearch } from "../../../reducer/taskList";
@@ -36,13 +37,20 @@ export default function Comment(props: CommentProps): JSX.Element {
             </LinkElement>
             <Time utcTime={created_at} />
           </div>
-          <Link to="edit">
-            <div className={`right ${classNames(allowEdit && "show")}`}>
-              <Button class="edit">
-                <img src={editButton} alt="editButton" />
+          <div className="function">
+            <Link to="edit">
+              <div className={`right ${classNames(allowEdit && "show")}`}>
+                <Button class="edit">
+                  <img src={editButton} alt="editButton" />
+                </Button>
+              </div>
+            </Link>
+            <div className="detail-button">
+              <Button type="toggleDetail" class="edit">
+                <img src={detail} alt="filter" />
               </Button>
             </div>
-          </Link>
+          </div>
         </div>
         <div className="context-wrapper">
           <Markdown>

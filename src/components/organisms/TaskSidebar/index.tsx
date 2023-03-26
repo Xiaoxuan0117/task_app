@@ -2,8 +2,10 @@ import React from "react";
 import LinkElement from "../../atom/LinkElement";
 import Label from "../../atom/Label";
 import Toggle from "../../atom/Toggle";
+import closeButton from "../../../assets/closeButton.svg";
 
 import "./style.scss";
+import Button from "../../atom/Button";
 
 type TaskSidebarProps = {
   isOpen: boolean;
@@ -40,6 +42,11 @@ export default function TaskSidebar(props: TaskSidebarProps): JSX.Element {
             <div className="milestone">{milestone}</div>
           </LinkElement>
         </div>
+      </div>
+      <div className="close-button">
+        <Button type="toggleDetail" class="img-button">
+          <img src={closeButton} alt="closeButton" />
+        </Button>
       </div>
     </div>
   );

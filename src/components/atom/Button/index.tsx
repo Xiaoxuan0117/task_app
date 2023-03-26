@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { PostTask } from "../../../reducer/addTask";
 import { UpdateTask } from "../../../reducer/editTask";
-import { GetTaskDetail } from "../../../reducer/taskDetail";
+import { GetTaskDetail, toggleDetail } from "../../../reducer/taskDetail";
 import {
   GetTaskList,
   taskSearch,
@@ -54,6 +54,8 @@ export default function Button(props: ButtonProps): JSX.Element {
         return navigate("add", { replace: false });
       case "toggleFilter":
         return dispatch(toggleFilter());
+      case "toggleDetail":
+        return dispatch(toggleDetail());
       default:
         return;
     }

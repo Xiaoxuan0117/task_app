@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, Outlet, useParams } from "react-router-dom";
@@ -32,6 +33,7 @@ export default function TaskDetail() {
     milestoneUrl,
     isLoading,
     errMsg,
+    isDetailOpen,
   } = useSelector((state: RootState) => state.taskDetail);
   const { name: user, repoList } = useSelector(
     (state: RootState) => state.user
@@ -98,7 +100,11 @@ export default function TaskDetail() {
                     </Comment>
                   ))}
                 </div>
-                <div className="detail-section">
+                <div
+                  className={`detail-section ${classNames(
+                    isDetailOpen && "open"
+                  )}`}
+                >
                   <TaskSidebar
                     isOpen={isOpen}
                     labels={labels}
