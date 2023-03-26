@@ -56,7 +56,7 @@ export default function AddModal() {
         <div className="success-section">
           <UploadSuccess text="New Task Uploaded Successfully!!" />
           <div className="close-button">
-            <Button type="addCloseRefresh" class="close">
+            <Button type="addCloseRefresh" class="img-button">
               <img src={closeButton} alt="closeButton" />
             </Button>
           </div>
@@ -69,7 +69,7 @@ export default function AddModal() {
         <div className="error-section">
           <ErrorMessage text={errMsg} type="addTask" />
           <div className="close-button">
-            <Button type="cancel" class="close">
+            <Button type="cancel" class="img-button">
               <img src={closeButton} alt="closeButton" />
             </Button>
           </div>
@@ -116,7 +116,7 @@ export default function AddModal() {
           </Button>
         </div>
         <div className="close-button">
-          <Button type="cancel" class="close">
+          <Button type="cancel" class="img-button">
             <img src={closeButton} alt="closeButton" />
           </Button>
         </div>

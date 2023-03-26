@@ -48,7 +48,7 @@ export const Edit2: ComponentStory<typeof Button> = () => (
 );
 
 export const Close: ComponentStory<typeof Button> = () => (
-  <Button class="close">
+  <Button class="img-button">
     <img src={closeButton} alt="closeButton" />
   </Button>
 );

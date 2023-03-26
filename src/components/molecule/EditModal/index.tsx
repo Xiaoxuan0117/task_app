@@ -58,7 +58,7 @@ export default function EditModal(props: EditModalProps): JSX.Element {
         <div className="success-section">
           <UploadSuccess text="Edited Task Uploaded Successfully!!" />
           <div className="close-button">
-            <Button type="editCloseRefresh" class="close">
+            <Button type="editCloseRefresh" class="img-button">
               <img src={closeButton} alt="closeButton" />
             </Button>
           </div>
@@ -71,7 +71,7 @@ export default function EditModal(props: EditModalProps): JSX.Element {
         <div className="error-section">
           <ErrorMessage text={errMsg} type="editTask" />
           <div className="close-button">
-            <Button type="cancel" class="close">
+            <Button type="cancel" class="img-button">
               <img src={closeButton} alt="closeButton" />
             </Button>
           </div>
@@ -114,7 +114,7 @@ export default function EditModal(props: EditModalProps): JSX.Element {
           </Button>
         </div>
         <div className="close-button">
-          <Button type="cancel" class="close">
+          <Button type="cancel" class="img-button">
             <img src={closeButton} alt="closeButton" />
           </Button>
         </div>

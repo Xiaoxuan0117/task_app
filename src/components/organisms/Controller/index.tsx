@@ -34,7 +34,7 @@ export default function Controller() {
         <Order></Order>
       </div>
       <div className="close-button">
-        <Button type="toggleFilter" class="close">
+        <Button type="toggleFilter" class="img-button">
           <img src={closeButton} alt="closeButton" />
         </Button>
       </div>

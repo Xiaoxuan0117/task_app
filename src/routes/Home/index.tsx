@@ -75,7 +75,7 @@ export default function Home() {
                 </Link>
               </div>
               <div className="filter-button">
-                <Button type="toggleFilter" class="close">
+                <Button type="toggleFilter" class="img-button">
                   <img src={filter} alt="filter" />
                 </Button>
               </div>
