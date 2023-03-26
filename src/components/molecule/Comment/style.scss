@@ -6,6 +6,10 @@
   flex-direction: row;
   margin-bottom: 25px;
 
+  @media screen and (max-width: 1023px) {
+    flex-wrap: wrap;
+  }
+
   & .avatar-wrapper {
     position: relative;
     margin-right: 14px;
@@ -25,6 +29,8 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        flex-wrap: wrap;
+
         & .link {
           margin-right: 17px;
         }
@@ -46,12 +52,10 @@
     & .context-wrapper {
       border: 1.5px solid $blue;
       border-radius: 5px;
-      width: 800px;
       background-color: $white;
       overflow: hidden;
 
       & .markdown {
-        width: 815px;
         height: 100%;
       }
     }
