@@ -12,6 +12,14 @@ export default function LoginBox() {
     <div className="login-wrapper">
       <div className="content">
         <div className="title">Login</div>
+        <div className="notice">
+          Notice !!
+          <br />
+          After clicking the button below, the system will use the github
+          third-party authentication to obtain your github repository, issues
+          and other information. <br />
+          If you agree, please click the button and continue.
+        </div>
         <div className="submit">
           <a
             href={`https://github.com/login/oauth/authorize?client_id=${client_id}&scope=user,repo&state=from`}
