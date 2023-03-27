@@ -5,9 +5,10 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
 var dotenv = require("dotenv");
-dotenv.config({ path: "/etc/secrets/" });
+dotenv.config({ path: "/etc/secrets/.env" });
 // dotenv.config(); // for dev
 var { allowOrigin } = require("./config");
+console.log("allowOrigin", allowOrigin);
 
 var indexRouter = require("./routes/index");
 
