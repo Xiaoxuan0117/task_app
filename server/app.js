@@ -12,7 +12,7 @@ var indexRouter = require("./routes/index");
 var app = express();
 
 var corsOptions = {
-  origin: "http://taskapp.onrender.com",
+  origin: "https://taskapp-dux5.onrender.com",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 

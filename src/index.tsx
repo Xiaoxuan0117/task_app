@@ -52,7 +52,7 @@ const router = createBrowserRouter([
 ]);
 
 if (process.env.REACT_APP_API === "prod") {
-  axios.defaults.baseURL = "https://taskapp-api.onrender.com";
+  axios.defaults.baseURL = "https://taskapp-pbqx.onrender.com";
 }
 
 const root = ReactDOM.createRoot(
