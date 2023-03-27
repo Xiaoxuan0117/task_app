@@ -13,8 +13,8 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
         Accept: "application/json",
       },
       params: {
-        client_id: "7a2d102304bf70a39a54",
-        client_secret: "1e62e4e8d11bb34b58f36a79ef9659dd9d18c240",
+        client_id: process.env.REACT_APP_CLIENT_ID,
+        client_secret: process.env.REACT_APP_CLIENT_SECRET,
         code: code,
       },
     });
