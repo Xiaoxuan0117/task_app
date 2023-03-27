@@ -1,4 +1,5 @@
 import React from "react";
+
 import success from "../../../assets/success.svg";
 
 import "./style.scss";

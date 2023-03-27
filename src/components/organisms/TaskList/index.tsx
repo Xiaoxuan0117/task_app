@@ -1,9 +1,10 @@
 import classNames from "classnames";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { TriggerGetTaskList } from "../../../reducer/taskList";
 import { RootState, useAppDispatch } from "../../../store";
 import { TaskListProps } from "../../../type";
+
+import { TriggerGetTaskList } from "../../../reducer/taskList";
 import ErrorMessage from "../../atom/ErrorMessage";
 import Loading from "../../atom/Loading";
 import Task from "../../molecule/Task";

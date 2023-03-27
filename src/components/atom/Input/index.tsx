@@ -1,11 +1,10 @@
 import React from "react";
-
 import { useAppDispatch } from "../../../store";
-
-import "./style.scss";
 import { setTaskSearchKeyword } from "../../../reducer/taskList";
 import { setAddTitle } from "../../../reducer/addTask";
 import { setEditTitle } from "../../../reducer/editTask";
+
+import "./style.scss";
 
 type InputProps = {
   class?: string;

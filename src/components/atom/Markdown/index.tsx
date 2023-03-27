@@ -1,10 +1,8 @@
 import React from "react";
-
 import ReactMarkdown from "react-markdown";
 import remarkGemoji from "remark-gemoji";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import rehypeSanitize from "rehype-sanitize";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nord } from "react-syntax-highlighter/dist/esm/styles/prism";
 

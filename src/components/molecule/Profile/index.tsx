@@ -1,12 +1,12 @@
 import React from "react";
-
-import profile from "../../../assets/profile.svg";
-import Avatar from "../../atom/Avatar";
-
-import "./style.scss";
-import LinkElement from "../../atom/LinkElement";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
+
+import LinkElement from "../../atom/LinkElement";
+import Avatar from "../../atom/Avatar";
+import profile from "../../../assets/profile.svg";
+
+import "./style.scss";
 
 export default function Profile() {
   const { name, avatar, userUrl } = useSelector(

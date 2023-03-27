@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+
 import Button from "../../atom/Button";
 
 import "./style.scss";

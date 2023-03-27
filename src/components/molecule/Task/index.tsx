@@ -1,10 +1,11 @@
 import React from "react";
+import { TaskProps } from "../../../type";
+
 import LinkElement from "../../atom/LinkElement";
 import Label from "../../atom/Label";
 import Time from "../../atom/Time";
 import Toggle from "../../atom/Toggle";
 import Avatar from "../../atom/Avatar";
-import { TaskProps } from "../../../type";
 
 import "./style.scss";
 

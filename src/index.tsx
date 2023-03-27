@@ -6,6 +6,7 @@ import { store } from "./store";
 import { Provider } from "react-redux";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import Home from "./routes/Home";
 import Login from "./routes/Login";
 import TaskDetail from "./routes/TaskDetail";

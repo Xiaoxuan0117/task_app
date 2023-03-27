@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import cookie from "js-cookie";
+import { useAppDispatch } from "../../../store";
 import { PostTask } from "../../../reducer/addTask";
 import { UpdateTask } from "../../../reducer/editTask";
 import { GetTaskDetail, toggleDetail } from "../../../reducer/taskDetail";
@@ -8,8 +10,6 @@ import {
   taskSearch,
   toggleFilter,
 } from "../../../reducer/taskList";
-import cookie from "js-cookie";
-import { useAppDispatch } from "../../../store";
 
 import "./style.scss";
 
@@ -20,10 +20,10 @@ type ButtonProps = {
 };
 
 export default function Button(props: ButtonProps): JSX.Element {
-  let { repoOwner, repoName, number } = useParams();
   const { children, class: buttonClass, type } = props;
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  let { repoOwner, repoName, number } = useParams();
+  const dispatch = useAppDispatch();
 
   const clickEvent = (type: string) => {
     switch (type) {

@@ -1,13 +1,14 @@
 import React from "react";
+import { Assignee } from "../../../type";
+
 import LinkElement from "../../atom/LinkElement";
 import Label from "../../atom/Label";
 import Toggle from "../../atom/Toggle";
+import Button from "../../atom/Button";
+import Avatar from "../../atom/Avatar";
 import closeButton from "../../../assets/closeButton.svg";
 
 import "./style.scss";
-import Button from "../../atom/Button";
-import { Assignee } from "../../../type";
-import Avatar from "../../atom/Avatar";
 
 type TaskSidebarProps = {
   isOpen: boolean;

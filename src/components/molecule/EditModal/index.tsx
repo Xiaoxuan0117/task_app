@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../store";
+import { resetUpdateResult } from "../../../reducer/editTask";
+
 import Button from "../../atom/Button";
 import Input from "../../atom/Input";
 import RadioButton from "../../atom/RadioButton";
 import MarkdownEditor from "../../atom/MarkdownEditor";
-import closeButton from "../../../assets/closeButton.svg";
-
-import "./style.scss";
 import UploadSuccess from "../../atom/UploadSuccess";
 import ErrorMessage from "../../atom/ErrorMessage";
 import Loading from "../../atom/Loading";
-import { resetUpdateResult } from "../../../reducer/editTask";
+import closeButton from "../../../assets/closeButton.svg";
+
+import "./style.scss";
 
 type EditModalProps = {
   prevTitle?: string;

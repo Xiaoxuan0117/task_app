@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "../../../store";
+import { resetSubmitResult, selectRepo } from "../../../reducer/addTask";
+
 import Dropdown from "../../atom/Dropdown";
 import Input from "../../atom/Input";
 import MarkdownEditor from "../../atom/MarkdownEditor";
 import Button from "../../atom/Button";
-import closeButton from "../../../assets/closeButton.svg";
-import { resetSubmitResult, selectRepo } from "../../../reducer/addTask";
 import Loading from "../../atom/Loading";
 import UploadSuccess from "../../atom/UploadSuccess";
 import ErrorMessage from "../../atom/ErrorMessage";
-import { RootState, useAppDispatch } from "../../../store";
-import { useSelector } from "react-redux";
+import closeButton from "../../../assets/closeButton.svg";
 
 import "./style.scss";
 

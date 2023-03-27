@@ -1,11 +1,8 @@
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import React from "react";
-import { useSelector } from "react-redux";
+import Markdown from "../Markdown";
+import { useAppDispatch } from "../../../store";
 import { setAddBody } from "../../../reducer/addTask";
 import { setEditBody } from "../../../reducer/editTask";
-import { RootState, useAppDispatch } from "../../../store";
-
-import Markdown from "../Markdown";
 
 import "./style.scss";
 

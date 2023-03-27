@@ -1,7 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
+
 import RadioButton from "../../atom/RadioButton";
+
 import "./style.scss";
 
 export default function Filter() {
@@ -9,7 +11,6 @@ export default function Filter() {
     taskList: {
       filter: { state, labels, category },
     },
-    user: { showRepo },
   } = useSelector((state: RootState) => state);
   const statusOptions = ["All", "Open", "Closed"];
   const LabelsOptions = ["All", "ToDo", "In Progress", "Done"];

@@ -3,7 +3,6 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import MarkdownEditor from ".";
-import { setAddBody } from "../../../reducer/addTask";
 
 export default {
   title: "Atom/MarkdownEditor",

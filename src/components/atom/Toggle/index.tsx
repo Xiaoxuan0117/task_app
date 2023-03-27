@@ -1,12 +1,12 @@
 import React from "react";
 import classNames from "classnames";
-import { TaskRequiredInfo } from "../../../type";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../store";
-
-import "./style.scss";
 import { UpdateState } from "../../../reducer/taskList";
 import { UpdateDetailState } from "../../../reducer/taskDetail";
+import { TaskRequiredInfo } from "../../../type";
+
+import "./style.scss";
 
 type ToggleProps = {
   isOpen: boolean;

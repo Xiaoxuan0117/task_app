@@ -1,15 +1,8 @@
-import classNames from "classnames";
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import classNames from "classnames";
 import { Link, Outlet, useParams } from "react-router-dom";
-import Button from "../../components/atom/Button";
-import Navi from "../../components/molecule/Navi";
-import Profile from "../../components/molecule/Profile";
-import Welcome from "../../components/molecule/Welcome";
-import Controller from "../../components/organisms/Controller";
-import TaskList from "../../components/organisms/TaskList";
-import filter from "../../assets/filter.svg";
-import logout from "../../assets/logout.svg";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "../../store";
 import { resetAddTask } from "../../reducer/addTask";
 import {
   checkToken,
@@ -18,7 +11,15 @@ import {
   TriggerGetTaskList,
 } from "../../reducer/taskList";
 import { GetUser } from "../../reducer/user";
-import { RootState, useAppDispatch } from "../../store";
+
+import Button from "../../components/atom/Button";
+import Navi from "../../components/molecule/Navi";
+import Profile from "../../components/molecule/Profile";
+import Welcome from "../../components/molecule/Welcome";
+import Controller from "../../components/organisms/Controller";
+import TaskList from "../../components/organisms/TaskList";
+import filter from "../../assets/filter.svg";
+import logout from "../../assets/logout.svg";
 
 import "./style.scss";
 

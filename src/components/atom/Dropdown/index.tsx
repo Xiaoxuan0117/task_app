@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames";
+import { Link } from "react-router-dom";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { useAppDispatch } from "../../../store";
+import { selectRepo } from "../../../reducer/addTask";
+import { RepoState } from "../../../type";
 
 import dropdownIcon from "../../../assets/dropdownIcon.svg";
 
 import "./style.scss";
-import { RepoState } from "../../../type";
-import { Link } from "react-router-dom";
-import { selectRepo } from "../../../reducer/addTask";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { useAppDispatch } from "../../../store";
 
 type DropdownProps = {
   class?: string;

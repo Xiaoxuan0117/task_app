@@ -3,7 +3,6 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import Input from ".";
-import { setTaskSearchKeyword } from "../../../reducer/taskList";
 
 export default {
   title: "Atom/Input",

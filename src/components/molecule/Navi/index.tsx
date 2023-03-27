@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { RepoState } from "../../../type";
+
 import Dropdown from "../../atom/Dropdown";
 import Button from "../../atom/Button";
 import logout from "../../../assets/logout.svg";
 
 import "./style.scss";
-import { RepoState } from "../../../type";
-import { Link } from "react-router-dom";
 
 type NaviProps = {
   repoOptions: RepoState[];

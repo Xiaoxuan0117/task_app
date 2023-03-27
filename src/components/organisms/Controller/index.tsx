@@ -1,14 +1,14 @@
 import React from "react";
-import Input from "../../atom/Input";
-import Filter from "../../molecule/Filter";
-
-import searchButton from "../../../assets/searchButton.svg";
-import Button from "../../atom/Button";
-import Order from "../../molecule/Order";
-import closeButton from "../../../assets/closeButton.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
-import { setTaskSearchKeyword } from "../../../reducer/taskList";
+
+import Input from "../../atom/Input";
+import Button from "../../atom/Button";
+import Filter from "../../molecule/Filter";
+import Order from "../../molecule/Order";
+import searchButton from "../../../assets/searchButton.svg";
+import closeButton from "../../../assets/closeButton.svg";
+
 import "./style.scss";
 
 export default function Controller() {
