@@ -23,6 +23,7 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
     res.redirect("http://127.0.0.1:3000");
   } catch (err) {
     console.log("err", err);
+    res.status(err.response.status).redirect("http://127.0.0.1:3000");
   }
 });
 
