@@ -1,6 +1,7 @@
 var express = require("express");
 var axios = require("axios");
 var router = express.Router();
+var { redirectUrl } = require("../config");
 
 /* POST token */
 router.get("/login/oauth/access_token", async function (req, res, next) {
@@ -20,18 +21,9 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
     });
     const { access_token } = result.data;
     res.cookie("access_token", access_token);
-    if (process.env.API === "prod") {
-      res.redirect("https://taskapp-dux5.onrender.com/");
-    }
-    res.redirect("http://127.0.0.1:3000");
+    res.redirect(redirectUrl);
   } catch (err) {
-    console.log("err", err);
-    if (process.env.API === "prod") {
-      res
-        .status(err.response.status)
-        .redirect("https://taskapp-dux5.onrender.com/");
-    }
-    res.status(err.response.status).redirect("http://127.0.0.1:3000");
+    res.status(err.response.status).redirect(redirectUrl);
   }
 });
 

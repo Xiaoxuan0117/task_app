@@ -4,16 +4,19 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
-// require("dotenv").config({ path: "../.env" });
-require("dotenv").config();
+var dotenv = require("dotenv");
+dotenv.config({ path: "/etc/secrets/" });
+// dotenv.config(); // for dev
+var { allowOrigin } = require("./config");
 
 var indexRouter = require("./routes/index");
 
 var app = express();
 
 var corsOptions = {
-  origin: "https://taskapp-dux5.onrender.com",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  origin: allowOrigin,
+  credentials: true,
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
