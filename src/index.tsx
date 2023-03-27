@@ -53,7 +53,10 @@ const router = createBrowserRouter([
 
 if (process.env.REACT_APP_API === "prod") {
   axios.defaults.baseURL = "https://taskapp-pbqx.onrender.com";
+} else {
+  axios.defaults.baseURL = "http://127.0.0.1:5000";
 }
+axios.defaults.withCredentials = true;
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
