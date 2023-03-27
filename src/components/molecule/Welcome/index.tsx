@@ -16,8 +16,7 @@ export default function Welcome() {
       <div className="welcome-wrapper">
         <div className="title">Welcome to Github Tasks Management System</div>
         <div className="context">
-          <a href="/login">Login</a> first, and you can start to manage your
-          tasks !
+          <a href="/login">Login</a> and start to manage your tasks !
         </div>
       </div>
     </div>

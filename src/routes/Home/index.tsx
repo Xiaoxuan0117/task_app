@@ -101,9 +101,11 @@ export default function Home() {
         </div>
       </div>
       <Outlet />
-      <div className={`welcome-section ${classNames(!token && "open")}`}>
-        <Welcome />
-      </div>
+      {!token && (
+        <div className="welcome-section">
+          <Welcome />
+        </div>
+      )}
     </div>
   );
 }
