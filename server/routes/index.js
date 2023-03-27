@@ -13,16 +13,24 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
         Accept: "application/json",
       },
       params: {
-        client_id: process.env.REACT_APP_CLIENT_ID,
-        client_secret: process.env.REACT_APP_CLIENT_SECRET,
+        client_id: process.env.CLIENT_ID,
+        client_secret: process.env.CLIENT_SECRET,
         code: code,
       },
     });
     const { access_token } = result.data;
     res.cookie("access_token", access_token);
+    if (process.env.API === "prod") {
+      res.redirect("https://taskapp-dux5.onrender.com/");
+    }
     res.redirect("http://127.0.0.1:3000");
   } catch (err) {
     console.log("err", err);
+    if (process.env.API === "prod") {
+      res
+        .status(err.response.status)
+        .redirect("https://taskapp-dux5.onrender.com/");
+    }
     res.status(err.response.status).redirect("http://127.0.0.1:3000");
   }
 });
