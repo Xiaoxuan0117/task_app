@@ -10,7 +10,7 @@ import {
   TaskRequiredInfo,
 } from "../type";
 import axios from "axios";
-import cookie from "cookie";
+import cookie from "js-cookie";
 import { AppDispatch } from "../store";
 
 const initialState: TaskListStatus = {
@@ -277,8 +277,7 @@ export const taskListSlice = createSlice({
       state.isFilterOpen = !state.isFilterOpen;
     },
     checkToken(state) {
-      const { access_token } = cookie.parse(document.cookie);
-      state.token = access_token ? true : false;
+      state.token = cookie.get("access_token") ? true : false;
     },
     resetTaskList() {
       return initialState;
