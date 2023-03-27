@@ -32,7 +32,7 @@ export default function Task(props: TaskProps): JSX.Element {
   };
 
   const briefBody = body ? (
-    body.replace(/[^\w\s]/g, "")
+    body.replace(/[^\w\s\u00ff-\uffff]/g, "")
   ) : (
     <i>no description provided</i>
   );
