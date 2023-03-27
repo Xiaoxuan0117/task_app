@@ -9,6 +9,7 @@ import Welcome from "../../components/molecule/Welcome";
 import Controller from "../../components/organisms/Controller";
 import TaskList from "../../components/organisms/TaskList";
 import filter from "../../assets/filter.svg";
+import logout from "../../assets/logout.svg";
 import { resetAddTask } from "../../reducer/addTask";
 import {
   checkToken,
@@ -65,6 +66,9 @@ export default function Home() {
       </div>
       <div className="profile-section">
         <Profile />
+        <Button class="logout-button" type="logout">
+          <img src={logout} alt="closeButton" />
+        </Button>
       </div>
       <div className="content">
         <div className="taskList-section">

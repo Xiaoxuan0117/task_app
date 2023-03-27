@@ -8,36 +8,49 @@
   & .navi {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    padding: 15px 50px;
+    padding: 15px 40px;
 
     @media screen and (max-width: 768px) {
       padding: 15px 30px;
     }
 
-    & .my-issue {
-      margin-right: 44px;
-      & a {
-        color: $white;
-        font-size: $font-h2;
-        font-weight: 700;
-        text-decoration: none;
+    @media screen and (max-width: 455px) {
+      & .logout-button {
+        display: none;
       }
     }
 
-    & .repo_select {
-      margin-right: 17px;
-
-      & .input-wrapper {
-        width: 200px;
-      }
-    }
-
-    & .repo_search {
+    & .left {
       display: flex;
       flex-direction: row;
       align-items: center;
+      flex-wrap: wrap;
+
+      & .my-issue {
+        margin-right: 20px;
+        & a {
+          color: $white;
+          font-size: $font-h2;
+          font-weight: 700;
+          text-decoration: none;
+        }
+      }
+
+      & .repo_select {
+        margin-right: 17px;
+
+        & .input-wrapper {
+          width: 200px;
+        }
+      }
+
+      & .repo_search {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
     }
   }
 }

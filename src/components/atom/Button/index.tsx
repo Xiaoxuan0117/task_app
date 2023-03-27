@@ -8,6 +8,7 @@ import {
   taskSearch,
   toggleFilter,
 } from "../../../reducer/taskList";
+import cookie from "js-cookie";
 import { useAppDispatch } from "../../../store";
 
 import "./style.scss";
@@ -56,6 +57,11 @@ export default function Button(props: ButtonProps): JSX.Element {
         return dispatch(toggleFilter());
       case "toggleDetail":
         return dispatch(toggleDetail());
+      case "logout":
+        return (function () {
+          cookie.remove("access_token");
+          window.location.reload();
+        })();
       default:
         return;
     }
