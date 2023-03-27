@@ -36,9 +36,9 @@ router.get("/user", async function (req, res) {
         Authorization: `Bearer ${req.cookies.access_token}`,
       },
     });
+
     res.status(result.status).send(result.data);
   } catch (err) {
-    console.log("err", err.response.status);
     res.status(err.response.status).send(err.response.data);
   }
 });
@@ -54,7 +54,6 @@ router.get("/repos", async function (req, res) {
     });
     res.status(result.status).send(result.data);
   } catch (err) {
-    console.log("err", err.response.status);
     res.status(err.response.status).send(err.response.data);
   }
 });
@@ -73,7 +72,6 @@ router.get("/taskList", async function (req, res, next) {
     assignee,
     mentioned,
   } = req.query;
-  console.log("c", created, assignee, mentioned);
   const url =
     repo.length === 0
       ? "https://api.github.com/issues"
@@ -100,10 +98,8 @@ router.get("/taskList", async function (req, res, next) {
         mentioned,
       },
     });
-    console.log(result.status);
     res.status(result.status).send(result.data);
   } catch (err) {
-    console.log("err", err.response.status);
     res.status(err.response.status).send(err.response.data);
   }
 });
@@ -130,10 +126,8 @@ router.get("/taskList/repo", async function (req, res, next) {
         pulls: false,
       },
     });
-    console.log(result.status);
     res.status(result.status).send(result.data);
   } catch (err) {
-    console.log("err", err.response.status);
     res.status(err.response.status).send(err.response.data);
   }
 });
@@ -141,7 +135,6 @@ router.get("/taskList/repo", async function (req, res, next) {
 /* PATCH issue state */
 router.get("/updateState", async function (req, res) {
   const { owner, repo, issue_number, state } = req.query;
-  console.log("into update", state);
   try {
     const result = await axios.patch(
       `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}`,
@@ -156,10 +149,8 @@ router.get("/updateState", async function (req, res) {
       }
     );
 
-    console.log("status", result.data.title, result.data.state);
     res.status(result.status).send(result.data.state);
   } catch (err) {
-    console.log("err", err.response.status);
     res.status(err.response.status).send(err.response.data);
   }
 });
@@ -167,7 +158,6 @@ router.get("/updateState", async function (req, res) {
 /* GET issue */
 router.get("/taskDetail", async function (req, res) {
   const { owner, repo, issue_number } = req.query;
-  console.log(owner, repo, issue_number);
   try {
     const result = await axios({
       url: `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}`,
@@ -190,7 +180,6 @@ router.get("/taskDetail", async function (req, res) {
       .status(result.status)
       .send({ ...result.data, comments_data: comment.data });
   } catch (err) {
-    console.log("err", err.response.status);
     res.status(err.response.status).send(err.response.data);
   }
 });
@@ -199,7 +188,6 @@ router.get("/taskDetail", async function (req, res) {
 router.post("/postTask", async function (req, res) {
   const { owner, repo } = req.query;
   const { title, body, labels } = req.body;
-  console.log("here", owner, repo, title, body);
   try {
     const result = await axios.post(
       `https://api.github.com/repos/${owner}/${repo}/issues`,
@@ -217,7 +205,6 @@ router.post("/postTask", async function (req, res) {
     );
     res.status(result.status).send(result.data.state);
   } catch (err) {
-    console.log("err", err.response.status, err.response.data);
     res.status(err.response.status).send(err.response.data);
   }
 });
@@ -226,7 +213,6 @@ router.post("/postTask", async function (req, res) {
 router.post("/updateTask", async function (req, res) {
   const { owner, repo, issue_number } = req.query;
   const { title, body, labels } = req.body;
-  console.log("here", owner, repo, title, body);
   try {
     const result = await axios.patch(
       `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}`,
@@ -244,7 +230,6 @@ router.post("/updateTask", async function (req, res) {
     );
     res.status(result.status).send(result.data.state);
   } catch (err) {
-    console.log("err", err.response.status, err.response.data);
     res.status(err.response.status).send(err.response.data);
   }
 });
