@@ -60,7 +60,7 @@ export default function Button(props: ButtonProps): JSX.Element {
       case "logout":
         return (function () {
           cookie.remove("access_token");
-          window.location.reload();
+          window.location.href = "/";
         })();
       default:
         return;
