@@ -4,6 +4,7 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { store } from "./store";
 import { Provider } from "react-redux";
+import axios from "axios";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
+if (process.env.REACT_APP_API === "prod") {
+  axios.defaults.baseURL = "https://taskapp-api.onrender.com";
+}
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
