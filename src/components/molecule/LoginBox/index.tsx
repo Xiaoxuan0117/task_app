@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import Button from "../../atom/Button";
 
@@ -6,9 +6,6 @@ import "./style.scss";
 
 export default function LoginBox() {
   const client_id = process.env.REACT_APP_CLIENT_ID;
-  useEffect(() => {
-    console.log(client_id);
-  }, [client_id]);
   return (
     <div className="login-wrapper">
       <div className="content">
