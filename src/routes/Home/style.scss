@@ -13,34 +13,6 @@
     width: 100%;
   }
 
-  & .profile-section {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    right: 20px;
-    bottom: 20px;
-    z-index: 10;
-
-    & .instructions {
-      & img {
-        width: 30px;
-        height: 30px;
-      }
-    }
-
-    & .logout-button {
-      display: none;
-      margin-top: 20px;
-    }
-
-    @media screen and (max-width: 455px) {
-      & .logout-button {
-        display: block;
-      }
-    }
-  }
-
   & .content {
     position: relative;
     display: flex;

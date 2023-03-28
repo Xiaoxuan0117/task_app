@@ -12,10 +12,8 @@ import Loading from "../../components/atom/Loading";
 import Time from "../../components/atom/Time";
 import Comment from "../../components/molecule/Comment";
 import Navi from "../../components/molecule/Navi";
+import Tool from "../../components/molecule/Tool";
 import TaskSidebar from "../../components/organisms/TaskSidebar";
-import Profile from "../../components/molecule/Profile";
-import Button from "../../components/atom/Button";
-import logout from "../../assets/logout.svg";
 
 import "./style.scss";
 
@@ -66,12 +64,7 @@ export default function TaskDetail() {
       <div className="navi-section">
         <Navi repoOptions={repoList} />
       </div>
-      <div className="profile-section">
-        <Profile />
-        <Button class="logout-button" type="logout">
-          <img src={logout} alt="closeButton" />
-        </Button>
-      </div>
+      <Tool />
       <div className="task-content">
         <div className="task-flex">
           {isLoading && <Loading text="Loading" />}
