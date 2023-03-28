@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import classNames from "classnames";
-import { Link, Outlet, useParams } from "react-router-dom";
+import cookie from "js-cookie";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
 import { resetAddTask } from "../../reducer/addTask";
@@ -25,6 +26,7 @@ import "./style.scss";
 
 export default function Home() {
   const { repoOwner, repoName } = useParams();
+  const { search } = useLocation();
   const {
     taskList: taskListData,
     isLoading,
@@ -36,17 +38,33 @@ export default function Home() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(resetTaskList());
-    dispatch(resetAddTask());
+    const query = new URLSearchParams(search);
+    const access_token = query.get("access_token");
+    if (access_token) {
+      cookie.set("access_token", access_token, {
+        expires: 1,
+        secure: true,
+        sameSite: "None",
+      });
+      window.location.href = "/";
+    }
+  }, [search, dispatch]);
+
+  useEffect(() => {
     dispatch(checkToken());
-    getDefaultData();
+    if (token) {
+      dispatch(resetTaskList());
+      dispatch(resetAddTask());
+      dispatch(checkToken());
+      getDefaultData();
+    }
     async function getDefaultData() {
       await dispatch(
         GetUser({ repoOwner: repoOwner || "", repoName: repoName || "" })
       );
       await dispatch(GetTaskList({ reLoad: false }));
     }
-  }, [dispatch, repoOwner, repoName]);
+  }, [dispatch, repoOwner, repoName, token]);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
