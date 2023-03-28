@@ -12,6 +12,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./routes/Home";
 import Login from "./routes/Login";
 import TaskDetail from "./routes/TaskDetail";
+import Error from "./routes/Error";
 import AddModal from "./components/molecule/AddModal";
 import EditModal from "./components/molecule/EditModal";
 import Instructions from "./components/organisms/Instructions";
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    errorElement: <Error />,
     children: [
       {
         path: "add",
