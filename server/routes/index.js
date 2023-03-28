@@ -106,34 +106,6 @@ router.get("/taskList", async function (req, res, next) {
   }
 });
 
-/* GET repo issues */
-router.get("/taskList/repo", async function (req, res, next) {
-  const { owner, repo, page, state, labels, category, direction } = req.query;
-  try {
-    const result = await axios({
-      url: `https://api.github.com/repos/${owner}/${repo}/issues`,
-      method: "get",
-      headers: {
-        Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${req.headers.authorization}`,
-      },
-      params: {
-        page,
-        state,
-        labels,
-        category,
-        direction,
-        filter: req.query.category,
-        per_page: 10,
-        pulls: false,
-      },
-    });
-    res.status(result.status).send(result.data);
-  } catch (err) {
-    res.status(err.response.status).send(err.response.data);
-  }
-});
-
 /* PATCH issue state */
 router.get("/updateState", async function (req, res) {
   const { owner, repo, issue_number, state } = req.query;
