@@ -66,16 +66,18 @@ export default function Home() {
   }, [dispatch, repoOwner, repoName, token]);
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      const html = document.documentElement;
-      let innerHeight = window.innerHeight || 0;
-      let scrollY = window.scrollY || 0;
-      let scrollHeight = html.scrollHeight || 0;
-      if (innerHeight + Math.ceil(scrollY) >= scrollHeight) {
-        dispatch(TriggerGetTaskList());
-      }
-    });
-  }, [dispatch]);
+    if (token) {
+      window.addEventListener("scroll", () => {
+        const html = document.documentElement;
+        let innerHeight = window.innerHeight || 0;
+        let scrollY = window.scrollY || 0;
+        let scrollHeight = html.scrollHeight || 0;
+        if (innerHeight + Math.ceil(scrollY) >= scrollHeight) {
+          dispatch(TriggerGetTaskList());
+        }
+      });
+    }
+  }, [dispatch, token]);
 
   return (
     <div className="home-page">
@@ -87,8 +89,10 @@ export default function Home() {
         <div className="taskList-section">
           <div className="head">
             <div className="repo bold">
-              {showRepo.repoOwner}/
-              {showRepo.repoName ? showRepo.repoName : "My Tasks"}
+              {showRepo.repoOwner.replace(/[^\w.@:/\-~]+/g, "")}/
+              {showRepo.repoName
+                ? showRepo.repoName.replace(/[^\w.@:/\-~]+/g, "")
+                : "My Tasks"}
             </div>
             <div className="function">
               <div className="add-button">
