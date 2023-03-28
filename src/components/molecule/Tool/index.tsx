@@ -12,7 +12,7 @@ export default function Tool() {
   return (
     <div className="tool-wrapper">
       <div className="instructions">
-        <LinkElement isRouter={true} href={"/instructions"}>
+        <LinkElement isRouter={true} href={"instructions"}>
           <img src={instructions} alt="closeButton" />
         </LinkElement>
       </div>
