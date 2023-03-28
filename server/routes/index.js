@@ -21,10 +21,11 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
     });
     const { access_token } = result.data;
 
-    res.cookie("access_token", access_token);
-    console.log("redirectUrl", redirectUrl);
-    res.redirect(redirectUrl);
+    // res.cookie("access_token", access_token);
+    console.log("access_token", access_token);
+    res.redirect(`${redirectUrl}?access_token=${access_token && access_token}`);
   } catch (err) {
+    console.log("error", err.response);
     res.status(err.response.status).redirect(redirectUrl);
   }
 });
