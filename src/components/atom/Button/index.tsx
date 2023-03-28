@@ -62,6 +62,8 @@ export default function Button(props: ButtonProps): JSX.Element {
           cookie.remove("access_token");
           window.location.href = "/";
         })();
+      case "instructions":
+        return navigate("/instructions");
       default:
         return;
     }

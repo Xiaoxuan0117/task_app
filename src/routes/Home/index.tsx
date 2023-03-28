@@ -13,6 +13,7 @@ import {
 } from "../../reducer/taskList";
 import { GetUser } from "../../reducer/user";
 
+import LinkElement from "../../components/atom/LinkElement";
 import Button from "../../components/atom/Button";
 import Navi from "../../components/molecule/Navi";
 import Profile from "../../components/molecule/Profile";
@@ -21,6 +22,7 @@ import Controller from "../../components/organisms/Controller";
 import TaskList from "../../components/organisms/TaskList";
 import filter from "../../assets/filter.svg";
 import logout from "../../assets/logout.svg";
+import instructions from "../../assets/instructions.svg";
 
 import "./style.scss";
 
@@ -84,6 +86,11 @@ export default function Home() {
         <Navi repoOptions={repoList} />
       </div>
       <div className="profile-section">
+        <div className="instructions">
+          <LinkElement isRouter={true} href={"/instructions"}>
+            <img src={instructions} alt="closeButton" />
+          </LinkElement>
+        </div>
         <Profile />
         <Button class="logout-button" type="logout">
           <img src={logout} alt="closeButton" />

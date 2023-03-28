@@ -14,6 +14,7 @@ import Login from "./routes/Login";
 import TaskDetail from "./routes/TaskDetail";
 import AddModal from "./components/molecule/AddModal";
 import EditModal from "./components/molecule/EditModal";
+import Instructions from "./components/organisms/Instructions";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
         path: "add",
         element: <AddModal />,
       },
+      {
+        path: "instructions",
+        element: <Instructions />,
+      },
     ],
   },
   {
@@ -33,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "add",
         element: <AddModal />,
+      },
+      {
+        path: "instructions",
+        element: <Instructions />,
       },
     ],
   },
@@ -47,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "edit",
         element: <EditModal />,
+      },
+      {
+        path: "instructions",
+        element: <Instructions />,
       },
     ],
   },
