@@ -20,10 +20,19 @@ export type CommentProps = {
   user_url: string;
   created_at: string;
   allowEdit?: boolean;
+  isBody?: boolean;
 };
 
 export default function Comment(props: CommentProps): JSX.Element {
-  const { children, avatar, username, user_url, created_at, allowEdit } = props;
+  const {
+    children,
+    avatar,
+    username,
+    user_url,
+    created_at,
+    allowEdit,
+    isBody,
+  } = props;
   return (
     <div className="comment">
       <div className="avatar-wrapper">
@@ -45,11 +54,13 @@ export default function Comment(props: CommentProps): JSX.Element {
                 </Button>
               </div>
             </Link>
-            <div className="detail-button">
-              <Button type="toggleDetail" class="edit">
-                <img src={detail} alt="filter" />
-              </Button>
-            </div>
+            {isBody && (
+              <div className="detail-button">
+                <Button type="toggleDetail" class="edit">
+                  <img src={detail} alt="filter" />
+                </Button>
+              </div>
+            )}
           </div>
         </div>
         <div className="context-wrapper">

@@ -98,6 +98,7 @@ export default function TaskDetail() {
                     user_url={creatorUrl}
                     created_at={time}
                     allowEdit={user === creator}
+                    isBody={true}
                   >
                     {body}
                   </Comment>

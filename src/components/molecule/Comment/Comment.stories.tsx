@@ -19,6 +19,7 @@ export const Primary: ComponentStory<typeof Comment> = () => (
     user_url="https://github.com/Xiaoxuan0117"
     created_at="2023-03-08T05:47:16Z"
     allowEdit={true}
+    isBody={true}
   >
     {body}
   </Comment>
