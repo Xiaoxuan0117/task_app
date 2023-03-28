@@ -8,7 +8,6 @@ var dotenv = require("dotenv");
 dotenv.config({ path: "/etc/secrets/.env" });
 // dotenv.config(); // for dev
 var { allowOrigin } = require("./config");
-console.log("allowOrigin", allowOrigin);
 
 var indexRouter = require("./routes/index");
 
@@ -34,7 +33,6 @@ app.use((req, res, next) => {
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  console.log("no home");
   next(createError(404));
 });
 

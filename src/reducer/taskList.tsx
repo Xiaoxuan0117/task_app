@@ -105,7 +105,7 @@ export const GetTaskList = createAsyncThunk<
         ...repoCategory(category),
       },
     });
-    console.log(resData.data);
+
     const issueData: TaskProps[] = resData.data.map(
       (issue: GetTaskListResData) => {
         const {
@@ -153,7 +153,6 @@ export const GetTaskList = createAsyncThunk<
       }
     );
 
-    console.log("almost", issueData);
     return {
       error: false,
       issueData,
@@ -182,7 +181,6 @@ export const setFilter = createAsyncThunk<
   }
 >("taskList/setFilter", async ({ type, option }, { dispatch, getState }) => {
   const { isLoading } = getState().taskList;
-  console.log("type, option", type, option);
 
   dispatch(changeFilterState({ type, option }));
   if (!isLoading) {

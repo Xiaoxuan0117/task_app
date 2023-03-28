@@ -49,7 +49,7 @@ export const GetTaskDetail = createAsyncThunk<
           issue_number: number,
         },
       });
-      console.log("task detail", resData.data);
+
       const {
         assignee,
         assignees,
@@ -87,15 +87,13 @@ export const GetTaskDetail = createAsyncThunk<
         };
       });
 
-      console.log(commentsData);
-
       const status = labels_arr.filter(
         (label) =>
           label.match(/^ToDo$/gi) ||
           label.match(/^In\sProgress$/gi) ||
           label.match(/^Done$/gi)
       )[0];
-      console.log("status", labels_arr, status);
+
       dispatch(
         syncEditTask({
           title: title || "",
@@ -145,7 +143,6 @@ export const UpdateDetailState = createAsyncThunk<
   "task/UpdateDetailState",
   async ({ repoOwner, repoName, number }, { getState, rejectWithValue }) => {
     const { isOpen } = getState().taskDetail;
-    console.log("should in here");
 
     try {
       const resData = await axios.get("/api/updateState", {

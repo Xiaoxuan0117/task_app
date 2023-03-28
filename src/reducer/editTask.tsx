@@ -39,7 +39,7 @@ export const UpdateTask = createAsyncThunk<
     var matches = str.match(/[\u00ff-\uffff]|\S+/g);
     return matches ? matches.length : 0;
   }
-  console.log("body", body, countWords(body));
+
   if (!title || !status || !body || countWords(body) < 30) {
     const inputError = {
       title: !title,
@@ -48,7 +48,6 @@ export const UpdateTask = createAsyncThunk<
     };
     return { inputError, isSuccess: false };
   }
-  console.log("data", title, status, body);
 
   const otherLabels = labels.filter(
     (label) =>
@@ -56,7 +55,6 @@ export const UpdateTask = createAsyncThunk<
       !label.match(/^In\sProgress$/gi) &&
       !label.match(/^Done$/gi)
   );
-  console.log([status].concat(otherLabels));
 
   try {
     const resData = await axios.post(
@@ -75,7 +73,6 @@ export const UpdateTask = createAsyncThunk<
       }
     );
 
-    console.log("resData", resData);
     return { inputError: initialState.inputError, isSuccess: true };
   } catch (err: any) {
     const {

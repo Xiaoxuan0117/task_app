@@ -29,7 +29,7 @@ export default function Toggle(props: ToggleProps): JSX.Element {
       case "taskDetail":
         return dispatch(UpdateDetailState(params));
       default:
-        return console.log("toggle erro");
+        return;
     }
   };
 

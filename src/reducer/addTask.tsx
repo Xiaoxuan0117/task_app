@@ -33,7 +33,7 @@ export const PostTask = createAsyncThunk<
     var matches = str.match(/[\u00ff-\uffff]|\S+/g);
     return matches ? matches.length : 0;
   }
-  console.log("body", body, countWords(body));
+
   if (!title || !repo || !body || countWords(body) < 30) {
     const inputError = {
       title: !title,
@@ -59,7 +59,6 @@ export const PostTask = createAsyncThunk<
       }
     );
 
-    console.log("resData", resData);
     return { inputError: initialState.inputError, isSuccess: true };
   } catch (err: any) {
     const {

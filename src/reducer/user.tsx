@@ -23,13 +23,12 @@ export const GetUser = createAsyncThunk<
 >(
   "user/GetUser",
   async ({ repoOwner, repoName }, { dispatch, rejectWithValue }) => {
-    console.log("get user");
     try {
       const resData = await axios.get("/api/user", { withCredentials: true });
-      console.log("resData", resData);
+
       const { login, avatar_url, html_url } = resData.data;
       const repoData = await axios.get("/api/repos");
-      console.log("repoData", repoData);
+
       const repos = repoData.data.map(
         (repo: { id: number; name: string; owner: { login: string } }) => {
           return {
@@ -39,7 +38,6 @@ export const GetUser = createAsyncThunk<
           };
         }
       );
-      console.log("repoData", repoData);
 
       if (repoOwner && repoName) {
         dispatch(
