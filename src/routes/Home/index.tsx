@@ -94,7 +94,7 @@ export default function Home() {
           <div className="head">
             <div className="repo bold">
               {showRepo.repoOwner}/
-              {showRepo.repoName ? showRepo.repoName : "My Issue"}
+              {showRepo.repoName ? showRepo.repoName : "My Tasks"}
             </div>
             <div className="function">
               <div className="add-button">

@@ -18,8 +18,8 @@ export default function Navi(props: NaviProps): JSX.Element {
     <div className="navi-wrapper">
       <div className="navi">
         <div className="left">
-          <div className="my-issue">
-            <Link to="/">My Issue</Link>
+          <div className="my-tasks">
+            <Link to="/">My Tasks</Link>
           </div>
           <div className="repo_select">
             <Dropdown
