@@ -39,6 +39,10 @@
         &:hover {
           text-decoration: underline;
         }
+
+        & span {
+          font-size: $font-p;
+        }
       }
     }
   }
