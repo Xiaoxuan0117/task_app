@@ -18,6 +18,7 @@ const initialState: TaskListStatus = {
   taskList: [],
   page: 1,
   errMsg: "",
+  errStatus: 404,
   isAll: false,
   filter: {
     state: "all",
@@ -56,6 +57,7 @@ export const GetTaskList = createAsyncThunk<
   GetTaskListPayload,
   GetTaskListParams,
   {
+    dispatch: AppDispatch;
     state: {
       taskList: {
         page: number;
@@ -67,110 +69,114 @@ export const GetTaskList = createAsyncThunk<
       };
     };
   }
->("taskList/getTaskList", async ({ reLoad }, { getState, rejectWithValue }) => {
-  const {
-    taskList: {
-      page,
-      filter: { state, labels, category, direction },
-    },
-    user: {
-      name,
-      showRepo: { repoOwner, repoName },
-    },
-  } = getState();
-
-  const repoCategory = (category: string) => {
-    switch (category) {
-      case "created":
-        return { created: name };
-      case "assigned":
-        return { assignee: name };
-      case "mentioned":
-        return { mentioned: name };
-    }
-  };
-
-  try {
-    const resData = await axios({
-      url: "/api/taskList/",
-      method: "get",
-      params: {
-        owner: repoOwner,
-        repo: repoName,
-        page: reLoad ? 1 : page,
-        state: state,
-        labels: labels === "all" ? "" : labels,
-        category: category,
-        direction: direction,
-        ...repoCategory(category),
-      },
-    });
-
-    const issueData: TaskProps[] = resData.data.map(
-      (issue: GetTaskListResData) => {
-        const {
-          assignee,
-          created_at,
-          html_url,
-          id,
-          labels,
-          number,
-          repository,
-          state,
-          title,
-          user,
-          body,
-        } = issue;
-        const { avatar_url, html_url: assignee_url } = assignee || {};
-        const {
-          name: repository_name,
-          html_url: repo_url,
-          owner,
-        } = repository || {};
-        const { login: repoLogin } = owner || {};
-        const { login, html_url: creatorUrl } = user || {};
-        const labels_arr = labels.map((label) => label.name);
-        return {
-          assigneeAvatar: avatar_url,
-          assigneeUrl: assignee_url,
-          body,
-          time: created_at,
-          issueUrl: html_url,
-          id,
-          labels: labels_arr,
-          number,
-          repoName: repository_name ? repository_name : repoName,
-          repoUrl: repo_url
-            ? repo_url
-            : `https://github.com/${repoOwner}/${repoName}`,
-          repoOwner: repoLogin ? repoLogin : repoOwner,
-          isOpen: state === "open" ? true : false,
-          title: title,
-          creator: login,
-          creatorUrl,
-          isSearchResult: false,
-        };
-      }
-    );
-
-    return {
-      error: false,
-      issueData,
-      errMsg: "",
-      page: issueData.length < 10 ? 0 : 1,
-      isAll: issueData.length < 10 ? true : false,
-      reLoad,
-    };
-  } catch (err: any) {
+>(
+  "taskList/getTaskList",
+  async ({ reLoad }, { dispatch, getState, rejectWithValue }) => {
     const {
-      response: {
-        status,
-        data: { message },
+      taskList: {
+        page,
+        filter: { state, labels, category, direction },
       },
-    } = err;
-    return rejectWithValue(`status: ${status} / error message: ${message}`);
+      user: {
+        name,
+        showRepo: { repoOwner, repoName },
+      },
+    } = getState();
+
+    const repoCategory = (category: string) => {
+      switch (category) {
+        case "created":
+          return { created: name };
+        case "assigned":
+          return { assignee: name };
+        case "mentioned":
+          return { mentioned: name };
+      }
+    };
+
+    try {
+      const resData = await axios({
+        url: "/api/taskList/",
+        method: "get",
+        params: {
+          owner: repoOwner,
+          repo: repoName,
+          page: reLoad ? 1 : page,
+          state: state,
+          labels: labels === "all" ? "" : labels,
+          category: category,
+          direction: direction,
+          ...repoCategory(category),
+        },
+      });
+
+      const issueData: TaskProps[] = resData.data.map(
+        (issue: GetTaskListResData) => {
+          const {
+            assignee,
+            created_at,
+            html_url,
+            id,
+            labels,
+            number,
+            repository,
+            state,
+            title,
+            user,
+            body,
+          } = issue;
+          const { avatar_url, html_url: assignee_url } = assignee || {};
+          const {
+            name: repository_name,
+            html_url: repo_url,
+            owner,
+          } = repository || {};
+          const { login: repoLogin } = owner || {};
+          const { login, html_url: creatorUrl } = user || {};
+          const labels_arr = labels.map((label) => label.name);
+          return {
+            assigneeAvatar: avatar_url,
+            assigneeUrl: assignee_url,
+            body,
+            time: created_at,
+            issueUrl: html_url,
+            id,
+            labels: labels_arr,
+            number,
+            repoName: repository_name ? repository_name : repoName,
+            repoUrl: repo_url
+              ? repo_url
+              : `https://github.com/${repoOwner}/${repoName}`,
+            repoOwner: repoLogin ? repoLogin : repoOwner,
+            isOpen: state === "open" ? true : false,
+            title: title,
+            creator: login,
+            creatorUrl,
+            isSearchResult: false,
+          };
+        }
+      );
+
+      return {
+        error: false,
+        issueData,
+        errMsg: "",
+        page: issueData.length < 10 ? 0 : 1,
+        isAll: issueData.length < 10 ? true : false,
+        reLoad,
+      };
+    } catch (err: any) {
+      const {
+        response: {
+          status,
+          data: { message },
+        },
+      } = err;
+      dispatch(setErrorStatusTaskList(status));
+      return rejectWithValue(`status: ${status} / error message: ${message}`);
+    }
   }
-});
+);
 
 export const setFilter = createAsyncThunk<
   boolean,
@@ -193,11 +199,15 @@ export const UpdateState = createAsyncThunk<
   UpdateStatePayload,
   TaskRequiredInfo,
   {
+    dispatch: AppDispatch;
     state: { taskList: { taskList: TaskProps[] } };
   }
 >(
   "task/updateState",
-  async ({ repoOwner, repoName, number }, { getState, rejectWithValue }) => {
+  async (
+    { repoOwner, repoName, number },
+    { dispatch, getState, rejectWithValue }
+  ) => {
     const { taskList } = getState().taskList;
 
     const taskIndex = taskList.findIndex((task) => {
@@ -208,7 +218,7 @@ export const UpdateState = createAsyncThunk<
       );
     });
     if (taskIndex === -1) {
-      return rejectWithValue("no task found");
+      return rejectWithValue("Cannot find the task");
     }
     const currentState = taskList[taskIndex].isOpen;
 
@@ -230,6 +240,7 @@ export const UpdateState = createAsyncThunk<
           data: { message },
         },
       } = err;
+      dispatch(setErrorStatusTaskList(status));
       return rejectWithValue(`status: ${status} / error message: ${message}`);
     }
   }
@@ -277,6 +288,9 @@ export const taskListSlice = createSlice({
     checkToken(state) {
       state.token = cookie.get("access_token") ? true : false;
     },
+    setErrorStatusTaskList(state, action) {
+      state.errStatus = action.payload;
+    },
     resetTaskList() {
       return initialState;
     },
@@ -318,6 +332,7 @@ export const taskListSlice = createSlice({
       })
       .addCase(UpdateState.fulfilled, (state, action) => {
         state.isStateLoading = false;
+        state.errMsg = "";
         state.taskList[action.payload.taskIndex].isOpen = action.payload.state;
       })
       .addCase(UpdateState.rejected, (state, action) => {
@@ -335,6 +350,7 @@ export const {
   toggleFilter,
   checkToken,
   resetTaskList,
+  setErrorStatusTaskList,
 } = taskListSlice.actions;
 
 export default taskListSlice.reducer;

@@ -30,6 +30,7 @@ export default function Home() {
     taskList: taskListData,
     isLoading,
     errMsg,
+    errStatus,
     isFilterOpen,
     token,
   } = useSelector((state: RootState) => state.taskList);
@@ -113,6 +114,7 @@ export default function Home() {
             isLoading={isLoading}
             taskList={taskListData}
             errMsg={errMsg}
+            errStatus={errStatus}
           ></TaskList>
         </div>
         <div

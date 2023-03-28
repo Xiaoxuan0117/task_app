@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { AppDispatch } from "../store";
 import {
   Assignee,
   CommentType,
@@ -30,6 +31,7 @@ const initialState: TaskDetailState = {
   milestoneUrl: "",
   isLoading: true,
   errMsg: "",
+  errStatus: 404,
   isStateLoading: false,
   isDetailOpen: false,
 };
@@ -128,6 +130,7 @@ export const GetTaskDetail = createAsyncThunk<
           data: { message },
         },
       } = err;
+      dispatch(setErrorStatusTaskDetail(status));
       return rejectWithValue(`status: ${status} / error message: ${message}`);
     }
   }
@@ -136,12 +139,13 @@ export const GetTaskDetail = createAsyncThunk<
 export const UpdateDetailState = createAsyncThunk<
   { state: boolean },
   TaskRequiredInfo,
-  {
-    state: { taskDetail: { isOpen: boolean } };
-  }
+  { dispatch: AppDispatch; state: { taskDetail: { isOpen: boolean } } }
 >(
   "task/UpdateDetailState",
-  async ({ repoOwner, repoName, number }, { getState, rejectWithValue }) => {
+  async (
+    { repoOwner, repoName, number },
+    { dispatch, getState, rejectWithValue }
+  ) => {
     const { isOpen } = getState().taskDetail;
 
     try {
@@ -162,6 +166,7 @@ export const UpdateDetailState = createAsyncThunk<
           data: { message },
         },
       } = err;
+      dispatch(setErrorStatusTaskDetail(status));
       return rejectWithValue(`status: ${status} / error message: ${message}`);
     }
   }
@@ -176,6 +181,9 @@ export const taskDetailSlice = createSlice({
     },
     toggleDetail(state) {
       state.isDetailOpen = !state.isDetailOpen;
+    },
+    setErrorStatusTaskDetail(state, action) {
+      state.errStatus = action.payload;
     },
     resetTaskDetail() {
       return initialState;
@@ -213,7 +221,11 @@ export const taskDetailSlice = createSlice({
   },
 });
 
-export const { UpdateTaskDetailState, resetTaskDetail, toggleDetail } =
-  taskDetailSlice.actions;
+export const {
+  UpdateTaskDetailState,
+  resetTaskDetail,
+  toggleDetail,
+  setErrorStatusTaskDetail,
+} = taskDetailSlice.actions;
 
 export default taskDetailSlice.reducer;

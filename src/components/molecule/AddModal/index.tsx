@@ -25,6 +25,7 @@ export default function AddModal() {
       isUploading,
       isSuccess,
       errMsg,
+      errStatus,
     },
   } = useSelector((state: RootState) => state);
   const dispatch = useAppDispatch();
@@ -68,7 +69,7 @@ export default function AddModal() {
     if (errMsg) {
       return (
         <div className="error-section">
-          <ErrorMessage text={errMsg} type="addTask" />
+          <ErrorMessage text={errMsg} type="addTask" errStatus={errStatus} />
           <div className="close-button">
             <Button type="close" class="img-button">
               <img src={closeButton} alt="closeButton" />

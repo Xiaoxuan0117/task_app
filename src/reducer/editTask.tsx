@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { AppDispatch } from "../store";
 import { EditTaskState, EditTaskPayload } from "../type";
 
 const initialState: EditTaskState = {
@@ -10,12 +11,14 @@ const initialState: EditTaskState = {
   isSuccess: false,
   inputError: { title: false, status: false, body: false },
   errMsg: "",
+  errStatus: 404,
 };
 
 export const UpdateTask = createAsyncThunk<
   EditTaskPayload,
   undefined,
   {
+    dispatch: AppDispatch;
     state: {
       user: { showRepo: { repoOwner: string; repoName: string } };
       editTask: {
@@ -26,7 +29,7 @@ export const UpdateTask = createAsyncThunk<
       taskDetail: { number: number; labels: string[] };
     };
   }
->("editTask/UpdateTask", async (_, { getState, rejectWithValue }) => {
+>("editTask/UpdateTask", async (_, { dispatch, getState, rejectWithValue }) => {
   const {
     user: {
       showRepo: { repoOwner, repoName },
@@ -81,6 +84,7 @@ export const UpdateTask = createAsyncThunk<
         data: { message },
       },
     } = err;
+    dispatch(setErrorStatusEditTask(status));
     return rejectWithValue(`status: ${status} / error message: ${message}`);
   }
 });
@@ -105,6 +109,9 @@ export const editTaskSlice = createSlice({
     setEditBody(state, action) {
       state.body = action.payload;
       state.inputError.body = false;
+    },
+    setErrorStatusEditTask(state, action) {
+      state.errStatus = action.payload;
     },
     resetUpdateResult(state) {
       state.isSuccess = false;
@@ -136,6 +143,7 @@ export const {
   setEditTitle,
   selectStatus,
   setEditBody,
+  setErrorStatusEditTask,
   resetEditTask,
   resetUpdateResult,
 } = editTaskSlice.actions;

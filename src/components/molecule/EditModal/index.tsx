@@ -28,6 +28,7 @@ export default function EditModal(props: EditModalProps): JSX.Element {
     isUploading,
     isSuccess,
     errMsg,
+    errStatus,
   } = useSelector((state: RootState) => state.editTask);
   const dispatch = useAppDispatch();
 
@@ -70,7 +71,7 @@ export default function EditModal(props: EditModalProps): JSX.Element {
     if (errMsg) {
       return (
         <div className="error-section">
-          <ErrorMessage text={errMsg} type="editTask" />
+          <ErrorMessage text={errMsg} type="editTask" errStatus={errStatus} />
           <div className="close-button">
             <Button type="close" class="img-button">
               <img src={closeButton} alt="closeButton" />

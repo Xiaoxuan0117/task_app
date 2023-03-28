@@ -36,6 +36,7 @@ export default function TaskDetail() {
     assignees,
     isLoading,
     errMsg,
+    errStatus,
     isDetailOpen,
   } = useSelector((state: RootState) => state.taskDetail);
   const { name: user, repoList } = useSelector(
@@ -127,7 +128,7 @@ export default function TaskDetail() {
               </div>
             </div>
           )}
-          {errMsg && <ErrorMessage text={errMsg} />}
+          {errMsg && <ErrorMessage text={errMsg} errStatus={errStatus} />}
         </div>
       </div>
       <Outlet />

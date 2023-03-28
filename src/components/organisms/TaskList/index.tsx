@@ -12,7 +12,7 @@ import Task from "../../molecule/Task";
 import "./style.scss";
 
 export default function TaskList(props: TaskListProps): JSX.Element {
-  const { taskList, isLoading, errMsg } = props;
+  const { taskList, isLoading, errMsg, errStatus } = props;
   const { isSearchMode } = useSelector((state: RootState) => state.taskList);
   const dispatch = useAppDispatch();
 
@@ -40,7 +40,7 @@ export default function TaskList(props: TaskListProps): JSX.Element {
   });
   return (
     <div id="taskList-wrapper" className="taskList-wrapper">
-      {errMsg && <ErrorMessage text={errMsg} />}
+      {errMsg && <ErrorMessage text={errMsg} errStatus={errStatus} />}
       <div
         className={`taskList ${classNames(taskListArr().length && "has-data")}`}
       >

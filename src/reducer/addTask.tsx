@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { AppDispatch } from "../store";
 import { AddTaskState, AddTaskPayload } from "../type";
 
 const initialState: AddTaskState = {
@@ -10,12 +11,14 @@ const initialState: AddTaskState = {
   isSuccess: false,
   inputError: { title: false, repo: false, body: false },
   errMsg: "",
+  errStatus: 404,
 };
 
 export const PostTask = createAsyncThunk<
   AddTaskPayload,
   undefined,
   {
+    dispatch: AppDispatch;
     state: {
       user: { showRepo: { repoOwner: string; repoName: string } };
       addTask: {
@@ -25,7 +28,7 @@ export const PostTask = createAsyncThunk<
       };
     };
   }
->("addTask/PostTask", async (_, { getState, rejectWithValue }) => {
+>("addTask/PostTask", async (_, { dispatch, getState, rejectWithValue }) => {
   const { repoOwner, repoName } = getState().user.showRepo;
   const { title, repo, body } = getState().addTask;
 
@@ -67,6 +70,7 @@ export const PostTask = createAsyncThunk<
         data: { message },
       },
     } = err;
+    dispatch(setErrorStatusAddTask(status));
     return rejectWithValue(`status: ${status} / error message: ${message}`);
   }
 });
@@ -86,6 +90,9 @@ export const addTaskSlice = createSlice({
     setAddBody(state, action) {
       state.body = action.payload;
       state.inputError.body = false;
+    },
+    setErrorStatusAddTask(state, action) {
+      state.errStatus = action.payload;
     },
     resetSubmitResult(state) {
       state.isSuccess = false;
@@ -116,6 +123,7 @@ export const {
   selectRepo,
   setAddTitle,
   setAddBody,
+  setErrorStatusAddTask,
   resetAddTask,
   resetSubmitResult,
 } = addTaskSlice.actions;

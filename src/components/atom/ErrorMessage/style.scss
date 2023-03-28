@@ -15,4 +15,9 @@
     background-color: $gray;
     margin: 10px 0;
   }
+
+  & .resolve {
+    font-size: $font-h5;
+    color: $double-dark-gray;
+  }
 }

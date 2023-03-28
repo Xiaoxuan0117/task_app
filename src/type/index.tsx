@@ -23,6 +23,7 @@ export type TaskListProps = {
   isLoading: boolean;
   taskList: TaskProps[];
   errMsg?: string;
+  errStatus?: number;
 };
 
 export type Filter = {
@@ -115,6 +116,7 @@ export type GetTaskDetailPayLoad = {
 export interface TaskDetailState extends GetTaskDetailPayLoad {
   isLoading: boolean;
   errMsg: string;
+  errStatus: number;
   isStateLoading: boolean;
   isDetailOpen: boolean;
 }
@@ -161,6 +163,7 @@ export type AddTaskState = {
   isSuccess: boolean;
   inputError: AddInputError;
   errMsg: string;
+  errStatus: number;
 };
 
 export type AddTaskPayload = {
@@ -182,6 +185,7 @@ export type EditTaskState = {
   isSuccess: boolean;
   inputError: EditInputError;
   errMsg: string;
+  errStatus: number;
 };
 
 export type EditTaskPayload = {
