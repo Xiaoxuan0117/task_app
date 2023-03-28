@@ -25,7 +25,7 @@ export const GetUser = createAsyncThunk<
   async ({ repoOwner, repoName }, { dispatch, rejectWithValue }) => {
     console.log("get user");
     try {
-      const resData = await axios.get("/api/user");
+      const resData = await axios.get("/api/user", { withCredentials: true });
       console.log("resData", resData);
       const { login, avatar_url, html_url } = resData.data;
       const repoData = await axios.get("/api/repos");

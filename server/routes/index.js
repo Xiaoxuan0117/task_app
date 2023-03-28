@@ -32,6 +32,7 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
 
 /*GET USER */
 router.get("/user", async function (req, res) {
+  console.log("token", req.cookies.access_token);
   try {
     const result = await axios.get("https://api.github.com/user", {
       headers: {
