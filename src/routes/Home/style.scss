@@ -88,7 +88,7 @@
       padding: 80px 20px 40px 20px;
 
       @media screen and (max-width: 1023px) {
-        position: absolute;
+        position: fixed;
         top: 80px;
         right: 10px;
         padding: 30px;
