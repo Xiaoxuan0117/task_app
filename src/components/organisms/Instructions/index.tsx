@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 
+import Button from "../../atom/Button";
 import navi from "../../../assets/instructions_navi.png";
 import task from "../../../assets/instructions_task.png";
 import controller from "../../../assets/instructions_controller.png";
 import button from "../../../assets/instructions_button.png";
+import close_white from "../../../assets/close_white.svg";
 
 import "./style.scss";
 
@@ -46,6 +48,9 @@ export default function Instructions() {
     <div className="instructions-mask">
       <div className="instructions-wrapper">
         <div className="instructions">
+          <Button type="close" class="close-button">
+            <img src={close_white} alt="closeButton" />
+          </Button>
           <div className="title">Instructions</div>
           <div className="instructions-content">
             {instructionsData.map((c) => (

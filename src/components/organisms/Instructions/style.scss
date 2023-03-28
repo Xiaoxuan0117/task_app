@@ -21,6 +21,20 @@
       margin: auto;
       padding: 60px 0;
 
+      & .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: $blue;
+        padding: 0;
+
+        & img {
+          position: relative;
+          width: 30px;
+          height: 30px;
+        }
+      }
+
       & .title {
         font-size: 40px;
         font-weight: 700;

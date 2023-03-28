@@ -27,7 +27,7 @@ export default function Button(props: ButtonProps): JSX.Element {
 
   const clickEvent = (type: string) => {
     switch (type) {
-      case "cancel":
+      case "close":
         return navigate(-1);
       case "addCloseRefresh":
         return (async function () {

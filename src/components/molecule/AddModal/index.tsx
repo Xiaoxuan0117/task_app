@@ -70,7 +70,7 @@ export default function AddModal() {
         <div className="error-section">
           <ErrorMessage text={errMsg} type="addTask" />
           <div className="close-button">
-            <Button type="cancel" class="img-button">
+            <Button type="close" class="img-button">
               <img src={closeButton} alt="closeButton" />
             </Button>
           </div>
@@ -109,7 +109,7 @@ export default function AddModal() {
           )}
         </div>
         <div className="footer">
-          <Button type="cancel" class="secondary">
+          <Button type="close" class="secondary">
             <div>Cancel</div>
           </Button>
           <Button type="add" class="primary">
@@ -117,7 +117,7 @@ export default function AddModal() {
           </Button>
         </div>
         <div className="close-button">
-          <Button type="cancel" class="img-button">
+          <Button type="close" class="img-button">
             <img src={closeButton} alt="closeButton" />
           </Button>
         </div>
