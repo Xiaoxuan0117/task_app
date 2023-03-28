@@ -47,7 +47,7 @@ export const PostTask = createAsyncThunk<
   }
 
   try {
-    const resData = await axios.post(
+    await axios.post(
       "/api/postTask",
       {
         title,
