@@ -1,7 +1,6 @@
 var express = require("express");
 var axios = require("axios");
 var router = express.Router();
-var { redirectUrl } = require("../config");
 
 /* POST token */
 router.get("/login/oauth/access_token", async function (req, res, next) {
@@ -21,11 +20,10 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
     });
     const { access_token } = result.data;
 
-    // res.cookie("access_token", access_token);
-
-    res.redirect(`${redirectUrl}?access_token=${access_token && access_token}`);
+    res.cookie("access_token", access_token);
+    res.redirect("/");
   } catch (err) {
-    res.status(err.response.status).redirect(redirectUrl);
+    res.status(err.response.status).redirect("/");
   }
 });
 
@@ -35,7 +33,7 @@ router.get("/user", async function (req, res) {
     const result = await axios.get("https://api.github.com/user", {
       headers: {
         Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${req.headers.authorization}`,
+        Authorization: `Bearer ${req.cookies.access_token}`,
       },
     });
 
@@ -51,7 +49,7 @@ router.get("/repos", async function (req, res) {
     const result = await axios.get("https://api.github.com/user/repos", {
       headers: {
         Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${req.headers.authorization}`,
+        Authorization: `Bearer ${req.cookies.access_token}`,
       },
     });
     res.status(result.status).send(result.data);
@@ -84,7 +82,7 @@ router.get("/taskList", async function (req, res, next) {
       method: "get",
       headers: {
         Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${req.headers.authorization}`,
+        Authorization: `Bearer ${req.cookies.access_token}`,
       },
       params: {
         page,
@@ -118,7 +116,7 @@ router.get("/updateState", async function (req, res) {
       {
         headers: {
           Accept: "application/vnd.github+json",
-          Authorization: `Bearer ${req.headers.authorization}`,
+          Authorization: `Bearer ${req.cookies.access_token}`,
         },
       }
     );
@@ -138,7 +136,7 @@ router.get("/taskDetail", async function (req, res) {
       method: "get",
       headers: {
         Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${req.headers.authorization}`,
+        Authorization: `Bearer ${req.cookies.access_token}`,
       },
     });
 
@@ -147,7 +145,7 @@ router.get("/taskDetail", async function (req, res) {
       method: "get",
       headers: {
         Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${req.headers.authorization}`,
+        Authorization: `Bearer ${req.cookies.access_token}`,
       },
     });
     res
@@ -173,7 +171,7 @@ router.post("/postTask", async function (req, res) {
       {
         headers: {
           Accept: "application/vnd.github+json",
-          Authorization: `Bearer ${req.headers.authorization}`,
+          Authorization: `Bearer ${req.cookies.access_token}`,
         },
       }
     );
@@ -198,7 +196,7 @@ router.post("/updateTask", async function (req, res) {
       {
         headers: {
           Accept: "application/vnd.github+json",
-          Authorization: `Bearer ${req.headers.authorization}`,
+          Authorization: `Bearer ${req.cookies.access_token}`,
         },
       }
     );

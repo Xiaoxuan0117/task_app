@@ -4,8 +4,6 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { store } from "./store";
 import { Provider } from "react-redux";
-import axios from "axios";
-import cookie from "js-cookie";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -66,14 +64,6 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
-if (process.env.REACT_APP_API === "prod") {
-  axios.defaults.baseURL = "https://taskapp-pbqx.onrender.com";
-} else {
-  axios.defaults.baseURL = "http://127.0.0.1:5000";
-}
-axios.defaults.withCredentials = true;
-axios.defaults.headers.common["Authorization"] = cookie.get("access_token");
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
