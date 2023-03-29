@@ -4,8 +4,8 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var dotenv = require("dotenv");
-dotenv.config({ path: "/etc/secrets/.env" });
-// dotenv.config(); // for dev
+// dotenv.config({ path: "/etc/secrets/.env" });
+dotenv.config(); // for dev
 
 var indexRouter = require("./routes/index");
 
