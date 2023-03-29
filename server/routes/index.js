@@ -130,6 +130,32 @@ router.get("/updateState", async function (req, res) {
   }
 });
 
+/*GET search issues*/
+router.get("/taskSearch", async function (req, res) {
+  console.log(req.query);
+  console.log("q", req.query.query);
+  const { query, order, page } = req.query;
+  try {
+    const result = await axios({
+      url: "https://api.github.com/search/issues",
+      method: "get",
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${req.cookies.access_token}`,
+      },
+      params: {
+        q: query,
+        order: order,
+        page,
+        per_page: 10,
+      },
+    });
+    res.status(result.status).send(result.data);
+  } catch (err) {
+    res.status(err.response.status).send(err.response.data);
+  }
+});
+
 /* GET issue */
 router.get("/taskDetail", async function (req, res) {
   const { owner, repo, issue_number } = req.query;

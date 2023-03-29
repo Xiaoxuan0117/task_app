@@ -33,7 +33,7 @@ export type Filter = {
   direction: string;
 };
 
-export interface TaskListStatus extends TaskListProps {
+export interface TaskListState extends TaskListProps {
   page: number;
   isAll: boolean;
   filter: Filter;

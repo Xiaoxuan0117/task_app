@@ -50,7 +50,10 @@ export default function Button(props: ButtonProps): JSX.Element {
       case "update":
         return dispatch(UpdateTask());
       case "taskSearch":
-        return dispatch(taskSearch());
+        return (async function () {
+          dispatch(taskSearch());
+          dispatch(GetTaskList({ reLoad: true }));
+        })();
       case "openAddModal":
         return navigate("add", { replace: false });
       case "toggleFilter":

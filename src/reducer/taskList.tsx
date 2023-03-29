@@ -1,19 +1,19 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   TaskProps,
-  TaskListStatus,
-  Filter,
+  TaskListState,
   GetTaskListPayload,
   GetTaskListParams,
   GetTaskListResData,
   UpdateStatePayload,
   TaskRequiredInfo,
+  userState,
 } from "../type";
 import axios from "axios";
 import cookie from "js-cookie";
 import { AppDispatch } from "../store";
 
-const initialState: TaskListStatus = {
+const initialState: TaskListState = {
   isLoading: false,
   taskList: [],
   page: 1,
@@ -46,9 +46,6 @@ export const TriggerGetTaskList = createAsyncThunk<
   const { isAll, isLoading, isSearchMode } = getState().taskList;
   if (!isAll && !isLoading) {
     await dispatch(GetTaskList({ reLoad: false }));
-    if (isSearchMode) {
-      dispatch(taskSearch());
-    }
   }
   return true;
 });
@@ -59,23 +56,19 @@ export const GetTaskList = createAsyncThunk<
   {
     dispatch: AppDispatch;
     state: {
-      taskList: {
-        page: number;
-        filter: Filter;
-      };
-      user: {
-        name: string;
-        showRepo: { repoOwner: string; repoName: string };
-      };
+      taskList: TaskListState;
+      user: userState;
     };
   }
 >(
-  "taskList/getTaskList",
+  "taskList/GetTaskList",
   async ({ reLoad }, { dispatch, getState, rejectWithValue }) => {
     const {
       taskList: {
         page,
         filter: { state, labels, category, direction },
+        isSearchMode,
+        taskSearchKeyword,
       },
       user: {
         name,
@@ -83,34 +76,103 @@ export const GetTaskList = createAsyncThunk<
       },
     } = getState();
 
-    const repoCategory = (category: string) => {
-      switch (category) {
-        case "created":
-          return { created: name };
-        case "assigned":
-          return { assignee: name };
-        case "mentioned":
-          return { mentioned: name };
-      }
-    };
+    let resData = [];
 
     try {
-      const resData = await axios({
-        url: "/api/taskList/",
-        method: "get",
-        params: {
-          owner: repoOwner,
-          repo: repoName,
-          page: reLoad ? 1 : page,
-          state: state,
-          labels: labels === "all" ? "" : labels,
-          category: category,
-          direction: direction,
-          ...repoCategory(category),
-        },
-      });
+      if (isSearchMode) {
+        const stateQuery =
+          state === ("open" || "closed") ? `state:${state}` : "";
 
-      const issueData: TaskProps[] = resData.data.map(
+        const categoryQuery = (category: string) => {
+          switch (category) {
+            case "created":
+              return `author:${name}`;
+            case "assignee":
+              return `assignee:${name}`;
+            case "mentioned":
+              return `mentions:${name}`;
+            default:
+              return "";
+          }
+        };
+
+        let keyword = "";
+        let labelQuery = "";
+        if (taskSearchKeyword.indexOf("label:") !== -1) {
+          keyword = taskSearchKeyword.slice(
+            0,
+            taskSearchKeyword.indexOf("label:")
+          );
+          console.log("keyword", keyword);
+          labelQuery = taskSearchKeyword.slice(
+            taskSearchKeyword.indexOf("label:"),
+            taskSearchKeyword.length
+          );
+        } else {
+          keyword = taskSearchKeyword;
+        }
+        if (labels !== "all" && labels.length && labelQuery) {
+          labelQuery = labelQuery + `,${labels}`;
+        } else if (labels !== "all" && labels.length) {
+          labelQuery = `label:${labels}`;
+        }
+
+        const repoQuery = () => {
+          if (!repoName) {
+            return "";
+          } else {
+            return `user:${repoOwner} repo:${repoName}`;
+          }
+        };
+
+        let queryString = `is:issue involves:${name} ${repoQuery()} ${stateQuery} ${categoryQuery(
+          category
+        )} ${labelQuery} ${keyword} in:title,body,comments`;
+
+        queryString = queryString.replace(/\s\s+/g, " ");
+        console.log("qqq", queryString);
+
+        const resResult = await axios.get("/api/taskSearch", {
+          params: {
+            query: queryString,
+            order: direction,
+            page: reLoad ? 1 : page,
+          },
+        });
+
+        resData = resResult.data.items;
+      } else {
+        const repoCategory = (category: string) => {
+          switch (category) {
+            case "created":
+              return { creator: name };
+            case "assigned":
+              return { assignee: name };
+            case "mentioned":
+              return { mentioned: name };
+          }
+        };
+
+        const resResult = await axios({
+          url: "/api/taskList/",
+          method: "get",
+          params: {
+            owner: repoOwner,
+            repo: repoName,
+            page: reLoad ? 1 : page,
+            state: state,
+            labels: labels === "all" ? "" : labels,
+            category: category,
+            direction: direction,
+            ...repoCategory(category),
+          },
+        });
+
+        resData = resResult.data;
+      }
+
+      console.log("resData", resData);
+      const issueData: TaskProps[] = resData.map(
         (issue: GetTaskListResData) => {
           const {
             assignee,
@@ -262,19 +324,6 @@ export const taskListSlice = createSlice({
     },
     taskSearch(state) {
       if (state.taskSearchKeyword) {
-        const keyword = new RegExp(`${state.taskSearchKeyword}`, "i");
-        const result = state.taskList.map((task) => {
-          if (
-            keyword.test(task.repoName) ||
-            keyword.test(task.title) ||
-            keyword.test(task.body)
-          ) {
-            return { ...task, isSearchResult: true };
-          } else {
-            return { ...task, isSearchResult: false };
-          }
-        });
-        state.taskList = result;
         state.isSearchMode = true;
       } else {
         state.isSearchMode = false;
