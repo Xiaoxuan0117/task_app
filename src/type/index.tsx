@@ -159,6 +159,7 @@ export type AddTaskState = {
   title: string;
   repo: string;
   body: string;
+  repoOwner: string;
   isUploading: boolean;
   isSuccess: boolean;
   inputError: AddInputError;

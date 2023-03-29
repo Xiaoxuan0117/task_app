@@ -46,10 +46,10 @@ export const GetUser = createAsyncThunk<
             repoName: repoName,
           })
         );
-        dispatch(selectRepo(repoName));
+        dispatch(selectRepo({ repoName: repoName, repoOwner: repoOwner }));
       } else {
         dispatch(setShowRepo({ repoOwner: login, repoName: "" }));
-        dispatch(selectRepo(""));
+        dispatch(selectRepo({ repoName: "", repoOwner: "" }));
       }
       return {
         name: login,

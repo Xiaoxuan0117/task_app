@@ -7,6 +7,7 @@ const initialState: AddTaskState = {
   title: "",
   repo: "",
   body: "",
+  repoOwner: "",
   isUploading: false,
   isSuccess: false,
   inputError: { title: false, repo: false, body: false },
@@ -25,12 +26,12 @@ export const PostTask = createAsyncThunk<
         title: string;
         repo: string;
         body: string;
+        repoOwner: string;
       };
     };
   }
 >("addTask/PostTask", async (_, { dispatch, getState, rejectWithValue }) => {
-  const { repoOwner, repoName } = getState().user.showRepo;
-  const { title, repo, body } = getState().addTask;
+  const { title, repo, body, repoOwner } = getState().addTask;
 
   function countWords(str: string) {
     var matches = str.match(/[\u00ff-\uffff]|\S+/g);
@@ -57,7 +58,7 @@ export const PostTask = createAsyncThunk<
       {
         params: {
           owner: repoOwner,
-          repo: repoName,
+          repo: repo,
         },
       }
     );
@@ -80,7 +81,8 @@ export const addTaskSlice = createSlice({
   initialState,
   reducers: {
     selectRepo(state, action) {
-      state.repo = action.payload;
+      state.repo = action.payload.repoName;
+      state.repoOwner = action.payload.repoOwner;
       state.inputError.repo = false;
     },
     setAddTitle(state, action) {

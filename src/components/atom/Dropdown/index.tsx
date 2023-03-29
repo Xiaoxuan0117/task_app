@@ -68,7 +68,12 @@ export default function Dropdown(props: DropdownProps): JSX.Element {
                       index + 1 === options.length && closeDropdown()
                     }
                     onClick={() => {
-                      dispatch(selectRepo(option.repoName));
+                      dispatch(
+                        selectRepo({
+                          repoName: option.repoName,
+                          repoOwner: option.repoOwner,
+                        })
+                      );
                     }}
                   >
                     {option.repoName}
