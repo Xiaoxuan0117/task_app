@@ -23,7 +23,7 @@ const initialState: TaskListState = {
   filter: {
     state: "all",
     labels: "",
-    category: "created",
+    category: "all",
     direction: "desc",
   },
   isStateLoading: false,
@@ -150,6 +150,8 @@ export const GetTaskList = createAsyncThunk<
               return { assignee: name };
             case "mentioned":
               return { mentioned: name };
+            default:
+              return {};
           }
         };
 

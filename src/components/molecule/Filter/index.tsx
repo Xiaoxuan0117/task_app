@@ -14,7 +14,7 @@ export default function Filter() {
   } = useSelector((state: RootState) => state);
   const statusOptions = ["All", "Open", "Closed"];
   const LabelsOptions = ["All", "ToDo", "In Progress", "Done"];
-  const CategoryOptions = ["Created", "Assigned", "Mentioned"];
+  const CategoryOptions = ["All", "Created", "Assigned", "Mentioned"];
 
   return (
     <div className="filter">
