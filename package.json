@@ -39,6 +39,8 @@
   "scripts": {
     "start": "yarn run build && (cd server && yarn start)",
     "start-client": "react-scripts start",
+    "install-server": "cd server && yarn install",
+    "start-server": "cd server && yarn start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
