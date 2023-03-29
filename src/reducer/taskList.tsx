@@ -42,8 +42,8 @@ export const TriggerGetTaskList = createAsyncThunk<
       taskList: { isAll: boolean; isLoading: boolean; isSearchMode: boolean };
     };
   }
->("taskList/scrollToBottom", async (_, { getState, dispatch }) => {
-  const { isAll, isLoading, isSearchMode } = getState().taskList;
+>("taskList/TriggerGetTaskList", async (_, { getState, dispatch }) => {
+  const { isAll, isLoading } = getState().taskList;
   if (!isAll && !isLoading) {
     await dispatch(GetTaskList({ reLoad: false }));
   }
