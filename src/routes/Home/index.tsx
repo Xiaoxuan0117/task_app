@@ -34,7 +34,11 @@ export default function Home() {
     isFilterOpen,
     token,
   } = useSelector((state: RootState) => state.taskList);
-  const { repoList, showRepo } = useSelector((state: RootState) => state.user);
+  const {
+    repoList,
+    showRepo,
+    isLoading: userLoading,
+  } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -103,11 +107,13 @@ export default function Home() {
                   </Button>
                 </Link>
               </div>
-              <div className="filter-button">
-                <Button type="toggleFilter" class="img-button">
-                  <img src={filter} alt="filter" />
-                </Button>
-              </div>
+              {!userLoading && (
+                <div className="filter-button">
+                  <Button type="toggleFilter" class="img-button">
+                    <img src={filter} alt="filter" />
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
           <TaskList
@@ -117,11 +123,15 @@ export default function Home() {
             errStatus={errStatus}
           ></TaskList>
         </div>
-        <div
-          className={`controller-section ${classNames(isFilterOpen && "open")}`}
-        >
-          <Controller />
-        </div>
+        {!userLoading && (
+          <div
+            className={`controller-section ${classNames(
+              isFilterOpen && "open"
+            )}`}
+          >
+            <Controller />
+          </div>
+        )}
       </div>
       <Outlet />
       {!token && (
