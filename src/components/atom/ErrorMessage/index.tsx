@@ -1,4 +1,5 @@
-import React from "react";
+import classNames from "classnames";
+import React, { useEffect, useState } from "react";
 
 import "./style.scss";
 
@@ -10,6 +11,7 @@ type ErrorMessageProps = {
 
 export default function ErrorMessage(props: ErrorMessageProps): JSX.Element {
   const { text, type, errStatus } = props;
+  const [fixed, setFixed] = useState(false);
 
   const resolveMethod = (status: number) => {
     switch (status) {
@@ -32,8 +34,18 @@ export default function ErrorMessage(props: ErrorMessageProps): JSX.Element {
         return "";
     }
   };
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 100) {
+        setFixed(true);
+      } else {
+        setFixed(false);
+      }
+    });
+  });
   return (
-    <div className="err-wrapper">
+    <div className={`err-wrapper ${classNames(fixed && "fixed")}`}>
       <div className="uploadMsg">{uploadTask(type)}</div>
       <div className="err">{text}</div>
       <div className="resolve">
@@ -45,7 +57,7 @@ export default function ErrorMessage(props: ErrorMessageProps): JSX.Element {
             target="_blank"
             rel="noreferrer"
           >
-            xiaoxuan0117
+            task_app
           </a>
         </div>
       </div>

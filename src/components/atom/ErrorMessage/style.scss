@@ -5,6 +5,15 @@
   font-size: $font-h4;
   color: $blue;
   text-align: center;
+  padding-bottom: 20px;
+
+  &.fixed {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: $gray;
+    z-index: 9;
+  }
 
   & .err {
     display: flex;
