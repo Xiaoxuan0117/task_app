@@ -71,7 +71,7 @@ router.get("/taskList", async function (req, res, next) {
     labels,
     category,
     direction,
-    created,
+    creator,
     assignee,
     mentioned,
   } = req.query;
@@ -96,7 +96,7 @@ router.get("/taskList", async function (req, res, next) {
         filter: req.query.category,
         per_page: 10,
         pulls: false,
-        created,
+        creator,
         assignee,
         mentioned,
       },
