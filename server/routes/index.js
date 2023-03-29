@@ -4,7 +4,10 @@ var router = express.Router();
 
 /* POST token */
 router.get("/login/oauth/access_token", async function (req, res, next) {
-  const { code } = req.query;
+  const { code, state } = req.query;
+  if (state !== "79843ijkiruwtuw943q") {
+    res.status(404).redirect("http://127.0.0.1:3000/404");
+  }
   try {
     const result = await axios({
       url: "https://github.com/login/oauth/access_token",
@@ -21,9 +24,9 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
     const { access_token } = result.data;
 
     res.cookie("access_token", access_token);
-    res.redirect("/");
+    res.redirect("http://127.0.0.1:3000/");
   } catch (err) {
-    res.status(err.response.status).redirect("/");
+    res.status(err.response.status).redirect("http://127.0.0.1:3000/404");
   }
 });
 
