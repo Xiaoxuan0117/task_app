@@ -6,7 +6,7 @@ var router = express.Router();
 router.get("/login/oauth/access_token", async function (req, res, next) {
   const { code, state } = req.query;
   if (state !== "79843ijkiruwtuw943q") {
-    res.status(404).redirect("http://127.0.0.1:3000/404");
+    res.status(404).redirect("/404");
   }
   try {
     const result = await axios({
@@ -24,9 +24,9 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
     const { access_token } = result.data;
 
     res.cookie("access_token", access_token);
-    res.redirect("http://127.0.0.1:3000/");
+    res.redirect("/");
   } catch (err) {
-    res.status(err.response.status).redirect("http://127.0.0.1:3000/404");
+    res.status(err.response.status).redirect("/404");
   }
 });
 
