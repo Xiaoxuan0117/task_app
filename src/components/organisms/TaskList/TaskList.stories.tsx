@@ -61,5 +61,10 @@ const tasksDate = [
 ];
 
 export const Primary: ComponentStory<typeof TaskList> = () => (
-  <TaskList isLoading={true} taskList={tasksDate}></TaskList>
+  <TaskList
+    isLoading={true}
+    taskList={tasksDate}
+    errMsg="wrong!"
+    errStatus={404}
+  ></TaskList>
 );

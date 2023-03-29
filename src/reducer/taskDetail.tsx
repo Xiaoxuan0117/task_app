@@ -213,6 +213,7 @@ export const taskDetailSlice = createSlice({
       .addCase(UpdateDetailState.fulfilled, (state, action) => {
         state.isStateLoading = false;
         state.isOpen = action.payload.state;
+        state.errMsg = "";
       })
       .addCase(UpdateDetailState.rejected, (state, action) => {
         state.isStateLoading = false;

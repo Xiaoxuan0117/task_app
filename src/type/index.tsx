@@ -22,8 +22,8 @@ export type TaskProps = {
 export type TaskListProps = {
   isLoading: boolean;
   taskList: TaskProps[];
-  errMsg?: string;
-  errStatus?: number;
+  errMsg: string;
+  errStatus: number;
 };
 
 export type Filter = {
@@ -49,8 +49,6 @@ export type GetTaskListParams = {
 };
 
 export type GetTaskListPayload = {
-  error: boolean;
-  errMsg: string;
   issueData: TaskProps[];
   page: number;
   isAll: boolean;

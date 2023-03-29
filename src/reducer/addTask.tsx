@@ -113,6 +113,7 @@ export const addTaskSlice = createSlice({
         state.isUploading = false;
         state.isSuccess = action.payload.isSuccess;
         state.inputError = action.payload.inputError;
+        state.errMsg = "";
       })
       .addCase(PostTask.rejected, (state, action) => {
         state.isUploading = false;

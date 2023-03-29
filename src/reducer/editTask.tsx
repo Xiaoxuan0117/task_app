@@ -130,6 +130,7 @@ export const editTaskSlice = createSlice({
         state.isUploading = false;
         state.isSuccess = action.payload.isSuccess;
         state.inputError = action.payload.inputError;
+        state.errMsg = "";
       })
       .addCase(UpdateTask.rejected, (state, action) => {
         state.isUploading = false;

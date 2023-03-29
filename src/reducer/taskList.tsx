@@ -158,9 +158,7 @@ export const GetTaskList = createAsyncThunk<
       );
 
       return {
-        error: false,
         issueData,
-        errMsg: "",
         page: issueData.length < 10 ? 0 : 1,
         isAll: issueData.length < 10 ? true : false,
         reLoad,
@@ -308,10 +306,10 @@ export const taskListSlice = createSlice({
       })
       .addCase(GetTaskList.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.errMsg = action.payload.errMsg;
         state.taskList.push(...(action.payload.issueData || []));
         state.page = state.page + action.payload.page;
         state.isAll = action.payload.isAll;
+        state.errMsg = "";
         return state;
       })
       .addCase(GetTaskList.rejected, (state, action) => {
@@ -332,8 +330,8 @@ export const taskListSlice = createSlice({
       })
       .addCase(UpdateState.fulfilled, (state, action) => {
         state.isStateLoading = false;
-        state.errMsg = "";
         state.taskList[action.payload.taskIndex].isOpen = action.payload.state;
+        state.errMsg = "";
       })
       .addCase(UpdateState.rejected, (state, action) => {
         state.isStateLoading = false;
