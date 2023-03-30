@@ -4,14 +4,13 @@ import cookie from "js-cookie";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
-import { resetAddTask } from "../../reducer/addTask";
+import { selectRepo } from "../../reducer/addTask";
 import {
-  checkToken,
   GetTaskList,
-  resetTaskList,
+  setShowRepo,
   TriggerGetTaskList,
 } from "../../reducer/taskList";
-import { GetUser } from "../../reducer/user";
+import { GetUser, checkToken } from "../../reducer/user";
 
 import Button from "../../components/atom/Button";
 import Navi from "../../components/molecule/Navi";
@@ -32,12 +31,13 @@ export default function Home() {
     errMsg,
     errStatus,
     isFilterOpen,
-    token,
+    showRepo,
   } = useSelector((state: RootState) => state.taskList);
   const {
+    name,
     repoList,
-    showRepo,
     isLoading: userLoading,
+    token,
   } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
@@ -52,37 +52,59 @@ export default function Home() {
       });
       window.location.href = "/";
     }
-  }, [search, dispatch]);
+
+    dispatch(checkToken());
+    const GetUserPromise = dispatch(GetUser());
+
+    return () => {
+      GetUserPromise.abort("abort user data");
+    };
+  }, [search, dispatch, repoOwner, repoName]);
+
+  useEffect(() => {
+    if (repoOwner && repoName) {
+      dispatch(
+        setShowRepo({
+          repoOwner: repoOwner,
+          repoName: repoName,
+        })
+      );
+      dispatch(selectRepo({ repoName: repoName, repoOwner: repoOwner }));
+    } else {
+      dispatch(setShowRepo({ repoOwner: name, repoName: "" }));
+      dispatch(selectRepo({ repoName: "", repoOwner: "" }));
+    }
+  }, [dispatch, name, repoName, repoOwner]);
 
   useEffect(() => {
     dispatch(checkToken());
-    if (token) {
-      dispatch(resetTaskList());
-      dispatch(resetAddTask());
-      dispatch(checkToken());
-      getDefaultData();
-    }
-    async function getDefaultData() {
-      await dispatch(
-        GetUser({ repoOwner: repoOwner || "", repoName: repoName || "" })
-      );
-      await dispatch(GetTaskList({ reLoad: false }));
-    }
-  }, [dispatch, repoOwner, repoName, token]);
+    const GetTaskListPromise = dispatch(GetTaskList({ reLoad: true }));
+
+    return () => {
+      GetTaskListPromise.abort("abort task list");
+    };
+  }, [dispatch, repoName, repoOwner]);
 
   useEffect(() => {
-    if (token) {
-      window.addEventListener("scroll", () => {
-        const html = document.documentElement;
-        let innerHeight = window.innerHeight || 0;
-        let scrollY = window.scrollY || 0;
-        let scrollHeight = html.scrollHeight || 0;
-        if (innerHeight + Math.ceil(scrollY) >= scrollHeight) {
-          dispatch(TriggerGetTaskList());
-        }
-      });
+    function infiniteScroll() {
+      const html = document.documentElement;
+      let innerHeight = window.innerHeight || 0;
+      let scrollY = window.scrollY || 0;
+      let scrollHeight = html.scrollHeight || 0;
+      if (innerHeight + Math.ceil(scrollY) >= scrollHeight) {
+        dispatch(TriggerGetTaskList());
+      }
     }
-  }, [dispatch, token]);
+
+    if (token) {
+      window.addEventListener("scroll", infiniteScroll);
+    }
+
+    return () => {
+      console.log("abort");
+      window.removeEventListener("scroll", infiniteScroll);
+    };
+  }, [dispatch, repoOwner, repoName, token]);
 
   return (
     <div className="home-page">

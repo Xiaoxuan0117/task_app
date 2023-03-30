@@ -33,15 +33,20 @@ export type Filter = {
   direction: string;
 };
 
+export type ShowRepo = {
+  repoOwner: string;
+  repoName: string;
+};
+
 export interface TaskListState extends TaskListProps {
   page: number;
   isAll: boolean;
+  showRepo: ShowRepo;
   filter: Filter;
   isStateLoading: boolean;
   taskSearchKeyword: string;
   isSearchMode: boolean;
   isFilterOpen: boolean;
-  token: boolean;
 }
 
 export type GetTaskListParams = {
@@ -205,13 +210,8 @@ export type GetUserPayload = {
   repoList: RepoState[];
 };
 
-export type ShowRepo = {
-  repoOwner: string;
-  repoName: string;
-};
-
 export interface userState extends GetUserPayload {
   isLoading: boolean;
   errMsg: string;
-  showRepo: ShowRepo;
+  token: boolean;
 }

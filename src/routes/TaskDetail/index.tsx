@@ -4,7 +4,8 @@ import { Outlet, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
 import { GetTaskDetail } from "../../reducer/taskDetail";
-import { GetUser } from "../../reducer/user";
+import { checkToken, GetUser } from "../../reducer/user";
+import { setShowRepo } from "../../reducer/taskList";
 
 import ErrorMessage from "../../components/atom/ErrorMessage";
 import LinkElement from "../../components/atom/LinkElement";
@@ -45,19 +46,38 @@ export default function TaskDetail() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getDefaultData();
-    async function getDefaultData() {
-      await dispatch(
-        GetTaskDetail({
-          repoOwner: repoOwner || "",
-          repoName: repoName || "",
-          number: parseInt(number || "0"),
+    const GetUserPromise = dispatch(GetUser());
+
+    return () => {
+      dispatch(checkToken());
+      GetUserPromise.abort("abort user data");
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (repoOwner && repoName) {
+      dispatch(
+        setShowRepo({
+          repoOwner: repoOwner,
+          repoName: repoName,
         })
       );
-      await dispatch(
-        GetUser({ repoOwner: repoOwner || "", repoName: repoName || "" })
-      );
     }
+  }, [dispatch, repoName, repoOwner]);
+
+  useEffect(() => {
+    dispatch(checkToken());
+    const GetTaskDetailPromise = dispatch(
+      GetTaskDetail({
+        repoOwner: repoOwner || "",
+        repoName: repoName || "",
+        number: parseInt(number || "0"),
+      })
+    );
+
+    return () => {
+      GetTaskDetailPromise.abort("abort task detail");
+    };
   }, [dispatch, number, repoOwner, repoName]);
 
   return (

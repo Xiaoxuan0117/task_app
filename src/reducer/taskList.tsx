@@ -10,8 +10,8 @@ import {
   userState,
 } from "../type";
 import axios from "axios";
-import cookie from "js-cookie";
 import { AppDispatch } from "../store";
+import { resetAddTask } from "./addTask";
 
 const initialState: TaskListState = {
   isLoading: false,
@@ -20,6 +20,7 @@ const initialState: TaskListState = {
   errMsg: "",
   errStatus: 404,
   isAll: false,
+  showRepo: { repoOwner: "", repoName: "" },
   filter: {
     state: "all",
     labels: "",
@@ -30,7 +31,6 @@ const initialState: TaskListState = {
   taskSearchKeyword: "",
   isSearchMode: false,
   isFilterOpen: false,
-  token: false,
 };
 
 export const TriggerGetTaskList = createAsyncThunk<
@@ -69,12 +69,19 @@ export const GetTaskList = createAsyncThunk<
         filter: { state, labels, category, direction },
         isSearchMode,
         taskSearchKeyword,
-      },
-      user: {
-        name,
         showRepo: { repoOwner, repoName },
       },
+      user: { name, token },
     } = getState();
+
+    if (!token) {
+      return rejectWithValue("no token");
+    }
+
+    if (reLoad) {
+      dispatch(resetTaskList());
+      dispatch(resetAddTask());
+    }
 
     let resData = [];
 
@@ -160,7 +167,7 @@ export const GetTaskList = createAsyncThunk<
           method: "get",
           params: {
             owner: repoOwner,
-            repo: repoName,
+            repo: repoName || "",
             page: reLoad ? 1 : page,
             state: state,
             labels: labels === "all" ? "" : labels,
@@ -308,10 +315,39 @@ export const UpdateState = createAsyncThunk<
   }
 );
 
+// export const TaskListInitAction = createAsyncThunk<
+//   {},
+//   { repoOwner: string; repoName: string },
+//   { dispatch: AppDispatch; state: { user: userState } }
+// >(
+//   "taskList/TaskListInitAction",
+//   async ({ repoOwner, repoName }, { getState, dispatch, rejectWithValue }) => {
+//     const { token } = getState().user;
+
+//     if (token) {
+//       dispatch(resetTaskList());
+//       dispatch(resetAddTask());
+
+//       try {
+//         await dispatch(GetUser({ repoOwner: repoOwner, repoName: repoName }));
+//         console.log("getuser");
+//         await dispatch(GetTaskList({ reLoad: true }));
+//       } catch (err) {
+//         console.log("err", err);
+//         rejectWithValue(err);
+//       }
+//     }
+//   }
+// );
+
 export const taskListSlice = createSlice({
   name: "taskList",
   initialState,
   reducers: {
+    setShowRepo(state, action) {
+      state.showRepo.repoOwner = action.payload.repoOwner;
+      state.showRepo.repoName = action.payload.repoName;
+    },
     changeFilterState(
       state,
       action: PayloadAction<{ type: string; option: string }>
@@ -334,14 +370,15 @@ export const taskListSlice = createSlice({
     toggleFilter(state) {
       state.isFilterOpen = !state.isFilterOpen;
     },
-    checkToken(state) {
-      state.token = cookie.get("access_token") ? true : false;
-    },
     setErrorStatusTaskList(state, action) {
       state.errStatus = action.payload;
     },
-    resetTaskList() {
-      return initialState;
+    resetTaskList(state) {
+      state = {
+        ...initialState,
+        showRepo: state.showRepo,
+      };
+      return;
     },
   },
   extraReducers: (builder) => {
@@ -365,8 +402,11 @@ export const taskListSlice = createSlice({
       })
       .addCase(GetTaskList.rejected, (state, action) => {
         state.isLoading = false;
-        state.errMsg = `sorry! something went wrong! ${action.payload}`;
+        state.errMsg = `sorry! something went wrong! ${action.payload} ${
+          action.error.message && action.error.message
+        }`;
         state.taskList = [];
+        console.log("task", action.error);
         return state;
       })
       .addCase(TriggerGetTaskList.fulfilled, (state, action) => {
@@ -393,11 +433,11 @@ export const taskListSlice = createSlice({
 });
 
 export const {
+  setShowRepo,
   changeFilterState,
   setTaskSearchKeyword,
   taskSearch,
   toggleFilter,
-  checkToken,
   resetTaskList,
   setErrorStatusTaskList,
 } = taskListSlice.actions;

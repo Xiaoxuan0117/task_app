@@ -8,6 +8,7 @@ import {
   GetTaskDetailResData,
   TaskDetailState,
   TaskRequiredInfo,
+  userState,
 } from "../type";
 import { syncEditTask } from "./editTask";
 
@@ -39,10 +40,20 @@ const initialState: TaskDetailState = {
 export const GetTaskDetail = createAsyncThunk<
   GetTaskDetailPayLoad,
   TaskRequiredInfo,
-  {}
+  {
+    state: { user: userState };
+  }
 >(
   "taskDetail/GetTaskDetail",
-  async ({ repoOwner, repoName, number }, { dispatch, rejectWithValue }) => {
+  async (
+    { repoOwner, repoName, number },
+    { getState, dispatch, rejectWithValue }
+  ) => {
+    const { token } = getState().user;
+
+    if (!token) {
+      return rejectWithValue("no token");
+    }
     try {
       const resData = await axios.get("/api/taskDetail", {
         params: {
@@ -205,6 +216,7 @@ export const taskDetailSlice = createSlice({
           isLoading: false,
           errMsg: `sorry! something went wrong! ${action.payload}`,
         };
+        console.log("detail", action.error);
         return state;
       })
       .addCase(UpdateDetailState.pending, (state) => {
