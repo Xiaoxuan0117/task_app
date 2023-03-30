@@ -257,8 +257,8 @@ export const setFilter = createAsyncThunk<
 >("taskList/setFilter", async ({ type, option }, { dispatch, getState }) => {
   const { isLoading } = getState().taskList;
 
-  dispatch(changeFilterState({ type, option }));
   if (!isLoading) {
+    dispatch(changeFilterState({ type, option }));
     await dispatch(GetTaskList({ reLoad: true }));
   }
   return true;
