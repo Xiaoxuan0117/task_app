@@ -23,7 +23,7 @@ const initialState: TaskListState = {
   showRepo: { repoOwner: "", repoName: "" },
   filter: {
     state: "all",
-    labels: "",
+    labels: "all",
     category: "all",
     direction: "desc",
   },
