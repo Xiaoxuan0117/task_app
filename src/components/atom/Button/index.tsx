@@ -17,10 +17,11 @@ type ButtonProps = {
   children: JSX.Element;
   class?: string;
   type?: string;
+  disabled?: boolean;
 };
 
 export default function Button(props: ButtonProps): JSX.Element {
-  const { children, class: buttonClass, type } = props;
+  const { children, class: buttonClass, type, disabled } = props;
   const navigate = useNavigate();
   let { repoOwner, repoName, number } = useParams();
   const dispatch = useAppDispatch();
@@ -78,10 +79,13 @@ export default function Button(props: ButtonProps): JSX.Element {
         e.preventDefault();
         clickEvent(type || "");
       }}
+      disabled={disabled}
     >
       {children}
     </button>
   ) : (
-    <button className={`button ${buttonClass}`}>{children}</button>
+    <button className={`button ${buttonClass}`} disabled={disabled}>
+      {children}
+    </button>
   );
 }

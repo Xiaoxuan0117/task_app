@@ -12,7 +12,7 @@ import closeButton from "../../../assets/closeButton.svg";
 import "./style.scss";
 
 export default function Controller() {
-  const { taskSearchKeyword } = useSelector(
+  const { taskSearchKeyword, isLoading } = useSelector(
     (state: RootState) => state.taskList
   );
   return (
@@ -23,7 +23,7 @@ export default function Controller() {
           input={taskSearchKeyword}
           type="searchTask"
         />
-        <Button type="taskSearch" class="search">
+        <Button type="taskSearch" class="search" disabled={isLoading}>
           <img src={searchButton} alt="searchButton" />
         </Button>
       </form>
