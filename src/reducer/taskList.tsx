@@ -85,99 +85,106 @@ export const GetTaskList = createAsyncThunk<
 
     let resData = [];
 
+    const search = async () => {
+      const stateQuery = state === ("open" || "closed") ? `state:${state}` : "";
+
+      const categoryQuery = (category: string) => {
+        switch (category) {
+          case "created":
+            return `author:${name}`;
+          case "assignee":
+            return `assignee:${name}`;
+          case "mentioned":
+            return `mentions:${name}`;
+          default:
+            return "";
+        }
+      };
+
+      let keyword = "";
+      let labelQuery = "";
+      if (taskSearchKeyword.indexOf("label:") !== -1) {
+        keyword = taskSearchKeyword.slice(
+          0,
+          taskSearchKeyword.indexOf("label:")
+        );
+        console.log("keyword", keyword);
+        labelQuery = taskSearchKeyword.slice(
+          taskSearchKeyword.indexOf("label:"),
+          taskSearchKeyword.length
+        );
+      } else {
+        keyword = taskSearchKeyword;
+      }
+      if (labels !== "all" && labels.length && labelQuery) {
+        labelQuery = labelQuery + `,${labels}`;
+      } else if (labels !== "all" && labels.length) {
+        labelQuery = `label:${labels}`;
+      }
+
+      const repoQuery = () => {
+        if (!repoName) {
+          return "";
+        } else {
+          return `user:${repoOwner} repo:${repoName}`;
+        }
+      };
+
+      let queryString = `is:issue involves:${name} ${repoQuery()} ${stateQuery} ${categoryQuery(
+        category
+      )} ${labelQuery} ${keyword} in:title,body,comments`;
+
+      queryString = queryString.replace(/\s\s+/g, " ");
+      console.log("qqq", queryString);
+
+      const resResult = await axios.get("/api/taskSearch", {
+        params: {
+          query: queryString,
+          order: direction,
+          page: reLoad ? 1 : page,
+        },
+      });
+
+      return resResult.data.items;
+    };
+
+    const list = async () => {
+      const repoCategory = (category: string) => {
+        switch (category) {
+          case "created":
+            return { creator: name };
+          case "assigned":
+            return { assignee: name };
+          case "mentioned":
+            return { mentioned: name };
+          default:
+            return {};
+        }
+      };
+
+      const resResult = await axios({
+        url: "/api/taskList/",
+        method: "get",
+        params: {
+          owner: repoOwner,
+          repo: repoName || "",
+          page: reLoad ? 1 : page,
+          state: state,
+          labels: labels === "all" ? "" : labels,
+          category: category,
+          direction: direction,
+          ...repoCategory(category),
+        },
+      });
+
+      return resResult.data;
+    };
+
     try {
       if (isSearchMode) {
-        const stateQuery =
-          state === ("open" || "closed") ? `state:${state}` : "";
-
-        const categoryQuery = (category: string) => {
-          switch (category) {
-            case "created":
-              return `author:${name}`;
-            case "assignee":
-              return `assignee:${name}`;
-            case "mentioned":
-              return `mentions:${name}`;
-            default:
-              return "";
-          }
-        };
-
-        let keyword = "";
-        let labelQuery = "";
-        if (taskSearchKeyword.indexOf("label:") !== -1) {
-          keyword = taskSearchKeyword.slice(
-            0,
-            taskSearchKeyword.indexOf("label:")
-          );
-          console.log("keyword", keyword);
-          labelQuery = taskSearchKeyword.slice(
-            taskSearchKeyword.indexOf("label:"),
-            taskSearchKeyword.length
-          );
-        } else {
-          keyword = taskSearchKeyword;
-        }
-        if (labels !== "all" && labels.length && labelQuery) {
-          labelQuery = labelQuery + `,${labels}`;
-        } else if (labels !== "all" && labels.length) {
-          labelQuery = `label:${labels}`;
-        }
-
-        const repoQuery = () => {
-          if (!repoName) {
-            return "";
-          } else {
-            return `user:${repoOwner} repo:${repoName}`;
-          }
-        };
-
-        let queryString = `is:issue involves:${name} ${repoQuery()} ${stateQuery} ${categoryQuery(
-          category
-        )} ${labelQuery} ${keyword} in:title,body,comments`;
-
-        queryString = queryString.replace(/\s\s+/g, " ");
-        console.log("qqq", queryString);
-
-        const resResult = await axios.get("/api/taskSearch", {
-          params: {
-            query: queryString,
-            order: direction,
-            page: reLoad ? 1 : page,
-          },
-        });
-
-        resData = resResult.data.items;
+        resData = await search();
       } else {
-        const repoCategory = (category: string) => {
-          switch (category) {
-            case "created":
-              return { creator: name };
-            case "assigned":
-              return { assignee: name };
-            case "mentioned":
-              return { mentioned: name };
-            default:
-              return {};
-          }
-        };
-
-        const resResult = await axios({
-          url: "/api/taskList/",
-          method: "get",
-          params: {
-            owner: repoOwner,
-            repo: repoName || "",
-            page: reLoad ? 1 : page,
-            state: state,
-            labels: labels === "all" ? "" : labels,
-            category: category,
-            direction: direction,
-            ...repoCategory(category),
-          },
-        });
-
-        resData = resResult.data;
+        resData = await list();
       }
 
       console.log("resData", resData);
