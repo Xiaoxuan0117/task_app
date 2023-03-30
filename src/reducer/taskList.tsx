@@ -198,6 +198,7 @@ export const GetTaskList = createAsyncThunk<
             labels,
             number,
             repository,
+            repository_url,
             state,
             title,
             user,
@@ -212,6 +213,17 @@ export const GetTaskList = createAsyncThunk<
           const { login: repoLogin } = owner || {};
           const { login, html_url: creatorUrl } = user || {};
           const labels_arr = labels.map((label) => label.name);
+
+          const getRepoName = () => {
+            if (isSearchMode) {
+              const arr = repository_url.split("/");
+              return arr[arr.length - 1];
+            } else if (!repository_name) {
+              return repoName;
+            } else {
+              return repository_name;
+            }
+          };
           return {
             assigneeAvatar: avatar_url,
             assigneeUrl: assignee_url,
@@ -221,7 +233,7 @@ export const GetTaskList = createAsyncThunk<
             id,
             labels: labels_arr,
             number,
-            repoName: repository_name ? repository_name : repoName,
+            repoName: getRepoName(),
             repoUrl: repo_url
               ? repo_url
               : `https://github.com/${repoOwner}/${repoName}`,
