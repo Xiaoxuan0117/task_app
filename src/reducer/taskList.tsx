@@ -133,7 +133,7 @@ export const GetTaskList = createAsyncThunk<
         if (!repoName) {
           return "";
         } else {
-          return `user:${repoOwner} repo:${repoName}`;
+          return `repo:${repoOwner}/${repoName}`;
         }
       };
 
