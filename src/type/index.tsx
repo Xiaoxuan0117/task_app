@@ -51,6 +51,7 @@ export interface TaskListState extends TaskListProps {
 
 export type GetTaskListParams = {
   reLoad: boolean;
+  signal?: AbortSignal;
 };
 
 export type GetTaskListPayload = {
@@ -84,6 +85,10 @@ export type TaskRequiredInfo = {
   repoName: string;
   number: number;
 };
+
+export interface GetTaskDetailParam extends TaskRequiredInfo {
+  signal?: AbortSignal;
+}
 
 export interface UpdateTaskEditParems extends TaskRequiredInfo {
   title?: string;

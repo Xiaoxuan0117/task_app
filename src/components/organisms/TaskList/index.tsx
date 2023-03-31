@@ -21,7 +21,7 @@ export default function TaskList(props: TaskListProps): JSX.Element {
         (taskListElm?.offsetHeight || 0) + (taskListElm?.offsetTop || 0);
       const innerHeight = window.innerHeight || 0;
       if (taskListBottomOffset < innerHeight) {
-        dispatch(TriggerGetTaskList());
+        dispatch(TriggerGetTaskList({ firstTime: false }));
       }
     }
   });

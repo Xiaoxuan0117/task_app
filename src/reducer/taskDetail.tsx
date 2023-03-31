@@ -4,6 +4,7 @@ import { AppDispatch } from "../store";
 import {
   Assignee,
   CommentType,
+  GetTaskDetailParam,
   GetTaskDetailPayLoad,
   GetTaskDetailResData,
   TaskDetailState,
@@ -39,14 +40,14 @@ const initialState: TaskDetailState = {
 
 export const GetTaskDetail = createAsyncThunk<
   GetTaskDetailPayLoad,
-  TaskRequiredInfo,
+  GetTaskDetailParam,
   {
     state: { user: UserState };
   }
 >(
   "taskDetail/GetTaskDetail",
   async (
-    { repoOwner, repoName, number },
+    { repoOwner, repoName, number, signal },
     { getState, dispatch, rejectWithValue }
   ) => {
     const { token } = getState().user;
@@ -61,6 +62,7 @@ export const GetTaskDetail = createAsyncThunk<
           repo: repoName,
           issue_number: number,
         },
+        signal: signal,
       });
 
       const {
@@ -135,6 +137,9 @@ export const GetTaskDetail = createAsyncThunk<
         milestoneUrl: milestone_url,
       };
     } catch (err: any) {
+      if (signal?.aborted) {
+        return rejectWithValue("Pause Data Fetching");
+      }
       const {
         response: {
           status,

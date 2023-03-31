@@ -6,9 +6,9 @@ import { PostTask } from "../../../reducer/addTask";
 import { UpdateTask } from "../../../reducer/editTask";
 import { GetTaskDetail, toggleDetail } from "../../../reducer/taskDetail";
 import {
-  GetTaskList,
   taskSearch,
   toggleFilter,
+  TriggerGetTaskList,
 } from "../../../reducer/taskList";
 
 import "./style.scss";
@@ -33,7 +33,7 @@ export default function Button(props: ButtonProps): JSX.Element {
       case "addCloseRefresh":
         return (async function () {
           navigate(-1);
-          dispatch(GetTaskList({ reLoad: true }));
+          dispatch(TriggerGetTaskList({ firstTime: true }));
         })();
       case "editCloseRefresh":
         return (async function () {
@@ -53,7 +53,7 @@ export default function Button(props: ButtonProps): JSX.Element {
       case "taskSearch":
         return (async function () {
           dispatch(taskSearch());
-          dispatch(GetTaskList({ reLoad: true }));
+          dispatch(TriggerGetTaskList({ firstTime: true }));
         })();
       case "openAddModal":
         return navigate("add", { replace: false });

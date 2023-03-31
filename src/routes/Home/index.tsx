@@ -5,11 +5,7 @@ import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
 import { selectRepo } from "../../reducer/addTask";
-import {
-  GetTaskList,
-  setShowRepo,
-  TriggerGetTaskList,
-} from "../../reducer/taskList";
+import { setShowRepo, TriggerGetTaskList } from "../../reducer/taskList";
 import { GetUser, checkToken } from "../../reducer/user";
 
 import Button from "../../components/atom/Button";
@@ -54,10 +50,13 @@ export default function Home() {
     }
 
     dispatch(checkToken());
-    const GetUserPromise = dispatch(GetUser());
+
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    dispatch(GetUser({ signal: signal }));
 
     return () => {
-      GetUserPromise.abort("abort user data");
+      abortController.abort();
     };
   }, [search, dispatch, repoOwner, repoName]);
 
@@ -77,22 +76,25 @@ export default function Home() {
   }, [dispatch, name, repoName, repoOwner]);
 
   useEffect(() => {
-    dispatch(checkToken());
-    const GetTaskListPromise = dispatch(GetTaskList({ reLoad: true }));
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    dispatch(TriggerGetTaskList({ signal: signal, firstTime: true }));
 
     return () => {
-      GetTaskListPromise.abort("abort task list");
+      abortController.abort();
     };
   }, [dispatch, repoName, repoOwner]);
 
   useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
     function infiniteScroll() {
       const html = document.documentElement;
       let innerHeight = window.innerHeight || 0;
       let scrollY = window.scrollY || 0;
       let scrollHeight = html.scrollHeight || 0;
       if (innerHeight + Math.ceil(scrollY) >= scrollHeight) {
-        dispatch(TriggerGetTaskList());
+        dispatch(TriggerGetTaskList({ signal: signal, firstTime: false }));
       }
     }
 
@@ -101,7 +103,7 @@ export default function Home() {
     }
 
     return () => {
-      console.log("abort");
+      abortController.abort();
       window.removeEventListener("scroll", infiniteScroll);
     };
   }, [dispatch, repoOwner, repoName, token]);

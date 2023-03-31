@@ -46,11 +46,13 @@ export default function TaskDetail() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const GetUserPromise = dispatch(GetUser());
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    dispatch(GetUser({ signal: signal }));
 
     return () => {
       dispatch(checkToken());
-      GetUserPromise.abort("abort user data");
+      abortController.abort();
     };
   }, [dispatch]);
 
@@ -66,17 +68,20 @@ export default function TaskDetail() {
   }, [dispatch, repoName, repoOwner]);
 
   useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
     dispatch(checkToken());
-    const GetTaskDetailPromise = dispatch(
+    dispatch(
       GetTaskDetail({
         repoOwner: repoOwner || "",
         repoName: repoName || "",
         number: parseInt(number || "0"),
+        signal: signal,
       })
     );
 
     return () => {
-      GetTaskDetailPromise.abort("abort task detail");
+      abortController.abort();
     };
   }, [dispatch, number, repoOwner, repoName]);
 

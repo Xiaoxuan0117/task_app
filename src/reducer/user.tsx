@@ -15,9 +15,9 @@ const initialState: UserState = {
 
 export const GetUser = createAsyncThunk<
   GetUserPayload,
-  undefined,
+  { signal?: AbortSignal },
   { state: { user: UserState } }
->("user/GetUser", async (_, { getState, rejectWithValue }) => {
+>("user/GetUser", async ({ signal }, { getState, rejectWithValue }) => {
   try {
     const { name, token } = getState().user;
 
@@ -50,6 +50,9 @@ export const GetUser = createAsyncThunk<
       repoList: repos,
     };
   } catch (err: any) {
+    if (signal?.aborted) {
+      return rejectWithValue(`Pause Data Fetching`);
+    }
     const {
       response: {
         status,
