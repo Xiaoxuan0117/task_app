@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import cookie from "js-cookie";
-import { GetUserPayload, userState } from "../type";
+import { GetUserPayload, UserState } from "../type";
 
-const initialState: userState = {
+const initialState: UserState = {
   name: "",
   avatar: "",
   userUrl: "",
@@ -16,7 +16,7 @@ const initialState: userState = {
 export const GetUser = createAsyncThunk<
   GetUserPayload,
   undefined,
-  { state: { user: userState } }
+  { state: { user: UserState } }
 >("user/GetUser", async (_, { getState, rejectWithValue }) => {
   try {
     const { name, token } = getState().user;

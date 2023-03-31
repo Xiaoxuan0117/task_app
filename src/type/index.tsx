@@ -210,7 +210,7 @@ export type GetUserPayload = {
   repoList: RepoState[];
 };
 
-export interface userState extends GetUserPayload {
+export interface UserState extends GetUserPayload {
   isLoading: boolean;
   errMsg: string;
   token: boolean;

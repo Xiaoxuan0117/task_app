@@ -8,7 +8,7 @@ import {
   GetTaskDetailResData,
   TaskDetailState,
   TaskRequiredInfo,
-  userState,
+  UserState,
 } from "../type";
 import { syncEditTask } from "./editTask";
 
@@ -41,7 +41,7 @@ export const GetTaskDetail = createAsyncThunk<
   GetTaskDetailPayLoad,
   TaskRequiredInfo,
   {
-    state: { user: userState };
+    state: { user: UserState };
   }
 >(
   "taskDetail/GetTaskDetail",

@@ -7,7 +7,7 @@ import {
   GetTaskListResData,
   UpdateStatePayload,
   TaskRequiredInfo,
-  userState,
+  UserState,
 } from "../type";
 import axios from "axios";
 import { AppDispatch } from "../store";
@@ -57,7 +57,7 @@ export const GetTaskList = createAsyncThunk<
     dispatch: AppDispatch;
     state: {
       taskList: TaskListState;
-      user: userState;
+      user: UserState;
     };
   }
 >(
@@ -337,7 +337,7 @@ export const UpdateState = createAsyncThunk<
 // export const TaskListInitAction = createAsyncThunk<
 //   {},
 //   { repoOwner: string; repoName: string },
-//   { dispatch: AppDispatch; state: { user: userState } }
+//   { dispatch: AppDispatch; state: { user: UserState } }
 // >(
 //   "taskList/TaskListInitAction",
 //   async ({ repoOwner, repoName }, { getState, dispatch, rejectWithValue }) => {
