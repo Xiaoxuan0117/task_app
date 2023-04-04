@@ -1,7 +1,7 @@
 import React from "react";
 import { Assignee } from "../../../type";
 import { useAppDispatch } from "../../../store";
-import { toggleDetail } from "../../../reducer/taskDetail";
+import { UpdateDetailState, toggleDetail } from "../../../reducer/taskDetail";
 
 import LinkElement from "../../atom/LinkElement";
 import Label from "../../atom/Label";
@@ -32,7 +32,12 @@ export default function TaskSidebar(props: TaskSidebarProps): JSX.Element {
       <div className="taskDetail">
         <div className="section status">
           <div className="title">Open/Closed</div>
-          <Toggle isOpen={isOpen} taskInfo={taskInfo} type="taskDetail" />
+          <Toggle
+            isOpen={isOpen}
+            onClick={() => {
+              dispatch(UpdateDetailState(taskInfo));
+            }}
+          />
         </div>
         <div className="section labels">
           <div className="title">Labels</div>
