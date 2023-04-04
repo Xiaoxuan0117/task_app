@@ -124,9 +124,9 @@ export const GetTaskList = createAsyncThunk<
         keyword = taskSearchKeyword;
       }
       if (labels !== "all" && labels.length && labelQuery) {
-        labelQuery = labelQuery + `,${labels}`;
+        labelQuery = labelQuery + `,"${labels}"`;
       } else if (labels !== "all" && labels.length) {
-        labelQuery = `label:${labels}`;
+        labelQuery = `label:"${labels}"`;
       }
 
       const repoQuery = () => {
