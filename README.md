@@ -7,6 +7,9 @@
 5. 新增、編輯、開啟與關閉任務(關閉任務同刪除任務)
 6. 錯誤處理
 
+可以到以下網址使用:
+https://taskapp-vife.onrender.com/
+
 ## 啟動專案
 1. 從 github 上將專案 clone 下來
 
@@ -84,9 +87,17 @@ style.scss // 元件樣式
 後端是使用 `express-generator` 建立的專案，路由統一寫在 `routes/index.js` 中
 
 ## 使用注意事項
-### 查詢功能
+### 查詢功能-格式規則
 位於 task 列表頁的右側最上方有一搜尋功能，此功能可用於搜尋 title、body 和 comment 中含有使用者輸入之關鍵字的任務，以及搜尋包含特定 label 的任務。
 1. 查看關鍵字: 直接於輸入框填入關鍵字，例如 `task`
 2. 查看特定 label: 於輸入框填入 `label: "[特定 label]"`，例如想查詢有 `help wanted` 的 label 填入則 `label:"help wanted"`
 3. 同時查詢關鍵字與特定 label: 先輸入關鍵字再輸入 label，例如 `task label:"help wanteds"`
 
+### 查詢功能-搜尋設定說明
+查詢功能的結果會基於使用者是任務所在的 repository 中的成員之一，並且符合以下四點任一點的任務去進行搜尋
+* 任務為使用者建立的 (Created)
+* 任務任命予使用者 (Assigned)
+* 任務內容提及使用者 (Mentioned)
+* 使用者是任務留言者之一 (Commenter)
+
+**特別注意** 使用者若只是任務所在的 repository 中的成員之一，在搜尋結果中是不會出現該任務的
