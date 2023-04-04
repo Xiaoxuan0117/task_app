@@ -13,32 +13,30 @@
     ```shell
    $ git clone https://github.com/xiaoxuan0117/task_app.git
     ```
-2. 在專案根資料夾開啟終端，安裝所需套件
-   ```shell
-   $ yarn install
-   ```
-3. 在正式啟動前必須先加上儲存應用程式 `Client_ID` 和 `Client secrets` 的環境變數檔案，需參考 [Creacting an oauth app](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) 建立一個 OAuth Apps，特定項目依照以下規則填入
+2. 在正式啟動前必須先加上儲存應用程式 `Client ID` 和 `Client secrets` 的環境變數檔案，需參考 [Creacting an oauth app](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) 建立一個 OAuth Apps，特定項目依照以下規則填入
    * Homepage URL: http://127.0.0.1:3000/login
    * Authorization callback URL: http://127.0.0.1:5000/api/login/oauth/access_token
   
-    建立完成後請在專案根資料夾建立一個 `.env` 檔案，並將取得的 `Client_ID` 和 `Client secrets` 寫進檔案中，參考以下檔案內容
+    建立完成後請在專案根資料夾建立一個 `.env` 檔案，並將取得的 `Client ID` 和 `Client secrets` 寫進檔案中，參考以下檔案內容
     ```
     // .env
 
     REACT_APP_CLIENT_ID = xxxxxxxxxxxxxxxxxx
-    REACT_APP_CLIENT_SECRET = xxxxxxxxxxxxxxxxxxxxxxxxx
+    REACT_APP_CLIENT_SECRETS = xxxxxxxxxxxxxxxxxxxxxxxxx
     ```
-4. 接下來即可啟動專案，此專案分為前端和後端，需要開啟兩個終端分別輸入以下指令
-   > 啟動前端
+3. 接下來安裝所需套件，並啟動專案，此專案分為前端和後端，需要開啟兩個終端分別輸入以下指令
+   > 前端
    ```shell
+   $ yarn install
    $ yarn start-client
    ```
-   > 啟動後端
+   > 後端
    ```shell
    $ cd server
+   $ yarn install
    $ yarn start
    ```
-5. 完成啟動後前端將使用 http://127.0.0.1:3000 網址，後端使用 http://127.0.0.1:5000 網址
+4. 完成啟動後前端將使用 http://127.0.0.1:3000 網址，後端使用 http://127.0.0.1:5000 網址
 
 ## 架構說明
 此專案的前端部分是基於 TypeScript 使用 React 框架製作的，後端則是以 JavaScript 用 Express 建立伺服器，其中建立伺服器的程式碼是寫在 `server` 資料夾中，而渲染前端頁面的內容則是在 `src` 中
@@ -87,7 +85,7 @@ style.scss // 元件樣式
 
 ## 使用注意事項
 ### 查詢功能
-位於 task 列表頁的右側最上方有一搜尋功能，此功能可用於搜尋 task 的 title、body 和 comment 中是否含有使用者輸入之關鍵字，以及可以搜尋包含特定 label 的 task。
+位於 task 列表頁的右側最上方有一搜尋功能，此功能可用於搜尋 title、body 和 comment 中含有使用者輸入之關鍵字的任務，以及搜尋包含特定 label 的任務。
 1. 查看關鍵字: 直接於輸入框填入關鍵字，例如 `task`
 2. 查看特定 label: 於輸入框填入 `label: "[特定 label]"`，例如想查詢有 `help wanted` 的 label 填入則 `label:"help wanted"`
 3. 同時查詢關鍵字與特定 label: 先輸入關鍵字再輸入 label，例如 `task label:"help wanteds"`
