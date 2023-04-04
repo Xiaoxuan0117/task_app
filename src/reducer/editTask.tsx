@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { AppDispatch } from "../store";
-import { EditTaskState, EditTaskPayload } from "../type";
+import { EditTaskState, EditTaskPayload, TaskListState } from "../type";
 
 const initialState: EditTaskState = {
   title: "",
@@ -20,7 +20,7 @@ export const UpdateTask = createAsyncThunk<
   {
     dispatch: AppDispatch;
     state: {
-      user: { showRepo: { repoOwner: string; repoName: string } };
+      taskList: TaskListState;
       editTask: {
         title: string;
         status: string;
@@ -31,7 +31,7 @@ export const UpdateTask = createAsyncThunk<
   }
 >("editTask/UpdateTask", async (_, { dispatch, getState, rejectWithValue }) => {
   const {
-    user: {
+    taskList: {
       showRepo: { repoOwner, repoName },
     },
     editTask: { title, status, body },

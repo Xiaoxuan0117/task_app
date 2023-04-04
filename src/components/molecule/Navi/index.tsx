@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import cookie from "js-cookie";
 import { RepoState } from "../../../type";
 
 import Dropdown from "../../atom/Dropdown";
@@ -30,7 +31,13 @@ export default function Navi(props: NaviProps): JSX.Element {
             ></Dropdown>
           </div>
         </div>
-        <Button class="logout-button" type="logout">
+        <Button
+          class="logout-button"
+          onClick={() => {
+            cookie.remove("access_token");
+            window.location.href = "/";
+          }}
+        >
           <img src={logout} alt="closeButton" />
         </Button>
       </div>

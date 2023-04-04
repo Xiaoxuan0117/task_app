@@ -4,7 +4,8 @@ import { Outlet, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
 import { GetTaskDetail } from "../../reducer/taskDetail";
-import { GetUser } from "../../reducer/user";
+import { checkToken, GetUser } from "../../reducer/user";
+import { setShowRepo } from "../../reducer/taskList";
 
 import ErrorMessage from "../../components/atom/ErrorMessage";
 import LinkElement from "../../components/atom/LinkElement";
@@ -45,19 +46,43 @@ export default function TaskDetail() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getDefaultData();
-    async function getDefaultData() {
-      await dispatch(
-        GetTaskDetail({
-          repoOwner: repoOwner || "",
-          repoName: repoName || "",
-          number: parseInt(number || "0"),
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    dispatch(GetUser({ signal: signal }));
+
+    return () => {
+      dispatch(checkToken());
+      abortController.abort();
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (repoOwner && repoName) {
+      dispatch(
+        setShowRepo({
+          repoOwner: repoOwner,
+          repoName: repoName,
         })
       );
-      await dispatch(
-        GetUser({ repoOwner: repoOwner || "", repoName: repoName || "" })
-      );
     }
+  }, [dispatch, repoName, repoOwner]);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    dispatch(checkToken());
+    dispatch(
+      GetTaskDetail({
+        repoOwner: repoOwner || "",
+        repoName: repoName || "",
+        number: parseInt(number || "0"),
+        signal: signal,
+      })
+    );
+
+    return () => {
+      abortController.abort();
+    };
   }, [dispatch, number, repoOwner, repoName]);
 
   return (

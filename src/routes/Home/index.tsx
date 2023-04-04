@@ -1,17 +1,22 @@
 import React, { useEffect } from "react";
 import classNames from "classnames";
 import cookie from "js-cookie";
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useNavigate,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
-import { resetAddTask } from "../../reducer/addTask";
+import { selectRepo } from "../../reducer/addTask";
 import {
-  checkToken,
-  GetTaskList,
-  resetTaskList,
+  setShowRepo,
+  toggleFilter,
   TriggerGetTaskList,
 } from "../../reducer/taskList";
-import { GetUser } from "../../reducer/user";
+import { GetUser, checkToken } from "../../reducer/user";
 
 import Button from "../../components/atom/Button";
 import Navi from "../../components/molecule/Navi";
@@ -22,8 +27,10 @@ import TaskList from "../../components/organisms/TaskList";
 import filter from "../../assets/filter.svg";
 
 import "./style.scss";
+import ErrorMessage from "../../components/atom/ErrorMessage";
 
 export default function Home() {
+  const navigate = useNavigate();
   const { repoOwner, repoName } = useParams();
   const { search } = useLocation();
   const {
@@ -32,9 +39,16 @@ export default function Home() {
     errMsg,
     errStatus,
     isFilterOpen,
-    token,
+    showRepo,
   } = useSelector((state: RootState) => state.taskList);
-  const { repoList, showRepo } = useSelector((state: RootState) => state.user);
+  const {
+    name,
+    repoList,
+    isLoading: userLoading,
+    token,
+    errMsg: userErrMsg,
+    errStatus: userErrStatus,
+  } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -48,37 +62,65 @@ export default function Home() {
       });
       window.location.href = "/";
     }
-  }, [search, dispatch]);
 
-  useEffect(() => {
     dispatch(checkToken());
-    if (token) {
-      dispatch(resetTaskList());
-      dispatch(resetAddTask());
-      dispatch(checkToken());
-      getDefaultData();
-    }
-    async function getDefaultData() {
-      await dispatch(
-        GetUser({ repoOwner: repoOwner || "", repoName: repoName || "" })
-      );
-      await dispatch(GetTaskList({ reLoad: false }));
-    }
-  }, [dispatch, repoOwner, repoName, token]);
+
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    dispatch(GetUser({ signal: signal }));
+
+    return () => {
+      abortController.abort();
+    };
+  }, [search, dispatch, repoOwner, repoName]);
 
   useEffect(() => {
-    if (token) {
-      window.addEventListener("scroll", () => {
-        const html = document.documentElement;
-        let innerHeight = window.innerHeight || 0;
-        let scrollY = window.scrollY || 0;
-        let scrollHeight = html.scrollHeight || 0;
-        if (innerHeight + Math.ceil(scrollY) >= scrollHeight) {
-          dispatch(TriggerGetTaskList());
-        }
-      });
+    if (repoOwner && repoName) {
+      dispatch(
+        setShowRepo({
+          repoOwner: repoOwner,
+          repoName: repoName,
+        })
+      );
+      dispatch(selectRepo({ repoName: repoName, repoOwner: repoOwner }));
+    } else {
+      dispatch(setShowRepo({ repoOwner: name, repoName: "" }));
+      dispatch(selectRepo({ repoName: "", repoOwner: "" }));
     }
-  }, [dispatch, token]);
+  }, [dispatch, name, repoName, repoOwner]);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    dispatch(TriggerGetTaskList({ signal: signal, firstTime: true }));
+
+    return () => {
+      abortController.abort();
+    };
+  }, [dispatch, repoName, repoOwner]);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    function infiniteScroll() {
+      const html = document.documentElement;
+      let innerHeight = window.innerHeight || 0;
+      let scrollY = window.scrollY || 0;
+      let scrollHeight = html.scrollHeight || 0;
+      if (innerHeight + Math.ceil(scrollY) >= scrollHeight) {
+        dispatch(TriggerGetTaskList({ signal: signal, firstTime: false }));
+      }
+    }
+
+    if (token) {
+      window.addEventListener("scroll", infiniteScroll);
+    }
+
+    return () => {
+      abortController.abort();
+      window.removeEventListener("scroll", infiniteScroll);
+    };
+  }, [dispatch, repoOwner, repoName, token]);
 
   return (
     <div className="home-page">
@@ -88,6 +130,9 @@ export default function Home() {
       <Tool />
       <div className="content">
         <div className="taskList-section">
+          {userErrStatus !== 200 && (
+            <ErrorMessage errStatus={userErrStatus} text={userErrMsg} />
+          )}
           <div className="head">
             <div className="repo bold">
               {showRepo.repoOwner.replace(/[^\w.@:/\-~]+/g, "")}/
@@ -98,16 +143,28 @@ export default function Home() {
             <div className="function">
               <div className="add-button">
                 <Link to="/add">
-                  <Button type="openAddModal" class="primary">
+                  <Button
+                    class="primary"
+                    onClick={() => {
+                      navigate("add", { replace: false });
+                    }}
+                  >
                     <div>New Task</div>
                   </Button>
                 </Link>
               </div>
-              <div className="filter-button">
-                <Button type="toggleFilter" class="img-button">
-                  <img src={filter} alt="filter" />
-                </Button>
-              </div>
+              {!userLoading && (
+                <div className="filter-button">
+                  <Button
+                    class="img-button"
+                    onClick={() => {
+                      dispatch(toggleFilter());
+                    }}
+                  >
+                    <img src={filter} alt="filter" />
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
           <TaskList
@@ -117,11 +174,15 @@ export default function Home() {
             errStatus={errStatus}
           ></TaskList>
         </div>
-        <div
-          className={`controller-section ${classNames(isFilterOpen && "open")}`}
-        >
-          <Controller />
-        </div>
+        {!userLoading && (
+          <div
+            className={`controller-section ${classNames(
+              isFilterOpen && "open"
+            )}`}
+          >
+            <Controller />
+          </div>
+        )}
       </div>
       <Outlet />
       {!token && (

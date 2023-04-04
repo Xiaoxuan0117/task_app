@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../../store";
+import { useAppDispatch } from "../../../store";
 import { TaskListProps } from "../../../type";
 
 import { TriggerGetTaskList } from "../../../reducer/taskList";
@@ -13,39 +12,31 @@ import "./style.scss";
 
 export default function TaskList(props: TaskListProps): JSX.Element {
   const { taskList, isLoading, errMsg, errStatus } = props;
-  const { isSearchMode } = useSelector((state: RootState) => state.taskList);
   const dispatch = useAppDispatch();
 
-  const taskListArr = () => {
-    if (taskList.length) {
-      if (isSearchMode) {
-        return taskList.filter((task) => task.isSearchResult === true);
-      } else {
-        return taskList;
-      }
-    }
-    return [];
-  };
-
   useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
     if (taskList.length !== 0) {
       const taskListElm = document.getElementById("taskList-wrapper");
       const taskListBottomOffset =
         (taskListElm?.offsetHeight || 0) + (taskListElm?.offsetTop || 0);
       const innerHeight = window.innerHeight || 0;
       if (taskListBottomOffset < innerHeight) {
-        dispatch(TriggerGetTaskList());
+        dispatch(TriggerGetTaskList({ signal: signal, firstTime: false }));
       }
     }
-  });
+
+    return () => {
+      abortController.abort();
+    };
+  }, [dispatch, taskList.length]);
   return (
     <div id="taskList-wrapper" className="taskList-wrapper">
       {errMsg && <ErrorMessage text={errMsg} errStatus={errStatus} />}
-      <div
-        className={`taskList ${classNames(taskListArr().length && "has-data")}`}
-      >
-        {taskListArr().length
-          ? taskListArr().map((task) => <Task key={task.id} {...task}></Task>)
+      <div className={`taskList ${classNames(taskList.length && "has-data")}`}>
+        {taskList.length
+          ? taskList.map((task) => <Task key={task.id} {...task}></Task>)
           : !isLoading && (
               <div className="empty">
                 <i>no task</i>

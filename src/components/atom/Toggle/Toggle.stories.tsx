@@ -9,12 +9,6 @@ export default {
   component: Toggle,
 } as ComponentMeta<typeof Toggle>;
 
-const dummyTaskInfo = {
-  repoOwner: "creator",
-  repoName: "repo",
-  number: 0,
-};
-
 export const Primary: ComponentStory<typeof Toggle> = () => (
-  <Toggle isOpen={true} taskInfo={dummyTaskInfo} type="taskDetail" />
+  <Toggle isOpen={true} />
 );

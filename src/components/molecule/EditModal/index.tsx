@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../store";
-import { resetUpdateResult } from "../../../reducer/editTask";
+import { UpdateTask, resetUpdateResult } from "../../../reducer/editTask";
+import { GetTaskDetail } from "../../../reducer/taskDetail";
 
 import Button from "../../atom/Button";
 import Input from "../../atom/Input";
@@ -19,6 +21,8 @@ type EditModalProps = {
 };
 
 export default function EditModal(props: EditModalProps): JSX.Element {
+  const navigate = useNavigate();
+  let { repoOwner, repoName, number } = useParams();
   const LabelsOptions = ["ToDo", "In Progress", "Done"];
   const {
     title,
@@ -60,7 +64,19 @@ export default function EditModal(props: EditModalProps): JSX.Element {
         <div className="success-section">
           <UploadSuccess text="Edited Task Uploaded Successfully!!" />
           <div className="close-button">
-            <Button type="editCloseRefresh" class="img-button">
+            <Button
+              class="img-button"
+              onClick={async () => {
+                navigate(-1);
+                dispatch(
+                  GetTaskDetail({
+                    repoOwner: repoOwner || "",
+                    repoName: repoName || "",
+                    number: parseInt(number || "0"),
+                  })
+                );
+              }}
+            >
               <img src={closeButton} alt="closeButton" />
             </Button>
           </div>
@@ -73,7 +89,12 @@ export default function EditModal(props: EditModalProps): JSX.Element {
         <div className="error-section">
           <ErrorMessage text={errMsg} type="editTask" errStatus={errStatus} />
           <div className="close-button">
-            <Button type="close" class="img-button">
+            <Button
+              onClick={() => {
+                navigate(-1);
+              }}
+              class="img-button"
+            >
               <img src={closeButton} alt="closeButton" />
             </Button>
           </div>
@@ -108,15 +129,30 @@ export default function EditModal(props: EditModalProps): JSX.Element {
           )}
         </div>
         <div className="footer">
-          <Button type="close" class="secondary">
+          <Button
+            onClick={() => {
+              navigate(-1);
+            }}
+            class="secondary"
+          >
             <div>Cancel</div>
           </Button>
-          <Button type="update" class="primary">
+          <Button
+            class="primary"
+            onClick={() => {
+              dispatch(UpdateTask());
+            }}
+          >
             <div>Update</div>
           </Button>
         </div>
         <div className="close-button">
-          <Button type="close" class="img-button">
+          <Button
+            onClick={() => {
+              navigate(-1);
+            }}
+            class="img-button"
+          >
             <img src={closeButton} alt="closeButton" />
           </Button>
         </div>

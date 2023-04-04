@@ -21,13 +21,7 @@ export const PostTask = createAsyncThunk<
   {
     dispatch: AppDispatch;
     state: {
-      user: { showRepo: { repoOwner: string; repoName: string } };
-      addTask: {
-        title: string;
-        repo: string;
-        body: string;
-        repoOwner: string;
-      };
+      addTask: AddTaskState;
     };
   }
 >("addTask/PostTask", async (_, { dispatch, getState, rejectWithValue }) => {

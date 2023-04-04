@@ -1,4 +1,6 @@
 import React from "react";
+import { useAppDispatch } from "../../../store";
+import { UpdateState } from "../../../reducer/taskList";
 import { TaskProps } from "../../../type";
 
 import LinkElement from "../../atom/LinkElement";
@@ -25,6 +27,7 @@ export default function Task(props: TaskProps): JSX.Element {
     assigneeAvatar,
     body,
   } = props;
+  const dispatch = useAppDispatch();
 
   const taskInfo = {
     repoOwner: repoOwner,
@@ -40,7 +43,12 @@ export default function Task(props: TaskProps): JSX.Element {
   return (
     <div className="task-wrapper">
       <div className="toggle-section">
-        <Toggle isOpen={isOpen} taskInfo={taskInfo} type="taskList" />
+        <Toggle
+          isOpen={isOpen}
+          onClick={() => {
+            dispatch(UpdateState(taskInfo));
+          }}
+        />
       </div>
       <div className="task">
         <div className="left">

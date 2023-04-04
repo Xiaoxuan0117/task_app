@@ -1,37 +1,21 @@
 import React from "react";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../../store";
-import { UpdateState } from "../../../reducer/taskList";
-import { UpdateDetailState } from "../../../reducer/taskDetail";
-import { TaskRequiredInfo } from "../../../type";
+import { RootState } from "../../../store";
 
 import "./style.scss";
 
 type ToggleProps = {
   isOpen: boolean;
-  taskInfo: TaskRequiredInfo;
-  type: string;
+  onClick?: () => void;
 };
 
 export default function Toggle(props: ToggleProps): JSX.Element {
-  const { isOpen, taskInfo, type } = props;
+  const { isOpen, onClick = () => {} } = props;
   const {
     taskList: { isStateLoading: listStateLoading },
     taskDetail: { isStateLoading: detailStateLoading },
   } = useSelector((state: RootState) => state);
-  const dispatch = useAppDispatch();
-
-  const clickEvent = (params: TaskRequiredInfo) => {
-    switch (type) {
-      case "taskList":
-        return dispatch(UpdateState(params));
-      case "taskDetail":
-        return dispatch(UpdateDetailState(params));
-      default:
-        return;
-    }
-  };
 
   return (
     <div className="toggle-wrapper">
@@ -41,7 +25,7 @@ export default function Toggle(props: ToggleProps): JSX.Element {
           (listStateLoading || detailStateLoading) && "loading"
         )}`}
         onClick={() => {
-          clickEvent(taskInfo);
+          onClick();
         }}
         disabled={(listStateLoading || detailStateLoading) && true}
       >

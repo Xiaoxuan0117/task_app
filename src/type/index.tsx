@@ -33,19 +33,25 @@ export type Filter = {
   direction: string;
 };
 
-export interface TaskListStatus extends TaskListProps {
+export type ShowRepo = {
+  repoOwner: string;
+  repoName: string;
+};
+
+export interface TaskListState extends TaskListProps {
   page: number;
   isAll: boolean;
+  showRepo: ShowRepo;
   filter: Filter;
   isStateLoading: boolean;
   taskSearchKeyword: string;
   isSearchMode: boolean;
   isFilterOpen: boolean;
-  token: boolean;
 }
 
 export type GetTaskListParams = {
   reLoad: boolean;
+  signal?: AbortSignal;
 };
 
 export type GetTaskListPayload = {
@@ -79,6 +85,10 @@ export type TaskRequiredInfo = {
   repoName: string;
   number: number;
 };
+
+export interface GetTaskDetailParam extends TaskRequiredInfo {
+  signal?: AbortSignal;
+}
 
 export interface UpdateTaskEditParems extends TaskRequiredInfo {
   title?: string;
@@ -205,13 +215,9 @@ export type GetUserPayload = {
   repoList: RepoState[];
 };
 
-export type ShowRepo = {
-  repoOwner: string;
-  repoName: string;
-};
-
-export interface userState extends GetUserPayload {
+export interface UserState extends GetUserPayload {
   isLoading: boolean;
   errMsg: string;
-  showRepo: ShowRepo;
+  errStatus: number;
+  token: boolean;
 }

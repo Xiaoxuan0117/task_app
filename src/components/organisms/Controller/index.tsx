@@ -1,6 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
+import { RootState, useAppDispatch } from "../../../store";
+import {
+  TriggerGetTaskList,
+  taskSearch,
+  toggleFilter,
+} from "../../../reducer/taskList";
 
 import Input from "../../atom/Input";
 import Button from "../../atom/Button";
@@ -12,9 +17,10 @@ import closeButton from "../../../assets/closeButton.svg";
 import "./style.scss";
 
 export default function Controller() {
-  const { taskSearchKeyword } = useSelector(
+  const { taskSearchKeyword, isLoading } = useSelector(
     (state: RootState) => state.taskList
   );
+  const dispatch = useAppDispatch();
   return (
     <div className="controller">
       <form className="search-section">
@@ -23,7 +29,14 @@ export default function Controller() {
           input={taskSearchKeyword}
           type="searchTask"
         />
-        <Button type="taskSearch" class="search">
+        <Button
+          class="search"
+          disabled={isLoading}
+          onClick={async () => {
+            dispatch(taskSearch());
+            dispatch(TriggerGetTaskList({ firstTime: true }));
+          }}
+        >
           <img src={searchButton} alt="searchButton" />
         </Button>
       </form>
@@ -34,7 +47,12 @@ export default function Controller() {
         <Order></Order>
       </div>
       <div className="close-button">
-        <Button type="toggleFilter" class="img-button">
+        <Button
+          class="img-button"
+          onClick={() => {
+            dispatch(toggleFilter());
+          }}
+        >
           <img src={closeButton} alt="closeButton" />
         </Button>
       </div>

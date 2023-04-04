@@ -17,7 +17,7 @@ router.get("/login/oauth/access_token", async function (req, res, next) {
       },
       params: {
         client_id: process.env.REACT_APP_CLIENT_ID,
-        client_secret: process.env.REACT_APP_CLIENT_SECRET,
+        client_secret: process.REACT_APP_env.CLIENT_SECRETS,
         code: code,
       },
     });
@@ -71,7 +71,7 @@ router.get("/taskList", async function (req, res, next) {
     labels,
     category,
     direction,
-    created,
+    creator,
     assignee,
     mentioned,
   } = req.query;
@@ -96,7 +96,7 @@ router.get("/taskList", async function (req, res, next) {
         filter: req.query.category,
         per_page: 10,
         pulls: false,
-        created,
+        creator,
         assignee,
         mentioned,
       },
@@ -125,6 +125,32 @@ router.get("/updateState", async function (req, res) {
     );
 
     res.status(result.status).send(result.data.state);
+  } catch (err) {
+    res.status(err.response.status).send(err.response.data);
+  }
+});
+
+/*GET search issues*/
+router.get("/taskSearch", async function (req, res) {
+  console.log(req.query);
+  console.log("q", req.query.query);
+  const { query, order, page } = req.query;
+  try {
+    const result = await axios({
+      url: "https://api.github.com/search/issues",
+      method: "get",
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${req.cookies.access_token}`,
+      },
+      params: {
+        q: query,
+        order: order,
+        page,
+        per_page: 10,
+      },
+    });
+    res.status(result.status).send(result.data);
   } catch (err) {
     res.status(err.response.status).send(err.response.data);
   }

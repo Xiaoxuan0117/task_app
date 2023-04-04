@@ -4,10 +4,12 @@ import { AppDispatch } from "../store";
 import {
   Assignee,
   CommentType,
+  GetTaskDetailParam,
   GetTaskDetailPayLoad,
   GetTaskDetailResData,
   TaskDetailState,
   TaskRequiredInfo,
+  UserState,
 } from "../type";
 import { syncEditTask } from "./editTask";
 
@@ -38,11 +40,21 @@ const initialState: TaskDetailState = {
 
 export const GetTaskDetail = createAsyncThunk<
   GetTaskDetailPayLoad,
-  TaskRequiredInfo,
-  {}
+  GetTaskDetailParam,
+  {
+    state: { user: UserState };
+  }
 >(
   "taskDetail/GetTaskDetail",
-  async ({ repoOwner, repoName, number }, { dispatch, rejectWithValue }) => {
+  async (
+    { repoOwner, repoName, number, signal },
+    { getState, dispatch, rejectWithValue }
+  ) => {
+    const { token } = getState().user;
+
+    if (!token) {
+      return rejectWithValue("no token");
+    }
     try {
       const resData = await axios.get("/api/taskDetail", {
         params: {
@@ -50,6 +62,7 @@ export const GetTaskDetail = createAsyncThunk<
           repo: repoName,
           issue_number: number,
         },
+        signal: signal,
       });
 
       const {
@@ -124,6 +137,9 @@ export const GetTaskDetail = createAsyncThunk<
         milestoneUrl: milestone_url,
       };
     } catch (err: any) {
+      if (signal?.aborted) {
+        return rejectWithValue("Pause Data Fetching");
+      }
       const {
         response: {
           status,
@@ -205,6 +221,7 @@ export const taskDetailSlice = createSlice({
           isLoading: false,
           errMsg: `sorry! something went wrong! ${action.payload}`,
         };
+        console.log("detail", action.error);
         return state;
       })
       .addCase(UpdateDetailState.pending, (state) => {

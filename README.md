@@ -1,46 +1,92 @@
-# Getting Started with Create React App
+# Github 任務管理系統
+這是一個可以管理個人 github 任務 (isssues) 的系統，主要功能如下
+1. 登入
+2. 搜尋任務
+3. 篩選任務列表
+4. 查看任務詳細資料
+5. 新增、編輯、開啟與關閉任務(關閉任務同刪除任務)
+6. 錯誤處理
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 啟動專案
+1. 從 github 上將專案 clone 下來
 
-## Available Scripts
+    ```shell
+   $ git clone https://github.com/xiaoxuan0117/task_app.git
+    ```
+2. 在正式啟動前必須先加上儲存應用程式 `Client ID` 和 `Client secrets` 的環境變數檔案，需參考 [Creacting an oauth app](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) 建立一個 OAuth Apps，特定項目依照以下規則填入
+   * Homepage URL: http://127.0.0.1:3000/login
+   * Authorization callback URL: http://127.0.0.1:5000/api/login/oauth/access_token
+  
+    建立完成後請在專案根資料夾建立一個 `.env` 檔案，並將取得的 `Client ID` 和 `Client secrets` 寫進檔案中，參考以下檔案內容
+    ```
+    // .env
 
-In the project directory, you can run:
+    REACT_APP_CLIENT_ID = xxxxxxxxxxxxxxxxxx
+    REACT_APP_CLIENT_SECRETS = xxxxxxxxxxxxxxxxxxxxxxxxx
+    ```
+3. 接下來安裝所需套件，並啟動專案，此專案分為前端和後端，需要開啟兩個終端分別輸入以下指令
+   > 前端
+   ```shell
+   $ yarn install
+   $ yarn start-client
+   ```
+   > 後端
+   ```shell
+   $ cd server
+   $ yarn install
+   $ yarn start
+   ```
+4. 完成啟動後前端將使用 http://127.0.0.1:3000 網址，後端使用 http://127.0.0.1:5000 網址
 
-### `yarn start`
+## 架構說明
+此專案的前端部分是基於 TypeScript 使用 React 框架製作的，後端則是以 JavaScript 用 Express 建立伺服器，其中建立伺服器的程式碼是寫在 `server` 資料夾中，而渲染前端頁面的內容則是在 `src` 中
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 前端架構
+前端利用 React-router 管理路由，以及使用 Redux toolkit 管理資料狀態，可參考以下資料夾結構了解檔案位置。
+```
+src
+|
+|--assets // 圖片
+|--components // 存放元件
+   |
+   |--atom // 存放最基礎元件: 例如按鈕、輸入框
+   |--molecule // 存放以基礎元件組合的中型元件
+   |--organisms // 存放以中型元件組合的大型元件
+|--reducer // redux reducer，以功能分為五個 reducer 製作
+|--routes // 存放路由頁面，以 components 內的元件組成
+|--sass // 共用樣式
+|--store // redux store
+|--type // 存放 type
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### 元件說明
+其中每個元件皆由三個檔案組成，以**按鈕**為例
+```
+src/components/atom/Button
 
-### `yarn test`
+Button.stories.tsx // 查看元件 UI 呈現
+index.tsx // 元件製作
+style.scss // 元件樣式
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### react-router 說明
+`router` 寫在 `src/index.tsx` 中，有針對無內容的頁面進行錯誤處理
 
-### `yarn build`
+#### redux 說明
+上述提到之五個 reducer 檔案分別為
+1. `addTask`: 管理 **新增 task** 的資料
+2. `editTask`: 管理 **編輯 task** 的資料
+3. `taskDetail`: 管理 **task 詳情頁** 的資料
+4. `taskList`: 管理 **task 列表** 的資料
+5. `user`: 管理 **使用者** 的資料
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 後端架構
+後端是使用 `express-generator` 建立的專案，路由統一寫在 `routes/index.js` 中
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 使用注意事項
+### 查詢功能
+位於 task 列表頁的右側最上方有一搜尋功能，此功能可用於搜尋 title、body 和 comment 中含有使用者輸入之關鍵字的任務，以及搜尋包含特定 label 的任務。
+1. 查看關鍵字: 直接於輸入框填入關鍵字，例如 `task`
+2. 查看特定 label: 於輸入框填入 `label: "[特定 label]"`，例如想查詢有 `help wanted` 的 label 填入則 `label:"help wanted"`
+3. 同時查詢關鍵字與特定 label: 先輸入關鍵字再輸入 label，例如 `task label:"help wanteds"`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

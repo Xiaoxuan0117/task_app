@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../store";
-import { resetSubmitResult, selectRepo } from "../../../reducer/addTask";
+import {
+  PostTask,
+  resetSubmitResult,
+  selectRepo,
+} from "../../../reducer/addTask";
+import { TriggerGetTaskList } from "../../../reducer/taskList";
 
 import Dropdown from "../../atom/Dropdown";
 import Input from "../../atom/Input";
@@ -15,6 +21,7 @@ import closeButton from "../../../assets/closeButton.svg";
 import "./style.scss";
 
 export default function AddModal() {
+  const navigate = useNavigate();
   const {
     user: { repoList },
     addTask: {
@@ -58,7 +65,13 @@ export default function AddModal() {
         <div className="success-section">
           <UploadSuccess text="New Task Uploaded Successfully!!" />
           <div className="close-button">
-            <Button type="addCloseRefresh" class="img-button">
+            <Button
+              class="img-button"
+              onClick={async () => {
+                navigate(-1);
+                dispatch(TriggerGetTaskList({ firstTime: true }));
+              }}
+            >
               <img src={closeButton} alt="closeButton" />
             </Button>
           </div>
@@ -71,7 +84,12 @@ export default function AddModal() {
         <div className="error-section">
           <ErrorMessage text={errMsg} type="addTask" errStatus={errStatus} />
           <div className="close-button">
-            <Button type="close" class="img-button">
+            <Button
+              onClick={() => {
+                navigate(-1);
+              }}
+              class="img-button"
+            >
               <img src={closeButton} alt="closeButton" />
             </Button>
           </div>
@@ -110,15 +128,30 @@ export default function AddModal() {
           )}
         </div>
         <div className="footer">
-          <Button type="close" class="secondary">
+          <Button
+            onClick={() => {
+              navigate(-1);
+            }}
+            class="secondary"
+          >
             <div>Cancel</div>
           </Button>
-          <Button type="add" class="primary">
+          <Button
+            class="primary"
+            onClick={() => {
+              dispatch(PostTask());
+            }}
+          >
             <div>Submit New Task</div>
           </Button>
         </div>
         <div className="close-button">
-          <Button type="close" class="img-button">
+          <Button
+            onClick={() => {
+              navigate(-1);
+            }}
+            class="img-button"
+          >
             <img src={closeButton} alt="closeButton" />
           </Button>
         </div>
