@@ -27,6 +27,7 @@ import TaskList from "../../components/organisms/TaskList";
 import filter from "../../assets/filter.svg";
 
 import "./style.scss";
+import ErrorMessage from "../../components/atom/ErrorMessage";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -45,6 +46,8 @@ export default function Home() {
     repoList,
     isLoading: userLoading,
     token,
+    errMsg: userErrMsg,
+    errStatus: userErrStatus,
   } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
@@ -127,6 +130,9 @@ export default function Home() {
       <Tool />
       <div className="content">
         <div className="taskList-section">
+          {userErrStatus !== 200 && (
+            <ErrorMessage errStatus={userErrStatus} text={userErrMsg} />
+          )}
           <div className="head">
             <div className="repo bold">
               {showRepo.repoOwner.replace(/[^\w.@:/\-~]+/g, "")}/

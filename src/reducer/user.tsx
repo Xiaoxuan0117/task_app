@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import cookie from "js-cookie";
 import { GetUserPayload, UserState } from "../type";
+import { AppDispatch } from "../store";
 
 const initialState: UserState = {
   name: "",
@@ -10,58 +11,67 @@ const initialState: UserState = {
   repoList: [],
   isLoading: false,
   errMsg: "",
+  errStatus: 200,
   token: false,
 };
 
 export const GetUser = createAsyncThunk<
   GetUserPayload,
   { signal?: AbortSignal },
-  { state: { user: UserState } }
->("user/GetUser", async ({ signal }, { getState, rejectWithValue }) => {
-  try {
-    const { name, token } = getState().user;
+  { dispatch: AppDispatch; state: { user: UserState } }
+>(
+  "user/GetUser",
+  async ({ signal }, { dispatch, getState, rejectWithValue }) => {
+    try {
+      const { name, token } = getState().user;
 
-    if (!token) {
-      return rejectWithValue("no token");
-    }
-
-    if (name) {
-      console.log("has name");
-      return rejectWithValue("already got user data");
-    }
-
-    const resData = await axios.get("/api/user", { withCredentials: true });
-    const { login, avatar_url, html_url } = resData.data;
-    const repoData = await axios.get("/api/repos");
-
-    const repos = repoData.data.map(
-      (repo: { id: number; name: string; owner: { login: string } }) => {
-        return {
-          id: repo.id,
-          repoName: repo.name,
-          repoOwner: repo.owner.login,
-        };
+      if (!token) {
+        return rejectWithValue("no token");
       }
-    );
-    return {
-      name: login,
-      avatar: avatar_url,
-      userUrl: html_url,
-      repoList: repos,
-    };
-  } catch (err: any) {
-    if (signal?.aborted) {
-      return rejectWithValue(`Pause Data Fetching`);
+
+      if (name) {
+        console.log("has name");
+        return rejectWithValue("already got user data");
+      }
+
+      const resData = await axios.get("/api/user", { withCredentials: true });
+      const { login, avatar_url, html_url } = resData.data;
+      const repoData = await axios.get("/api/repos");
+
+      const repos = repoData.data.map(
+        (repo: { id: number; name: string; owner: { login: string } }) => {
+          return {
+            id: repo.id,
+            repoName: repo.name,
+            repoOwner: repo.owner.login,
+          };
+        }
+      );
+      return {
+        name: login,
+        avatar: avatar_url,
+        userUrl: html_url,
+        repoList: repos,
+      };
+    } catch (err: any) {
+      if (signal?.aborted) {
+        return rejectWithValue(`Pause Data Fetching`);
+      }
+      const {
+        response: {
+          status,
+          data: { message },
+        },
+      } = err;
+      if (status) {
+        dispatch(setErrorStatusUser(status));
+      }
+      return rejectWithValue(
+        `status: ${status} / error message: ${message} / User data fetch failed`
+      );
     }
-    const {
-      response: {
-        status,
-        data: { message },
-      },
-    } = err;
-    return rejectWithValue(`status: ${status} / error message: ${message}`);
   }
-});
+);
 
 export const userSlice = createSlice({
   name: "user",
@@ -69,6 +79,9 @@ export const userSlice = createSlice({
   reducers: {
     checkToken(state) {
       state.token = cookie.get("access_token") ? true : false;
+    },
+    setErrorStatusUser(state, action) {
+      state.errStatus = action.payload;
     },
     resetUser() {
       return initialState;
@@ -94,6 +107,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { resetUser, checkToken } = userSlice.actions;
+export const { checkToken, setErrorStatusUser, resetUser } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -218,5 +218,6 @@ export type GetUserPayload = {
 export interface UserState extends GetUserPayload {
   isLoading: boolean;
   errMsg: string;
+  errStatus: number;
   token: boolean;
 }
