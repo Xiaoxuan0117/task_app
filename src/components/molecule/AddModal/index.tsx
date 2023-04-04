@@ -66,7 +66,6 @@ export default function AddModal() {
           <UploadSuccess text="New Task Uploaded Successfully!!" />
           <div className="close-button">
             <Button
-              type="addCloseRefresh"
               class="img-button"
               onClick={async () => {
                 navigate(-1);
@@ -86,7 +85,6 @@ export default function AddModal() {
           <ErrorMessage text={errMsg} type="addTask" errStatus={errStatus} />
           <div className="close-button">
             <Button
-              type="close"
               onClick={() => {
                 navigate(-1);
               }}
@@ -131,7 +129,6 @@ export default function AddModal() {
         </div>
         <div className="footer">
           <Button
-            type="close"
             onClick={() => {
               navigate(-1);
             }}
@@ -140,7 +137,6 @@ export default function AddModal() {
             <div>Cancel</div>
           </Button>
           <Button
-            type="add"
             class="primary"
             onClick={() => {
               dispatch(PostTask());
@@ -151,7 +147,6 @@ export default function AddModal() {
         </div>
         <div className="close-button">
           <Button
-            type="close"
             onClick={() => {
               navigate(-1);
             }}

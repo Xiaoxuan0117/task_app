@@ -30,7 +30,6 @@ export default function Controller() {
           type="searchTask"
         />
         <Button
-          type="taskSearch"
           class="search"
           disabled={isLoading}
           onClick={async () => {
@@ -49,7 +48,6 @@ export default function Controller() {
       </div>
       <div className="close-button">
         <Button
-          type="toggleFilter"
           class="img-button"
           onClick={() => {
             dispatch(toggleFilter());

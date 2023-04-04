@@ -62,7 +62,6 @@ export default function Comment(props: CommentProps): JSX.Element {
             {isBody && (
               <div className="detail-button">
                 <Button
-                  type="toggleDetail"
                   class="edit"
                   onClick={() => {
                     dispatch(toggleDetail());

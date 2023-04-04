@@ -65,7 +65,6 @@ export default function EditModal(props: EditModalProps): JSX.Element {
           <UploadSuccess text="Edited Task Uploaded Successfully!!" />
           <div className="close-button">
             <Button
-              type="editCloseRefresh"
               class="img-button"
               onClick={async () => {
                 navigate(-1);
@@ -91,7 +90,6 @@ export default function EditModal(props: EditModalProps): JSX.Element {
           <ErrorMessage text={errMsg} type="editTask" errStatus={errStatus} />
           <div className="close-button">
             <Button
-              type="close"
               onClick={() => {
                 navigate(-1);
               }}
@@ -132,7 +130,6 @@ export default function EditModal(props: EditModalProps): JSX.Element {
         </div>
         <div className="footer">
           <Button
-            type="close"
             onClick={() => {
               navigate(-1);
             }}
@@ -141,7 +138,6 @@ export default function EditModal(props: EditModalProps): JSX.Element {
             <div>Cancel</div>
           </Button>
           <Button
-            type="update"
             class="primary"
             onClick={() => {
               dispatch(UpdateTask());
@@ -152,7 +148,6 @@ export default function EditModal(props: EditModalProps): JSX.Element {
         </div>
         <div className="close-button">
           <Button
-            type="close"
             onClick={() => {
               navigate(-1);
             }}

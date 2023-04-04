@@ -19,7 +19,6 @@ export default function Tool() {
       </div>
       <Button
         class="logout-button"
-        type="logout"
         onClick={() => {
           cookie.remove("access_token");
           window.location.href = "/";

@@ -33,7 +33,6 @@ export default function Navi(props: NaviProps): JSX.Element {
         </div>
         <Button
           class="logout-button"
-          type="logout"
           onClick={() => {
             cookie.remove("access_token");
             window.location.href = "/";

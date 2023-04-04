@@ -51,7 +51,6 @@ export default function Instructions() {
       <div className="instructions-wrapper">
         <div className="instructions">
           <Button
-            type="close"
             onClick={() => {
               navigate(-1);
             }}

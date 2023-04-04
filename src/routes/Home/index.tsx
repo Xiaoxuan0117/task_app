@@ -138,7 +138,6 @@ export default function Home() {
               <div className="add-button">
                 <Link to="/add">
                   <Button
-                    type="openAddModal"
                     class="primary"
                     onClick={() => {
                       navigate("add", { replace: false });
@@ -151,7 +150,6 @@ export default function Home() {
               {!userLoading && (
                 <div className="filter-button">
                   <Button
-                    type="toggleFilter"
                     class="img-button"
                     onClick={() => {
                       dispatch(toggleFilter());

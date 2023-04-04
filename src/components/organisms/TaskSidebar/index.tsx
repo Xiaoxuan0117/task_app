@@ -82,7 +82,6 @@ export default function TaskSidebar(props: TaskSidebarProps): JSX.Element {
       </div>
       <div className="close-button">
         <Button
-          type="toggleDetail"
           class="img-button"
           onClick={() => {
             dispatch(toggleDetail());
