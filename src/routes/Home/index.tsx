@@ -1,11 +1,21 @@
 import React, { useEffect } from "react";
 import classNames from "classnames";
 import cookie from "js-cookie";
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useNavigate,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
 import { selectRepo } from "../../reducer/addTask";
-import { setShowRepo, TriggerGetTaskList } from "../../reducer/taskList";
+import {
+  setShowRepo,
+  toggleFilter,
+  TriggerGetTaskList,
+} from "../../reducer/taskList";
 import { GetUser, checkToken } from "../../reducer/user";
 
 import Button from "../../components/atom/Button";
@@ -19,6 +29,7 @@ import filter from "../../assets/filter.svg";
 import "./style.scss";
 
 export default function Home() {
+  const navigate = useNavigate();
   const { repoOwner, repoName } = useParams();
   const { search } = useLocation();
   const {
@@ -126,14 +137,26 @@ export default function Home() {
             <div className="function">
               <div className="add-button">
                 <Link to="/add">
-                  <Button type="openAddModal" class="primary">
+                  <Button
+                    type="openAddModal"
+                    class="primary"
+                    onClick={() => {
+                      navigate("add", { replace: false });
+                    }}
+                  >
                     <div>New Task</div>
                   </Button>
                 </Link>
               </div>
               {!userLoading && (
                 <div className="filter-button">
-                  <Button type="toggleFilter" class="img-button">
+                  <Button
+                    type="toggleFilter"
+                    class="img-button"
+                    onClick={() => {
+                      dispatch(toggleFilter());
+                    }}
+                  >
                     <img src={filter} alt="filter" />
                   </Button>
                 </div>

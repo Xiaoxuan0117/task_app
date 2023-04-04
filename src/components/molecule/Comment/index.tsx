@@ -1,6 +1,8 @@
 import * as React from "react";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../../store";
+import { toggleDetail } from "../../../reducer/taskDetail";
 
 import Avatar from "../../atom/Avatar";
 import editButton from "../../../assets/editButton.svg";
@@ -33,6 +35,9 @@ export default function Comment(props: CommentProps): JSX.Element {
     allowEdit,
     isBody,
   } = props;
+
+  const dispatch = useAppDispatch();
+
   return (
     <div className="comment">
       <div className="avatar-wrapper">
@@ -56,7 +61,13 @@ export default function Comment(props: CommentProps): JSX.Element {
             </Link>
             {isBody && (
               <div className="detail-button">
-                <Button type="toggleDetail" class="edit">
+                <Button
+                  type="toggleDetail"
+                  class="edit"
+                  onClick={() => {
+                    dispatch(toggleDetail());
+                  }}
+                >
                   <img src={detail} alt="filter" />
                 </Button>
               </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import cookie from "js-cookie";
 
 import LinkElement from "../../atom/LinkElement";
 import Button from "../../atom/Button";
@@ -16,7 +17,14 @@ export default function Tool() {
           <img src={instructions} alt="closeButton" />
         </LinkElement>
       </div>
-      <Button class="logout-button" type="logout">
+      <Button
+        class="logout-button"
+        type="logout"
+        onClick={() => {
+          cookie.remove("access_token");
+          window.location.href = "/";
+        }}
+      >
         <img src={logout} alt="closeButton" />
       </Button>
       <Profile />

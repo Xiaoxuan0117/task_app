@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Button from "../../atom/Button";
 import navi from "../../../assets/instructions_navi.png";
@@ -10,6 +11,7 @@ import close_white from "../../../assets/close_white.svg";
 import "./style.scss";
 
 export default function Instructions() {
+  const navigate = useNavigate();
   const instructionsData = [
     {
       title: "Navi",
@@ -48,7 +50,13 @@ export default function Instructions() {
     <div className="instructions-mask">
       <div className="instructions-wrapper">
         <div className="instructions">
-          <Button type="close" class="close-button">
+          <Button
+            type="close"
+            onClick={() => {
+              navigate(-1);
+            }}
+            class="close-button"
+          >
             <img src={close_white} alt="closeButton" />
           </Button>
           <div className="title">Instructions</div>

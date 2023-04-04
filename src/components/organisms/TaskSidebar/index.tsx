@@ -1,5 +1,7 @@
 import React from "react";
 import { Assignee } from "../../../type";
+import { useAppDispatch } from "../../../store";
+import { toggleDetail } from "../../../reducer/taskDetail";
 
 import LinkElement from "../../atom/LinkElement";
 import Label from "../../atom/Label";
@@ -22,6 +24,9 @@ type TaskSidebarProps = {
 export default function TaskSidebar(props: TaskSidebarProps): JSX.Element {
   const { isOpen, labels, milestone, assignees, milestone_url, taskInfo } =
     props;
+
+  const dispatch = useAppDispatch();
+
   return (
     <div className="taskDetail-wrapper">
       <div className="taskDetail">
@@ -71,7 +76,13 @@ export default function TaskSidebar(props: TaskSidebarProps): JSX.Element {
         </div>
       </div>
       <div className="close-button">
-        <Button type="toggleDetail" class="img-button">
+        <Button
+          type="toggleDetail"
+          class="img-button"
+          onClick={() => {
+            dispatch(toggleDetail());
+          }}
+        >
           <img src={closeButton} alt="closeButton" />
         </Button>
       </div>
