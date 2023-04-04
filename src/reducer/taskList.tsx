@@ -82,7 +82,7 @@ export const GetTaskList = createAsyncThunk<
     } = getState();
 
     if (!token) {
-      return rejectWithValue("no token");
+      return rejectWithValue("No token");
     }
 
     if (reLoad) {

@@ -26,12 +26,12 @@ export const GetUser = createAsyncThunk<
       const { name, token } = getState().user;
 
       if (!token) {
-        return rejectWithValue("no token");
+        return rejectWithValue("No token");
       }
 
       if (name) {
         console.log("has name");
-        return rejectWithValue("already got user data");
+        return rejectWithValue("Already got user data");
       }
 
       const resData = await axios.get("/api/user", { withCredentials: true });
@@ -55,7 +55,7 @@ export const GetUser = createAsyncThunk<
       };
     } catch (err: any) {
       if (signal?.aborted) {
-        return rejectWithValue(`Pause Data Fetching`);
+        return rejectWithValue(`Pause data fetching`);
       }
       const {
         response: {
