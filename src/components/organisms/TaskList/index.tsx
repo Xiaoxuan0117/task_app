@@ -15,16 +15,22 @@ export default function TaskList(props: TaskListProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
     if (taskList.length !== 0) {
       const taskListElm = document.getElementById("taskList-wrapper");
       const taskListBottomOffset =
         (taskListElm?.offsetHeight || 0) + (taskListElm?.offsetTop || 0);
       const innerHeight = window.innerHeight || 0;
       if (taskListBottomOffset < innerHeight) {
-        dispatch(TriggerGetTaskList({ firstTime: false }));
+        dispatch(TriggerGetTaskList({ signal: signal, firstTime: false }));
       }
     }
-  });
+
+    return () => {
+      abortController.abort();
+    };
+  }, [dispatch, taskList.length]);
   return (
     <div id="taskList-wrapper" className="taskList-wrapper">
       {errMsg && <ErrorMessage text={errMsg} errStatus={errStatus} />}
