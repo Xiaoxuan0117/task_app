@@ -85,3 +85,10 @@ style.scss // 元件樣式
 ### 後端架構
 後端是使用 `express-generator` 建立的專案，路由統一寫在 `routes/index.js` 中
 
+## 使用注意事項
+### 查詢功能
+位於 task 列表頁的右側最上方有一搜尋功能，此功能可用於搜尋 task 的 title、body 和 comment 中是否含有使用者輸入之關鍵字，以及可以搜尋包含特定 label 的 task。
+1. 查看關鍵字: 直接於輸入框填入關鍵字，例如 `task`
+2. 查看特定 label: 於輸入框填入 `label: "[特定 label]"`，例如想查詢有 `help wanted` 的 label 填入則 `label:"help wanted"`
+3. 同時查詢關鍵字與特定 label: 先輸入關鍵字再輸入 label，例如 `task label:"help wanteds"`
+
