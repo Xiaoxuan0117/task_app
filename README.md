@@ -7,8 +7,8 @@
 5. 新增、編輯、開啟與關閉任務(關閉任務同刪除任務)
 6. 錯誤處理
 
-可以到以下網址使用:
-https://taskapp-vife.onrender.com/
+可以到以下網址使用: \
+https://taskapp-vife.onrender.com/ (等候網站啟動需要數秒至 1 分鐘)
 
 ## 啟動專案
 1. 從 github 上將專案 clone 下來
