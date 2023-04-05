@@ -8,13 +8,14 @@
 6. 錯誤處理
 
 可以到以下網址使用: \
-https://taskapp-vife.onrender.com/ (等候網站啟動需要數秒至 1 分鐘)
+https://taskapp-vife.onrender.com/ (等候網站啟動需要 1 至 2 分鐘)
 
 ## 啟動專案
-1. 從 github 上將專案 clone 下來
+1. 從 github 上將專案 clone 下來，進入 main 分支
 
     ```shell
    $ git clone https://github.com/xiaoxuan0117/task_app.git
+   $ git checkout main
     ```
 2. 在正式啟動前必須先加上儲存應用程式 `Client ID` 和 `Client secrets` 的環境變數檔案，需參考 [Creacting an oauth app](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) 建立一個 OAuth Apps，特定項目依照以下規則填入
    * Homepage URL: http://127.0.0.1:3000/login
