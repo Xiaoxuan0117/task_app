@@ -221,7 +221,6 @@ export const taskDetailSlice = createSlice({
           isLoading: false,
           errMsg: `sorry! something went wrong! ${action.payload}`,
         };
-        console.log("detail", action.error);
         return state;
       })
       .addCase(UpdateDetailState.pending, (state) => {

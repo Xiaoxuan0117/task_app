@@ -115,7 +115,6 @@ export const GetTaskList = createAsyncThunk<
           0,
           taskSearchKeyword.indexOf("label:")
         );
-        console.log("keyword", keyword);
         labelQuery = taskSearchKeyword.slice(
           taskSearchKeyword.indexOf("label:"),
           taskSearchKeyword.length
@@ -142,7 +141,6 @@ export const GetTaskList = createAsyncThunk<
       )} ${labelQuery} ${keyword} in:title,body,comments`;
 
       queryString = queryString.replace(/\s\s+/g, " ");
-      console.log("qqq", queryString);
 
       try {
         const resResult = await axios.get("/api/taskSearch", {
@@ -223,7 +221,6 @@ export const GetTaskList = createAsyncThunk<
       resData = await list();
     }
 
-    console.log("resData", resData);
     if (typeof resData === "string") {
       return rejectWithValue(resData);
     }
@@ -429,7 +426,6 @@ export const taskListSlice = createSlice({
         state.taskList = [];
         state.page = 1;
         state.isAll = false;
-        console.log("task", action.error);
         return state;
       })
       .addCase(TriggerGetTaskList.pending, (state, action) => {
