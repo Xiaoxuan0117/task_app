@@ -132,8 +132,6 @@ router.get("/updateState", async function (req, res) {
 
 /*GET search issues*/
 router.get("/taskSearch", async function (req, res) {
-  console.log(req.query);
-  console.log("q", req.query.query);
   const { query, order, page } = req.query;
   try {
     const result = await axios({
