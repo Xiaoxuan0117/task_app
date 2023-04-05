@@ -7,14 +7,15 @@
 5. 新增、編輯、開啟與關閉任務(關閉任務同刪除任務)
 6. 錯誤處理
 
-可以到以下網址使用:
-https://taskapp-vife.onrender.com/
+可以到以下網址使用: \
+https://taskapp-vife.onrender.com/ (等候網站啟動需要 1 至 2 分鐘)
 
 ## 啟動專案
-1. 從 github 上將專案 clone 下來
+1. 從 github 上將專案 clone 下來，進入 main 分支
 
     ```shell
    $ git clone https://github.com/xiaoxuan0117/task_app.git
+   $ git checkout main
     ```
 2. 在正式啟動前必須先加上儲存應用程式 `Client ID` 和 `Client secrets` 的環境變數檔案，需參考 [Creacting an oauth app](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) 建立一個 OAuth Apps，特定項目依照以下規則填入
    * Homepage URL: http://127.0.0.1:3000/login
@@ -60,6 +61,8 @@ src
 |--sass // 共用樣式
 |--store // redux store
 |--type // 存放 type
+|--index.css
+|--index.tsx
 ```
 
 #### 元件說明
@@ -87,17 +90,18 @@ style.scss // 元件樣式
 後端是使用 `express-generator` 建立的專案，路由統一寫在 `routes/index.js` 中
 
 ## 使用注意事項
-### 查詢功能-格式規則
-位於 task 列表頁的右側最上方有一搜尋功能，此功能可用於搜尋 title、body 和 comment 中含有使用者輸入之關鍵字的任務，以及搜尋包含特定 label 的任務。
-1. 查看關鍵字: 直接於輸入框填入關鍵字，例如 `task`
-2. 查看特定 label: 於輸入框填入 `label: "[特定 label]"`，例如想查詢有 `help wanted` 的 label 填入則 `label:"help wanted"`
-3. 同時查詢關鍵字與特定 label: 先輸入關鍵字再輸入 label，例如 `task label:"help wanteds"`
-
-### 查詢功能-搜尋設定說明
-查詢功能的結果會基於使用者是任務所在的 repository 中的成員之一，並且符合以下四點任一點的任務去進行搜尋
+### 搜尋功能
+位於任務列表頁右側最上方的搜尋功能，有兩項注意事項
+#### 1. 格式規則
+此功能可用於搜尋 title、body 和 comment 中含有使用者輸入之關鍵字的任務，以及搜尋包含特定 label 的任務。
+1. 搜尋關鍵字: 直接於輸入框填入關鍵字，例如 `task`
+2. 搜尋特定 label: 於輸入框填入 `label: "[特定 label]"`，例如想查詢有 `help wanted` 的 label 填入則 `label:"help wanted"`
+3. 同時搜尋關鍵字與特定 label: 先輸入關鍵字再輸入 label，例如 `task label:"help wanteds"`
+#### 2. 搜尋結果說明
+一開始的任務列表會將使用者可以看到的任務都列出，而搜尋功能的結果必須再符合以下四點任一點
 * 任務為使用者建立的 (Created)
 * 任務任命予使用者 (Assigned)
 * 任務內容提及使用者 (Mentioned)
 * 使用者是任務留言者之一 (Commenter)
 
-**特別注意** 使用者若只是任務所在的 repository 中的成員之一，在搜尋結果中是不會出現該任務的
+**特別注意** 使用者若只是可以看到任務，在搜尋結果中是不會出現該任務的

@@ -30,7 +30,6 @@ export const GetUser = createAsyncThunk<
       }
 
       if (name) {
-        console.log("has name");
         return rejectWithValue("Already got user data");
       }
 
@@ -102,7 +101,6 @@ export const userSlice = createSlice({
       .addCase(GetUser.rejected, (state, action) => {
         state.isLoading = false;
         state.errMsg = `sorry! something went wrong! ${action.payload}`;
-        console.log("user", action.error);
       });
   },
 });
