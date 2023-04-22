@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../store";
-import { UpdateTask, resetUpdateResult } from "../../../reducer/editTask";
-import { GetTaskDetail } from "../../../reducer/taskDetail";
+import { UpdateIssue, resetUpdateResult } from "../../../reducer/editIssue";
+import { GetIssueDetail } from "../../../reducer/issueDetail";
 
 import Button from "../../atom/Button";
 import Input from "../../atom/Input";
@@ -33,7 +33,7 @@ export default function EditModal(props: EditModalProps): JSX.Element {
     isSuccess,
     errMsg,
     errStatus,
-  } = useSelector((state: RootState) => state.editTask);
+  } = useSelector((state: RootState) => state.editIssue);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -62,14 +62,14 @@ export default function EditModal(props: EditModalProps): JSX.Element {
     if (isSuccess) {
       return (
         <div className="success-section">
-          <UploadSuccess text="Edited Task Uploaded Successfully!!" />
+          <UploadSuccess text="Edited Issue Uploaded Successfully!!" />
           <div className="close-button">
             <Button
               class="img-button"
               onClick={async () => {
                 navigate(-1);
                 dispatch(
-                  GetTaskDetail({
+                  GetIssueDetail({
                     repoOwner: repoOwner || "",
                     repoName: repoName || "",
                     number: parseInt(number || "0"),
@@ -87,7 +87,7 @@ export default function EditModal(props: EditModalProps): JSX.Element {
     if (errMsg) {
       return (
         <div className="error-section">
-          <ErrorMessage text={errMsg} type="editTask" errStatus={errStatus} />
+          <ErrorMessage text={errMsg} type="editIssue" errStatus={errStatus} />
           <div className="close-button">
             <Button
               onClick={() => {
@@ -140,7 +140,7 @@ export default function EditModal(props: EditModalProps): JSX.Element {
           <Button
             class="primary"
             onClick={() => {
-              dispatch(UpdateTask());
+              dispatch(UpdateIssue());
             }}
           >
             <div>Update</div>

@@ -1,5 +1,5 @@
 {
-  "name": "task_app",
+  "name": "issue_app",
   "version": "0.1.0",
   "engines": {
     "npm": "8.15.1",

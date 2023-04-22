@@ -1,6 +1,6 @@
 import { CommentProps } from "../components/molecule/Comment";
 
-export type TaskProps = {
+export type IssueProps = {
   assigneeUrl?: string;
   assigneeAvatar?: string;
   body: string;
@@ -19,9 +19,9 @@ export type TaskProps = {
   isSearchResult: boolean;
 };
 
-export type TaskListProps = {
+export type IssueListProps = {
   isLoading: boolean;
-  taskList: TaskProps[];
+  issueList: IssueProps[];
   errMsg: string;
   errStatus: number;
 };
@@ -38,30 +38,30 @@ export type ShowRepo = {
   repoName: string;
 };
 
-export interface TaskListState extends TaskListProps {
+export interface IssueListState extends IssueListProps {
   page: number;
   isAll: boolean;
   showRepo: ShowRepo;
   filter: Filter;
   isStateLoading: boolean;
-  taskSearchKeyword: string;
+  issueSearchKeyword: string;
   isSearchMode: boolean;
   isFilterOpen: boolean;
 }
 
-export type GetTaskListParams = {
+export type GetIssueListParams = {
   reLoad: boolean;
   signal?: AbortSignal;
 };
 
-export type GetTaskListPayload = {
-  issueData: TaskProps[];
+export type GetIssueListPayload = {
+  issueData: IssueProps[];
   page: number;
   isAll: boolean;
   reLoad: boolean;
 };
 
-export type GetTaskListResData = {
+export type GetIssueListResData = {
   assignee: { avatar_url?: string; html_url?: string };
   body: string;
   created_at: string;
@@ -80,28 +80,28 @@ export type GetTaskListResData = {
   user: { login: string; html_url: string };
 };
 
-export type TaskRequiredInfo = {
+export type IssueRequiredInfo = {
   repoOwner: string;
   repoName: string;
   number: number;
 };
 
-export interface GetTaskDetailParam extends TaskRequiredInfo {
+export interface GetIssueDetailParam extends IssueRequiredInfo {
   signal?: AbortSignal;
 }
 
-export interface UpdateTaskEditParems extends TaskRequiredInfo {
+export interface UpdateIssueEditParems extends IssueRequiredInfo {
   title?: string;
   body?: string;
   labels?: string;
 }
 
 export type UpdateStatePayload = {
-  taskIndex: number;
+  issueIndex: number;
   state: boolean;
 };
 
-export type GetTaskDetailPayLoad = {
+export type GetIssueDetailPayLoad = {
   assigneeUrl?: string;
   assigneeAvatar?: string;
   assignees?: Assignee[];
@@ -121,7 +121,7 @@ export type GetTaskDetailPayLoad = {
   milestone: string;
   milestoneUrl: string;
 };
-export interface TaskDetailState extends GetTaskDetailPayLoad {
+export interface IssueDetailState extends GetIssueDetailPayLoad {
   isLoading: boolean;
   errMsg: string;
   errStatus: number;
@@ -135,7 +135,7 @@ export type Assignee = {
   html_url: string;
 };
 
-export type GetTaskDetailResData = {
+export type GetIssueDetailResData = {
   assignee: { avatar_url: string; html_url: string };
   assignees: Assignee[];
   body: string;
@@ -163,7 +163,7 @@ export type AddInputError = {
   body: boolean;
 };
 
-export type AddTaskState = {
+export type AddIssueState = {
   title: string;
   repo: string;
   body: string;
@@ -175,7 +175,7 @@ export type AddTaskState = {
   errStatus: number;
 };
 
-export type AddTaskPayload = {
+export type AddIssuePayload = {
   isSuccess: boolean;
   inputError: AddInputError;
 };
@@ -186,7 +186,7 @@ export type EditInputError = {
   body: boolean;
 };
 
-export type EditTaskState = {
+export type EditIssueState = {
   title: string;
   status: string;
   body: string;
@@ -197,7 +197,7 @@ export type EditTaskState = {
   errStatus: number;
 };
 
-export type EditTaskPayload = {
+export type EditIssuePayload = {
   isSuccess: boolean;
   inputError: EditInputError;
 };

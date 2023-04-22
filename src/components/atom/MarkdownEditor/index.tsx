@@ -1,8 +1,8 @@
 import React from "react";
 import Markdown from "../Markdown";
 import { useAppDispatch } from "../../../store";
-import { setAddBody } from "../../../reducer/addTask";
-import { setEditBody } from "../../../reducer/editTask";
+import { setAddBody } from "../../../reducer/addIssue";
+import { setEditBody } from "../../../reducer/editIssue";
 
 import "./style.scss";
 

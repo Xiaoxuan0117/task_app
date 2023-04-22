@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppDispatch } from "../../../store";
-import { UpdateState } from "../../../reducer/taskList";
-import { TaskProps } from "../../../type";
+import { UpdateState } from "../../../reducer/issueList";
+import { IssueProps } from "../../../type";
 
 import LinkElement from "../../atom/LinkElement";
 import Label from "../../atom/Label";
@@ -11,7 +11,7 @@ import Avatar from "../../atom/Avatar";
 
 import "./style.scss";
 
-export default function Task(props: TaskProps): JSX.Element {
+export default function Issue(props: IssueProps): JSX.Element {
   const {
     isOpen,
     repoName,
@@ -29,7 +29,7 @@ export default function Task(props: TaskProps): JSX.Element {
   } = props;
   const dispatch = useAppDispatch();
 
-  const taskInfo = {
+  const issueInfo = {
     repoOwner: repoOwner,
     repoName: repoName,
     number: number,
@@ -41,25 +41,25 @@ export default function Task(props: TaskProps): JSX.Element {
     <i>no description provided</i>
   );
   return (
-    <div className="task-wrapper">
+    <div className="issue-wrapper">
       <div className="toggle-section">
         <Toggle
           isOpen={isOpen}
           onClick={() => {
-            dispatch(UpdateState(taskInfo));
+            dispatch(UpdateState(issueInfo));
           }}
         />
       </div>
-      <div className="task">
+      <div className="issue">
         <div className="left">
           <div className="content-section">
             <div className="upper">
-              <LinkElement isRouter={false} class="tasklist" href={repoUrl}>
+              <LinkElement isRouter={false} class="issuelist" href={repoUrl}>
                 <div className="repo">{`${repoOwner}/${repoName}`}</div>
               </LinkElement>
               <LinkElement
                 isRouter={true}
-                class="tasklist"
+                class="issuelist"
                 href={`/${repoOwner}/${repoName}/${number}`}
               >
                 <div className="issue">{title}</div>
@@ -80,7 +80,7 @@ export default function Task(props: TaskProps): JSX.Element {
                 by&nbsp;
                 <LinkElement
                   isRouter={false}
-                  class="tasklist"
+                  class="issuelist"
                   href={creatorUrl}
                 >
                   <div className="quick-info">{creator}</div>

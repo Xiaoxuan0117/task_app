@@ -2,21 +2,21 @@ import React from "react";
 
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import TaskList from ".";
+import IssueList from ".";
 
 export default {
-  title: "Organisms/TaskList",
-  component: TaskList,
-} as ComponentMeta<typeof TaskList>;
+  title: "Organisms/IssueList",
+  component: IssueList,
+} as ComponentMeta<typeof IssueList>;
 
-const tasksDate = [
+const issuesDate = [
   {
     isOpen: false,
     repoName: "username/repo",
-    repoUrl: "https://github.com/xiaoxuan0117/task_app",
+    repoUrl: "https://github.com/xiaoxuan0117/issue_app",
     repoOwner: "xiaoxuan0117",
     title: "issue 1",
-    issueUrl: "https://github.com/xiaoxuan0117/task_app/issues",
+    issueUrl: "https://github.com/xiaoxuan0117/issue_app/issues",
     labels: ["Bug", "ToDo"],
     time: "2023-03-08T05:47:16Z",
     creator: "username",
@@ -29,10 +29,10 @@ const tasksDate = [
   {
     isOpen: false,
     repoName: "username/repo",
-    repoUrl: "https://github.com/xiaoxuan0117/task_app",
+    repoUrl: "https://github.com/xiaoxuan0117/issue_app",
     repoOwner: "xiaoxuan0117",
     title: "issue 1",
-    issueUrl: "https://github.com/xiaoxuan0117/task_app/issues",
+    issueUrl: "https://github.com/xiaoxuan0117/issue_app/issues",
     labels: ["Bug", "In Progress"],
     time: "2023-03-08T05:47:16Z",
     creator: "username",
@@ -45,10 +45,10 @@ const tasksDate = [
   {
     isOpen: false,
     repoName: "username/repo",
-    repoUrl: "https://github.com/xiaoxuan0117/task_app",
+    repoUrl: "https://github.com/xiaoxuan0117/issue_app",
     repoOwner: "xiaoxuan0117",
     title: "issue 1",
-    issueUrl: "https://github.com/xiaoxuan0117/task_app/issues",
+    issueUrl: "https://github.com/xiaoxuan0117/issue_app/issues",
     labels: ["Bug", "Done"],
     time: "2023-03-08T05:47:16Z",
     creator: "username",
@@ -60,11 +60,11 @@ const tasksDate = [
   },
 ];
 
-export const Primary: ComponentStory<typeof TaskList> = () => (
-  <TaskList
+export const Primary: ComponentStory<typeof IssueList> = () => (
+  <IssueList
     isLoading={true}
-    taskList={tasksDate}
+    issueList={issuesDate}
     errMsg="wrong!"
     errStatus={404}
-  ></TaskList>
+  ></IssueList>
 );

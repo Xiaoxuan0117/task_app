@@ -3,9 +3,9 @@ import classNames from "classnames";
 import { Outlet, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
-import { GetTaskDetail } from "../../reducer/taskDetail";
+import { GetIssueDetail } from "../../reducer/issueDetail";
 import { checkToken, GetUser } from "../../reducer/user";
-import { setShowRepo } from "../../reducer/taskList";
+import { setShowRepo } from "../../reducer/issueList";
 
 import ErrorMessage from "../../components/atom/ErrorMessage";
 import LinkElement from "../../components/atom/LinkElement";
@@ -14,11 +14,11 @@ import Time from "../../components/atom/Time";
 import Comment from "../../components/molecule/Comment";
 import Navi from "../../components/molecule/Navi";
 import Tool from "../../components/molecule/Tool";
-import TaskSidebar from "../../components/organisms/TaskSidebar";
+import IssueSidebar from "../../components/organisms/IssueSidebar";
 
 import "./style.scss";
 
-export default function TaskDetail() {
+export default function IssueDetail() {
   let { repoOwner, repoName, number } = useParams();
   const {
     body,
@@ -39,7 +39,7 @@ export default function TaskDetail() {
     errMsg,
     errStatus,
     isDetailOpen,
-  } = useSelector((state: RootState) => state.taskDetail);
+  } = useSelector((state: RootState) => state.issueDetail);
   const { name: user, repoList } = useSelector(
     (state: RootState) => state.user
   );
@@ -72,7 +72,7 @@ export default function TaskDetail() {
     const signal = abortController.signal;
     dispatch(checkToken());
     dispatch(
-      GetTaskDetail({
+      GetIssueDetail({
         repoOwner: repoOwner || "",
         repoName: repoName || "",
         number: parseInt(number || "0"),
@@ -86,25 +86,25 @@ export default function TaskDetail() {
   }, [dispatch, number, repoOwner, repoName]);
 
   return (
-    <div className="task-page">
+    <div className="issue-page">
       <div className="navi-section">
         <Navi repoOptions={repoList} />
       </div>
       <Tool />
-      <div className="task-content">
-        <div className="task-flex">
+      <div className="issue-content">
+        <div className="issue-flex">
           {isLoading && <Loading text="Loading" />}
           {!errMsg && time && !isLoading && (
             <div className="detail">
               <div className="header">
                 <LinkElement
                   isRouter={false}
-                  class="task"
+                  class="issue"
                   href={`https://github.com/${repoOwner}/${repoName}`}
                 >
                   <div className="repo">{repoName}</div>
                 </LinkElement>
-                <LinkElement isRouter={false} class="task" href={issueUrl}>
+                <LinkElement isRouter={false} class="issue" href={issueUrl}>
                   <div className="issue">{title}</div>
                 </LinkElement>
                 <div className="number-and-time">
@@ -113,7 +113,7 @@ export default function TaskDetail() {
                 </div>
               </div>
               <div className="divide"></div>
-              <div className="task-data">
+              <div className="issue-data">
                 <div className="comment-section">
                   <Comment
                     key={id}
@@ -138,18 +138,18 @@ export default function TaskDetail() {
                     isDetailOpen && "open"
                   )}`}
                 >
-                  <TaskSidebar
+                  <IssueSidebar
                     isOpen={isOpen}
                     labels={labels}
                     milestone={milestone}
                     milestone_url={milestoneUrl}
                     assignees={assignees || []}
-                    taskInfo={{
+                    issueInfo={{
                       repoOwner: repoOwner || "",
                       repoName: repoName || "",
                       number: parseInt(number || "0"),
                     }}
-                  ></TaskSidebar>
+                  ></IssueSidebar>
                 </div>
               </div>
             </div>

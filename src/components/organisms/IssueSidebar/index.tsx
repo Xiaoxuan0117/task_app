@@ -1,7 +1,7 @@
 import React from "react";
 import { Assignee } from "../../../type";
 import { useAppDispatch } from "../../../store";
-import { UpdateDetailState, toggleDetail } from "../../../reducer/taskDetail";
+import { UpdateDetailState, toggleDetail } from "../../../reducer/issueDetail";
 
 import LinkElement from "../../atom/LinkElement";
 import Label from "../../atom/Label";
@@ -12,30 +12,30 @@ import closeButton from "../../../assets/closeButton.svg";
 
 import "./style.scss";
 
-type TaskSidebarProps = {
+type IssueSidebarProps = {
   isOpen: boolean;
   labels: string[];
   milestone: string;
   milestone_url: string;
   assignees: Assignee[];
-  taskInfo: { repoOwner: string; repoName: string; number: number };
+  issueInfo: { repoOwner: string; repoName: string; number: number };
 };
 
-export default function TaskSidebar(props: TaskSidebarProps): JSX.Element {
-  const { isOpen, labels, milestone, assignees, milestone_url, taskInfo } =
+export default function IssueSidebar(props: IssueSidebarProps): JSX.Element {
+  const { isOpen, labels, milestone, assignees, milestone_url, issueInfo } =
     props;
 
   const dispatch = useAppDispatch();
 
   return (
-    <div className="taskDetail-wrapper">
-      <div className="taskDetail">
+    <div className="issueDetail-wrapper">
+      <div className="issueDetail">
         <div className="section status">
-          <div className="title">Open/Closed</div>
+          <div className="title">Closed/Open</div>
           <Toggle
             isOpen={isOpen}
             onClick={() => {
-              dispatch(UpdateDetailState(taskInfo));
+              dispatch(UpdateDetailState(issueInfo));
             }}
           />
         </div>
@@ -54,7 +54,7 @@ export default function TaskSidebar(props: TaskSidebarProps): JSX.Element {
           {milestone ? (
             <LinkElement
               isRouter={false}
-              class="task"
+              class="issue"
               href={milestone_url || "#"}
             >
               <div className="milestone">{milestone}</div>

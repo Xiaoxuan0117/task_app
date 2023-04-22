@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../store";
 import {
-  PostTask,
+  PostIssue,
   resetSubmitResult,
   selectRepo,
-} from "../../../reducer/addTask";
-import { TriggerGetTaskList } from "../../../reducer/taskList";
+} from "../../../reducer/addIssue";
+import { TriggerGetIssueList } from "../../../reducer/issueList";
 
 import Dropdown from "../../atom/Dropdown";
 import Input from "../../atom/Input";
@@ -24,7 +24,7 @@ export default function AddModal() {
   const navigate = useNavigate();
   const {
     user: { repoList },
-    addTask: {
+    addIssue: {
       title,
       repo,
       body,
@@ -63,13 +63,13 @@ export default function AddModal() {
     if (isSuccess) {
       return (
         <div className="success-section">
-          <UploadSuccess text="New Task Uploaded Successfully!!" />
+          <UploadSuccess text="New Issue Uploaded Successfully!!" />
           <div className="close-button">
             <Button
               class="img-button"
               onClick={async () => {
                 navigate(-1);
-                dispatch(TriggerGetTaskList({ firstTime: true }));
+                dispatch(TriggerGetIssueList({ firstTime: true }));
               }}
             >
               <img src={closeButton} alt="closeButton" />
@@ -82,7 +82,7 @@ export default function AddModal() {
     if (errMsg) {
       return (
         <div className="error-section">
-          <ErrorMessage text={errMsg} type="addTask" errStatus={errStatus} />
+          <ErrorMessage text={errMsg} type="addIssue" errStatus={errStatus} />
           <div className="close-button">
             <Button
               onClick={() => {
@@ -139,10 +139,10 @@ export default function AddModal() {
           <Button
             class="primary"
             onClick={() => {
-              dispatch(PostTask());
+              dispatch(PostIssue());
             }}
           >
-            <div>Submit New Task</div>
+            <div>Submit New Issue</div>
           </Button>
         </div>
         <div className="close-button">

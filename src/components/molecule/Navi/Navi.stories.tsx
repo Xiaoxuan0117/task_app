@@ -42,6 +42,6 @@ const dummyData = [
   },
 ];
 
-export const TaskListRepo: ComponentStory<typeof Navi> = () => (
+export const IssueListRepo: ComponentStory<typeof Navi> = () => (
   <Navi repoOptions={dummyData}></Navi>
 );

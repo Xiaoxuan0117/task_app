@@ -24,12 +24,12 @@ export default function ErrorMessage(props: ErrorMessageProps): JSX.Element {
     }
   };
 
-  const uploadTask = (type: string | undefined) => {
+  const uploadIssue = (type: string | undefined) => {
     switch (type) {
-      case "addTask":
-        return "New Task Upload failed!!";
-      case "editTask":
-        return "Edited Task Upload failed!!";
+      case "addIssue":
+        return "New Issue Upload failed!!";
+      case "editIssue":
+        return "Edited Issue Upload failed!!";
       default:
         return "";
     }
@@ -46,18 +46,18 @@ export default function ErrorMessage(props: ErrorMessageProps): JSX.Element {
   });
   return (
     <div className={`err-wrapper ${classNames(fixed && "fixed")}`}>
-      <div className="uploadMsg">{uploadTask(type)}</div>
+      <div className="uploadMsg">{uploadIssue(type)}</div>
       <div className="err">{text}</div>
       <div className="resolve">
         Please try this solution: {resolveMethod(errStatus || 404)}
         <div className="connectMe">
           If the above information can not solve the problem, please contact me:{" "}
           <a
-            href="https://github.com/Xiaoxuan0117/task_app"
+            href="https://github.com/Xiaoxuan0117/issue_app"
             target="_blank"
             rel="noreferrer"
           >
-            task_app
+            issue_app
           </a>
         </div>
       </div>

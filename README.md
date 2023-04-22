@@ -8,13 +8,13 @@
 6. 錯誤處理
 
 可以到以下網址使用: \
-https://taskapp-vife.onrender.com/ (等候網站啟動需要 1 至 2 分鐘)
+https://issueapp.onrender.com (等候網站啟動需要 1 至 2 分鐘)
 
 ## 啟動專案
 1. 從 github 上將專案 clone 下來，進入 main 分支
 
     ```shell
-   $ git clone https://github.com/xiaoxuan0117/task_app.git
+   $ git clone https://github.com/xiaoxuan0117/issue_app.git
    $ git checkout main
     ```
 2. 在正式啟動前必須先加上儲存應用程式 `Client ID` 和 `Client secrets` 的環境變數檔案，需參考 [Creacting an oauth app](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) 建立一個 OAuth Apps，特定項目依照以下規則填入
@@ -80,10 +80,10 @@ style.scss // 元件樣式
 
 #### redux 說明
 上述提到之五個 reducer 檔案分別為
-1. `addTask`: 管理 **新增 task** 的資料
-2. `editTask`: 管理 **編輯 task** 的資料
-3. `taskDetail`: 管理 **task 詳情頁** 的資料
-4. `taskList`: 管理 **task 列表** 的資料
+1. `addIssue`: 管理 **新增 issue** 的資料
+2. `editIssue`: 管理 **編輯 issue** 的資料
+3. `issueDetail`: 管理 **issue 詳情頁** 的資料
+4. `issueList`: 管理 **issue 列表** 的資料
 5. `user`: 管理 **使用者** 的資料
 
 ### 後端架構
@@ -94,9 +94,9 @@ style.scss // 元件樣式
 位於任務列表頁右側最上方的搜尋功能，有兩項注意事項
 #### 1. 格式規則
 此功能可用於搜尋 title、body 和 comment 中含有使用者輸入之關鍵字的任務，以及搜尋包含特定 label 的任務。
-1. 搜尋關鍵字: 直接於輸入框填入關鍵字，例如 `task`
+1. 搜尋關鍵字: 直接於輸入框填入關鍵字，例如 `issue`
 2. 搜尋特定 label: 於輸入框填入 `label: "[特定 label]"`，例如想查詢有 `help wanted` 的 label 填入則 `label:"help wanted"`
-3. 同時搜尋關鍵字與特定 label: 先輸入關鍵字再輸入 label，例如 `task label:"help wanteds"`
+3. 同時搜尋關鍵字與特定 label: 先輸入關鍵字再輸入 label，例如 `issue label:"help wanteds"`
 #### 2. 搜尋結果說明
 一開始的任務列表會將使用者可以看到的任務都列出，而搜尋功能的結果必須再符合以下四點任一點
 * 任務為使用者建立的 (Created)

@@ -4,7 +4,7 @@
 .link {
   text-decoration: none;
 
-  &.tasklist {
+  &.issuelist {
     & .repo {
       font-size: $font-h3;
       color: $light-blue;
@@ -32,7 +32,7 @@
     }
   }
 
-  &.task {
+  &.issue {
     & .repo {
       font-size: $font-h2;
       color: $light-blue;

@@ -1,8 +1,8 @@
 import React from "react";
 import { useAppDispatch } from "../../../store";
-import { setTaskSearchKeyword } from "../../../reducer/taskList";
-import { setAddTitle } from "../../../reducer/addTask";
-import { setEditTitle } from "../../../reducer/editTask";
+import { setIssueSearchKeyword } from "../../../reducer/issueList";
+import { setAddTitle } from "../../../reducer/addIssue";
+import { setEditTitle } from "../../../reducer/editIssue";
 
 import "./style.scss";
 
@@ -20,8 +20,8 @@ export default function Input(props: InputProps): JSX.Element {
 
   const clickEvent = (type: string, e: string) => {
     switch (type) {
-      case "searchTask":
-        return dispatch(setTaskSearchKeyword(e));
+      case "searchIssue":
+        return dispatch(setIssueSearchKeyword(e));
       case "addTitle":
         return dispatch(setAddTitle(e));
       case "editTitle":
