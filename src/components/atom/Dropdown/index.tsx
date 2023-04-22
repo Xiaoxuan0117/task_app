@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { useAppDispatch } from "../../../store";
-import { selectRepo } from "../../../reducer/addTask";
+import { selectRepo } from "../../../reducer/addIssue";
 import { RepoState } from "../../../type";
 
 import dropdownIcon from "../../../assets/dropdownIcon.svg";
@@ -16,7 +16,7 @@ type DropdownProps = {
   value?: string;
   options: RepoState[];
   type: string;
-  selectEvent?: ActionCreatorWithPayload<any, "addTask/selectRepo">;
+  selectEvent?: ActionCreatorWithPayload<any, "addIssue/selectRepo">;
 };
 
 export default function Dropdown(props: DropdownProps): JSX.Element {

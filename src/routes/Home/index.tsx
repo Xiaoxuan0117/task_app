@@ -10,12 +10,12 @@ import {
 } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
-import { selectRepo } from "../../reducer/addTask";
+import { selectRepo } from "../../reducer/addIssue";
 import {
   setShowRepo,
   toggleFilter,
-  TriggerGetTaskList,
-} from "../../reducer/taskList";
+  TriggerGetIssueList,
+} from "../../reducer/issueList";
 import { GetUser, checkToken } from "../../reducer/user";
 
 import Button from "../../components/atom/Button";
@@ -23,7 +23,7 @@ import Navi from "../../components/molecule/Navi";
 import Welcome from "../../components/molecule/Welcome";
 import Tool from "../../components/molecule/Tool";
 import Controller from "../../components/organisms/Controller";
-import TaskList from "../../components/organisms/TaskList";
+import IssueList from "../../components/organisms/IssueList";
 import filter from "../../assets/filter.svg";
 
 import "./style.scss";
@@ -34,13 +34,13 @@ export default function Home() {
   const { repoOwner, repoName } = useParams();
   const { search } = useLocation();
   const {
-    taskList: taskListData,
+    issueList: issueListData,
     isLoading,
     errMsg,
     errStatus,
     isFilterOpen,
     showRepo,
-  } = useSelector((state: RootState) => state.taskList);
+  } = useSelector((state: RootState) => state.issueList);
   const {
     name,
     repoList,
@@ -92,7 +92,7 @@ export default function Home() {
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
-    dispatch(TriggerGetTaskList({ signal: signal, firstTime: true }));
+    dispatch(TriggerGetIssueList({ signal: signal, firstTime: true }));
 
     return () => {
       abortController.abort();
@@ -108,7 +108,7 @@ export default function Home() {
       let scrollY = window.scrollY || 0;
       let scrollHeight = html.scrollHeight || 0;
       if (innerHeight + Math.ceil(scrollY) >= scrollHeight) {
-        dispatch(TriggerGetTaskList({ signal: signal, firstTime: false }));
+        dispatch(TriggerGetIssueList({ signal: signal, firstTime: false }));
       }
     }
 
@@ -129,7 +129,7 @@ export default function Home() {
       </div>
       <Tool />
       <div className="content">
-        <div className="taskList-section">
+        <div className="issueList-section">
           {userErrStatus !== 200 && (
             <ErrorMessage errStatus={userErrStatus} text={userErrMsg} />
           )}
@@ -138,7 +138,7 @@ export default function Home() {
               {showRepo.repoOwner.replace(/[^\w.@:/\-~]+/g, "")}/
               {showRepo.repoName
                 ? showRepo.repoName.replace(/[^\w.@:/\-~]+/g, "")
-                : "My Tasks"}
+                : "My Issues"}
             </div>
             <div className="function">
               <div className="add-button">
@@ -149,7 +149,7 @@ export default function Home() {
                       navigate("add", { replace: false });
                     }}
                   >
-                    <div>New Task</div>
+                    <div>New Issue</div>
                   </Button>
                 </Link>
               </div>
@@ -167,12 +167,12 @@ export default function Home() {
               )}
             </div>
           </div>
-          <TaskList
+          <IssueList
             isLoading={isLoading}
-            taskList={taskListData}
+            issueList={issueListData}
             errMsg={errMsg}
             errStatus={errStatus}
-          ></TaskList>
+          ></IssueList>
         </div>
         {!userLoading && (
           <div

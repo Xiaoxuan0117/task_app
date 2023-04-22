@@ -2,7 +2,7 @@ import * as React from "react";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../../store";
-import { toggleDetail } from "../../../reducer/taskDetail";
+import { toggleDetail } from "../../../reducer/issueDetail";
 
 import Avatar from "../../atom/Avatar";
 import editButton from "../../../assets/editButton.svg";
@@ -46,7 +46,7 @@ export default function Comment(props: CommentProps): JSX.Element {
       <div className="content">
         <div className="info">
           <div className="left">
-            <LinkElement isRouter={false} class="task" href={user_url}>
+            <LinkElement isRouter={false} class="issue" href={user_url}>
               <div className="username">{username}</div>
             </LinkElement>
             <Time utcTime={created_at} />

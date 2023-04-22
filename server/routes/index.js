@@ -62,7 +62,7 @@ router.get("/repos", async function (req, res) {
 });
 
 /* GET issues */
-router.get("/taskList", async function (req, res, next) {
+router.get("/issueList", async function (req, res, next) {
   const {
     owner,
     repo,
@@ -131,7 +131,7 @@ router.get("/updateState", async function (req, res) {
 });
 
 /*GET search issues*/
-router.get("/taskSearch", async function (req, res) {
+router.get("/issueSearch", async function (req, res) {
   const { query, order, page } = req.query;
   try {
     const result = await axios({
@@ -155,7 +155,7 @@ router.get("/taskSearch", async function (req, res) {
 });
 
 /* GET issue */
-router.get("/taskDetail", async function (req, res) {
+router.get("/issueDetail", async function (req, res) {
   const { owner, repo, issue_number } = req.query;
   try {
     const result = await axios({
@@ -184,7 +184,7 @@ router.get("/taskDetail", async function (req, res) {
 });
 
 /* POST issue */
-router.post("/postTask", async function (req, res) {
+router.post("/postIssue", async function (req, res) {
   const { owner, repo } = req.query;
   const { title, body, labels } = req.body;
   try {
@@ -209,7 +209,7 @@ router.post("/postTask", async function (req, res) {
 });
 
 /* PATCH issue */
-router.post("/updateTask", async function (req, res) {
+router.post("/updateIssue", async function (req, res) {
   const { owner, repo, issue_number } = req.query;
   const { title, body, labels } = req.body;
   try {

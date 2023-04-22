@@ -1,17 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import taskListReducer from "../reducer/taskList";
-import taskDetailReducer from "../reducer/taskDetail";
-import addTaskReducer from "../reducer/addTask";
-import editTaskReducer from "../reducer/editTask";
+import issueListReducer from "../reducer/issueList";
+import issueDetailReducer from "../reducer/issueDetail";
+import addIssueReducer from "../reducer/addIssue";
+import editIssueReducer from "../reducer/editIssue";
 import userReducer from "../reducer/user";
 
 export const store = configureStore({
   reducer: {
-    taskList: taskListReducer,
-    taskDetail: taskDetailReducer,
-    addTask: addTaskReducer,
-    editTask: editTaskReducer,
+    issueList: issueListReducer,
+    issueDetail: issueDetailReducer,
+    addIssue: addIssueReducer,
+    editIssue: editIssueReducer,
     user: userReducer,
   },
 });

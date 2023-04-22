@@ -9,56 +9,56 @@ export default {
   component: LinkElement,
 } as ComponentMeta<typeof LinkElement>;
 
-export const TaskListRepo: ComponentStory<typeof LinkElement> = () => (
-  <LinkElement isRouter={false} class="tasklist">
+export const IssueListRepo: ComponentStory<typeof LinkElement> = () => (
+  <LinkElement isRouter={false} class="issuelist">
     <div className="repo">username/repo</div>
   </LinkElement>
 );
 
-export const TaskListRepo_close: ComponentStory<typeof LinkElement> = () => (
-  <LinkElement isRouter={false} class="tasklist">
+export const IssueListRepo_close: ComponentStory<typeof LinkElement> = () => (
+  <LinkElement isRouter={false} class="issuelist">
     <div className="repo close">username/repo</div>
   </LinkElement>
 );
 
-export const TaskListIssue: ComponentStory<typeof LinkElement> = () => (
-  <LinkElement isRouter={false} class="tasklist">
+export const IssueListIssue: ComponentStory<typeof LinkElement> = () => (
+  <LinkElement isRouter={false} class="issuelist">
     <div className="issue">issue 1</div>
   </LinkElement>
 );
 
-export const TaskListIssue_close: ComponentStory<typeof LinkElement> = () => (
-  <LinkElement isRouter={false} class="tasklist">
+export const IssueListIssue_close: ComponentStory<typeof LinkElement> = () => (
+  <LinkElement isRouter={false} class="issuelist">
     <div className="issue close">issue 1</div>
   </LinkElement>
 );
 
-export const TaskListQuickInfo: ComponentStory<typeof LinkElement> = () => (
-  <LinkElement isRouter={false} class="tasklist">
+export const IssueListQuickInfo: ComponentStory<typeof LinkElement> = () => (
+  <LinkElement isRouter={false} class="issuelist">
     <div className="quick-info">username</div>
   </LinkElement>
 );
 
-export const TaskTitle_repo: ComponentStory<typeof LinkElement> = () => (
-  <LinkElement isRouter={false} class="task">
+export const IssueTitle_repo: ComponentStory<typeof LinkElement> = () => (
+  <LinkElement isRouter={false} class="issue">
     <div className="repo">username/repo</div>
   </LinkElement>
 );
 
-export const TaskTitle_issue: ComponentStory<typeof LinkElement> = () => (
-  <LinkElement isRouter={false} class="task">
+export const IssueTitle_issue: ComponentStory<typeof LinkElement> = () => (
+  <LinkElement isRouter={false} class="issue">
     <div className="issue">issue</div>
   </LinkElement>
 );
 
-export const TaskUsername: ComponentStory<typeof LinkElement> = () => (
-  <LinkElement isRouter={false} class="task">
+export const IssueUsername: ComponentStory<typeof LinkElement> = () => (
+  <LinkElement isRouter={false} class="issue">
     <div className="username">username</div>
   </LinkElement>
 );
 
-export const TaskMilestone: ComponentStory<typeof LinkElement> = () => (
-  <LinkElement isRouter={false} class="task">
+export const IssueMilestone: ComponentStory<typeof LinkElement> = () => (
+  <LinkElement isRouter={false} class="issue">
     <div className="milestone">milestone</div>
   </LinkElement>
 );

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "../../atom/Button";
 import navi from "../../../assets/instructions_navi.png";
-import task from "../../../assets/instructions_task.png";
+import issue from "../../../assets/instructions_issue.png";
 import controller from "../../../assets/instructions_controller.png";
 import button from "../../../assets/instructions_button.png";
 import close_white from "../../../assets/close_white.svg";
@@ -20,15 +20,15 @@ export default function Instructions() {
       style: "dark",
     },
     {
-      title: "Task",
+      title: "Issue",
       context:
-        "*Only one assignee will be shown here, if you want to know every account to be assigned, you can find it on task detail page.",
-      img: task,
+        "*Only one assignee will be shown here, if you want to know every account to be assigned, you can find it on issue detail page.",
+      img: issue,
     },
     {
       title: "Controller",
       context:
-        '*In the "other filter" option, if the system finds no matching task, the filter option will be ignored',
+        '*In the "other filter" option, if the system finds no matching issue, the filter option will be ignored',
       img: controller,
     },
     {

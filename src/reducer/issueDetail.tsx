@@ -4,16 +4,16 @@ import { AppDispatch } from "../store";
 import {
   Assignee,
   CommentType,
-  GetTaskDetailParam,
-  GetTaskDetailPayLoad,
-  GetTaskDetailResData,
-  TaskDetailState,
-  TaskRequiredInfo,
+  GetIssueDetailParam,
+  GetIssueDetailPayLoad,
+  GetIssueDetailResData,
+  IssueDetailState,
+  IssueRequiredInfo,
   UserState,
 } from "../type";
-import { syncEditTask } from "./editTask";
+import { syncEditIssue } from "./editIssue";
 
-const initialState: TaskDetailState = {
+const initialState: IssueDetailState = {
   assigneeAvatar: "",
   assigneeUrl: "",
   body: "",
@@ -38,14 +38,14 @@ const initialState: TaskDetailState = {
   isDetailOpen: false,
 };
 
-export const GetTaskDetail = createAsyncThunk<
-  GetTaskDetailPayLoad,
-  GetTaskDetailParam,
+export const GetIssueDetail = createAsyncThunk<
+  GetIssueDetailPayLoad,
+  GetIssueDetailParam,
   {
     state: { user: UserState };
   }
 >(
-  "taskDetail/GetTaskDetail",
+  "issueDetail/GetIssueDetail",
   async (
     { repoOwner, repoName, number, signal },
     { getState, dispatch, rejectWithValue }
@@ -56,7 +56,7 @@ export const GetTaskDetail = createAsyncThunk<
       return rejectWithValue("no token");
     }
     try {
-      const resData = await axios.get("/api/taskDetail", {
+      const resData = await axios.get("/api/issueDetail", {
         params: {
           owner: repoOwner,
           repo: repoName,
@@ -78,7 +78,7 @@ export const GetTaskDetail = createAsyncThunk<
         labels,
         comments_data,
         milestone,
-      }: GetTaskDetailResData = resData.data;
+      }: GetIssueDetailResData = resData.data;
       const labels_arr = labels.map((label: { name: string }) => label.name);
       const assignees_arr = assignees.map((assignee: Assignee) => ({
         id: assignee.id,
@@ -110,7 +110,7 @@ export const GetTaskDetail = createAsyncThunk<
       )[0];
 
       dispatch(
-        syncEditTask({
+        syncEditIssue({
           title: title || "",
           status: status || "",
           body: body || "",
@@ -146,7 +146,7 @@ export const GetTaskDetail = createAsyncThunk<
           data: { message },
         },
       } = err;
-      dispatch(setErrorStatusTaskDetail(status));
+      dispatch(setErrorStatusIssueDetail(status));
       return rejectWithValue(`status: ${status} / error message: ${message}`);
     }
   }
@@ -154,15 +154,15 @@ export const GetTaskDetail = createAsyncThunk<
 
 export const UpdateDetailState = createAsyncThunk<
   { state: boolean },
-  TaskRequiredInfo,
-  { dispatch: AppDispatch; state: { taskDetail: { isOpen: boolean } } }
+  IssueRequiredInfo,
+  { dispatch: AppDispatch; state: { issueDetail: { isOpen: boolean } } }
 >(
-  "task/UpdateDetailState",
+  "issue/UpdateDetailState",
   async (
     { repoOwner, repoName, number },
     { dispatch, getState, rejectWithValue }
   ) => {
-    const { isOpen } = getState().taskDetail;
+    const { isOpen } = getState().issueDetail;
 
     try {
       const resData = await axios.get("/api/updateState", {
@@ -182,40 +182,40 @@ export const UpdateDetailState = createAsyncThunk<
           data: { message },
         },
       } = err;
-      dispatch(setErrorStatusTaskDetail(status));
+      dispatch(setErrorStatusIssueDetail(status));
       return rejectWithValue(`status: ${status} / error message: ${message}`);
     }
   }
 );
 
-export const taskDetailSlice = createSlice({
-  name: "taskDetail",
+export const issueDetailSlice = createSlice({
+  name: "issueDetail",
   initialState,
   reducers: {
-    UpdateTaskDetailState(state, action) {
+    UpdateIssueDetailState(state, action) {
       state.isOpen = action.payload;
     },
     toggleDetail(state) {
       state.isDetailOpen = !state.isDetailOpen;
     },
-    setErrorStatusTaskDetail(state, action) {
+    setErrorStatusIssueDetail(state, action) {
       state.errStatus = action.payload;
     },
-    resetTaskDetail() {
+    resetIssueDetail() {
       return initialState;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(GetTaskDetail.pending, (state) => {
+      .addCase(GetIssueDetail.pending, (state) => {
         state.isLoading = true;
         return state;
       })
-      .addCase(GetTaskDetail.fulfilled, (state, action) => {
+      .addCase(GetIssueDetail.fulfilled, (state, action) => {
         state = { ...state, ...action.payload, isLoading: false, errMsg: "" };
         return state;
       })
-      .addCase(GetTaskDetail.rejected, (state, action) => {
+      .addCase(GetIssueDetail.rejected, (state, action) => {
         state = {
           ...initialState,
           isLoading: false,
@@ -239,10 +239,10 @@ export const taskDetailSlice = createSlice({
 });
 
 export const {
-  UpdateTaskDetailState,
-  resetTaskDetail,
+  UpdateIssueDetailState,
+  resetIssueDetail,
   toggleDetail,
-  setErrorStatusTaskDetail,
-} = taskDetailSlice.actions;
+  setErrorStatusIssueDetail,
+} = issueDetailSlice.actions;
 
-export default taskDetailSlice.reducer;
+export default issueDetailSlice.reducer;

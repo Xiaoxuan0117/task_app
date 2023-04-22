@@ -8,7 +8,7 @@ import "./style.scss";
 
 export default function Filter() {
   const {
-    taskList: {
+    issueList: {
       filter: { state, labels, category },
     },
   } = useSelector((state: RootState) => state);

@@ -19,7 +19,7 @@ export default function Profile() {
       </div>
       <div className="userAvatar">
         <Avatar image={avatar} class="profile" href={userUrl} />
-        <LinkElement isRouter={false} class="task" href={userUrl}>
+        <LinkElement isRouter={false} class="issue" href={userUrl}>
           <div className="username">{name}</div>
         </LinkElement>
       </div>

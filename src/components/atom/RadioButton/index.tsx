@@ -1,8 +1,8 @@
 import React from "react";
 import classNames from "classnames";
 import { useAppDispatch } from "../../../store";
-import { selectStatus } from "../../../reducer/editTask";
-import { setFilter } from "../../../reducer/taskList";
+import { selectStatus } from "../../../reducer/editIssue";
+import { setFilter } from "../../../reducer/issueList";
 
 import "./style.scss";
 

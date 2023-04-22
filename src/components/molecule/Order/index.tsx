@@ -10,7 +10,7 @@ export default function Order() {
   const ordersOptions = ["Desc", "Asc"];
   const {
     filter: { direction },
-  } = useSelector((state: RootState) => state.taskList);
+  } = useSelector((state: RootState) => state.issueList);
 
   return (
     <div className="order">

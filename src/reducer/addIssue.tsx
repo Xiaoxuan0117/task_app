@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { AppDispatch } from "../store";
-import { AddTaskState, AddTaskPayload } from "../type";
+import { AddIssueState, AddIssuePayload } from "../type";
 
-const initialState: AddTaskState = {
+const initialState: AddIssueState = {
   title: "",
   repo: "",
   body: "",
@@ -15,17 +15,17 @@ const initialState: AddTaskState = {
   errStatus: 404,
 };
 
-export const PostTask = createAsyncThunk<
-  AddTaskPayload,
+export const PostIssue = createAsyncThunk<
+  AddIssuePayload,
   undefined,
   {
     dispatch: AppDispatch;
     state: {
-      addTask: AddTaskState;
+      addIssue: AddIssueState;
     };
   }
->("addTask/PostTask", async (_, { dispatch, getState, rejectWithValue }) => {
-  const { title, repo, body, repoOwner } = getState().addTask;
+>("addIssue/PostIssue", async (_, { dispatch, getState, rejectWithValue }) => {
+  const { title, repo, body, repoOwner } = getState().addIssue;
 
   function countWords(str: string) {
     var matches = str.match(/[\u00ff-\uffff]|\S+/g);
@@ -43,7 +43,7 @@ export const PostTask = createAsyncThunk<
 
   try {
     await axios.post(
-      "/api/postTask",
+      "/api/postIssue",
       {
         title,
         body,
@@ -65,13 +65,13 @@ export const PostTask = createAsyncThunk<
         data: { message },
       },
     } = err;
-    dispatch(setErrorStatusAddTask(status));
+    dispatch(setErrorStatusAddIssue(status));
     return rejectWithValue(`status: ${status} / error message: ${message}`);
   }
 });
 
-export const addTaskSlice = createSlice({
-  name: "addTask",
+export const addIssueSlice = createSlice({
+  name: "addIssue",
   initialState,
   reducers: {
     selectRepo(state, action) {
@@ -87,29 +87,29 @@ export const addTaskSlice = createSlice({
       state.body = action.payload;
       state.inputError.body = false;
     },
-    setErrorStatusAddTask(state, action) {
+    setErrorStatusAddIssue(state, action) {
       state.errStatus = action.payload;
     },
     resetSubmitResult(state) {
       state.isSuccess = false;
       state.errMsg = "";
     },
-    resetAddTask() {
+    resetAddIssue() {
       return initialState;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(PostTask.pending, (state) => {
+      .addCase(PostIssue.pending, (state) => {
         state.isUploading = true;
       })
-      .addCase(PostTask.fulfilled, (state, action) => {
+      .addCase(PostIssue.fulfilled, (state, action) => {
         state.isUploading = false;
         state.isSuccess = action.payload.isSuccess;
         state.inputError = action.payload.inputError;
         state.errMsg = "";
       })
-      .addCase(PostTask.rejected, (state, action) => {
+      .addCase(PostIssue.rejected, (state, action) => {
         state.isUploading = false;
         state.errMsg = `sorry! something went wrong! ${action.payload}`;
       });
@@ -120,9 +120,9 @@ export const {
   selectRepo,
   setAddTitle,
   setAddBody,
-  setErrorStatusAddTask,
-  resetAddTask,
+  setErrorStatusAddIssue,
+  resetAddIssue,
   resetSubmitResult,
-} = addTaskSlice.actions;
+} = addIssueSlice.actions;
 
-export default addTaskSlice.reducer;
+export default addIssueSlice.reducer;

@@ -10,5 +10,5 @@ export default {
 } as ComponentMeta<typeof ErrorMessage>;
 
 export const Primary: ComponentStory<typeof ErrorMessage> = () => (
-  <ErrorMessage text="new Task uploaded successfully!!"></ErrorMessage>
+  <ErrorMessage text="new Issue uploaded successfully!!"></ErrorMessage>
 );

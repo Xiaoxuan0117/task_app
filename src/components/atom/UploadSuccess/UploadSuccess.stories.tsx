@@ -10,5 +10,5 @@ export default {
 } as ComponentMeta<typeof UploadSuccess>;
 
 export const Primary: ComponentStory<typeof UploadSuccess> = () => (
-  <UploadSuccess text="new Task uploaded successfully!!"></UploadSuccess>
+  <UploadSuccess text="new Issue uploaded successfully!!"></UploadSuccess>
 );

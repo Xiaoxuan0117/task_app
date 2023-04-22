@@ -15,7 +15,7 @@ export default function Error() {
         <div className="content">
           <div className="title">404</div>
           <div className="context">Not Found</div>
-          <LinkElement isRouter={true} href="/" class="task">
+          <LinkElement isRouter={true} href="/" class="issue">
             <div className="repo">Back to Home Page</div>
           </LinkElement>
         </div>

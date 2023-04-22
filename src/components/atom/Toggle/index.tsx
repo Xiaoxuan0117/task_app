@@ -13,8 +13,8 @@ type ToggleProps = {
 export default function Toggle(props: ToggleProps): JSX.Element {
   const { isOpen, onClick = () => {} } = props;
   const {
-    taskList: { isStateLoading: listStateLoading },
-    taskDetail: { isStateLoading: detailStateLoading },
+    issueList: { isStateLoading: listStateLoading },
+    issueDetail: { isStateLoading: detailStateLoading },
   } = useSelector((state: RootState) => state);
 
   return (

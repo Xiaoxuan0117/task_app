@@ -9,7 +9,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./routes/Home";
 import Login from "./routes/Login";
-import TaskDetail from "./routes/TaskDetail";
+import IssueDetail from "./routes/IssueDetail";
 import Error from "./routes/Error";
 import AddModal from "./components/molecule/AddModal";
 import EditModal from "./components/molecule/EditModal";
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/:repoOwner/:repoName/:number",
-    element: <TaskDetail />,
+    element: <IssueDetail />,
     children: [
       {
         path: "edit",
