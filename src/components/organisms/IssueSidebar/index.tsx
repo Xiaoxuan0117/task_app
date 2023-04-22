@@ -31,7 +31,7 @@ export default function IssueSidebar(props: IssueSidebarProps): JSX.Element {
     <div className="issueDetail-wrapper">
       <div className="issueDetail">
         <div className="section status">
-          <div className="title">Open/Closed</div>
+          <div className="title">Closed/Open</div>
           <Toggle
             isOpen={isOpen}
             onClick={() => {
